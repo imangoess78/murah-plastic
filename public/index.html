@@ -3410,10 +3410,8 @@ function renderAdminContent(){
         <div class="admin-login-box">
           <div style="font-size:36px;margin-bottom:12px">🔐</div>
           <div class="admin-login-title">Admin Murah Plastic</div>
-          <div class="admin-login-sub">Masuk pakai akun admin Firebase kamu</div>
-          <input class="admin-input" type="email" id="adminEmailInput" placeholder="Email admin" autocomplete="username"
-            onkeydown="if(event.key==='Enter')document.getElementById('adminPassInput').focus()">
-          <input class="admin-input" type="password" id="adminPassInput" placeholder="Password" autocomplete="current-password" style="margin-top:10px"
+          <div class="admin-login-sub">Masuk pakai password admin</div>
+          <input class="admin-input" type="password" id="adminPassInput" placeholder="Password admin" autocomplete="current-password"
             onkeydown="if(event.key==='Enter')doAdminLogin()">
           <button class="admin-login-btn" id="adminLoginBtn" onclick="doAdminLogin()">Masuk →</button>
           <div id="adminLoginError" style="color:#FCA5A5;font-size:12px;margin-top:10px"></div>
@@ -3425,10 +3423,10 @@ function renderAdminContent(){
     return;
   }
   
-  if(!adminOrdersUnsub){
+  if(!adminPollInterval){
     el.innerHTML=`<div style="padding:60px 20px;text-align:center;color:rgba(255,255,255,.6)">⏳ Menghubungkan ke database...</div>`;
     startAdminListeners();
-    return; // begitu listener dapat data pertama, dia manggil renderAdminContent() lagi sendiri
+    return;
   }
 
   const orders=adminOrdersCache;
@@ -3648,57 +3646,38 @@ function updateKomplainStatus(orderId,newStatus){
 }
 
 
-function doAdminLogin(){
-  const email=(document.getElementById('adminEmailInput')||{}).value||'';
+async function doAdminLogin(){
   const pass=(document.getElementById('adminPassInput')||{}).value||'';
   const errEl=document.getElementById('adminLoginError');
   const btn=document.getElementById('adminLoginBtn');
   if(errEl)errEl.textContent='';
-  if(!auth){
-    if(errEl)errEl.textContent='⚠️ Firebase belum terhubung. Buka file HTML ini langsung di browser (bukan lewat preview), dan pastikan config Firebase di bagian atas kode udah diisi.';
-    return;
-  }
-  if(!email.trim()||!pass){
-    if(errEl)errEl.textContent='Email dan password wajib diisi.';
-    return;
-  }
+  if(!pass){if(errEl)errEl.textContent='Password wajib diisi.';return;}
   if(btn){btn.disabled=true;btn.textContent='⏳ Memproses...';}
-  apiCall('POST','/api/admin/login',{password:pass}).then(r=>{adminToken=r.token;localStorage.setItem('mp_admin_token',r.token);return {user:{email:email}}})
-    .catch(err=>{
-      console.error(err);
-      if(btn){btn.disabled=false;btn.textContent='Masuk →';}
-      const msgMap={
-        'auth/invalid-email':'Format email nggak valid.',
-        'auth/user-not-found':'Akun admin nggak ditemukan.',
-        'auth/wrong-password':'Password salah.',
-        'auth/invalid-credential':'Email atau password salah.',
-        'auth/too-many-requests':'Kebanyakan percobaan gagal, coba lagi nanti.'
-      };
-      if(errEl)errEl.textContent=msgMap[err.code]||'Gagal login: '+err.message;
-    });
-  // Kalau berhasil, onAuthStateChanged (di bawah) yang bakal urus render dashboard-nya
+  try{
+    const r=await apiCall('POST','/api/admin/login',{password:pass});
+    adminToken=r.token;
+    localStorage.setItem('mp_admin_token',r.token);
+    adminLoggedIn=true;
+    if(btn){btn.disabled=false;btn.textContent='Masuk →';}
+    startAdminListeners();
+  }catch(err){
+    if(btn){btn.disabled=false;btn.textContent='Masuk →';}
+    if(errEl)errEl.textContent=(err.message&&err.message.includes('401'))?'Password salah.':'Gagal login: '+(err.message||'');
+  }
 }
 
 function doAdminLogout(){
-  if(!auth)return;
   if(!confirm('Yakin mau logout dari admin dashboard?'))return;
   stopAdminListeners();
-  apiCall('POST','/api/admin/logout').catch(()=>{}); adminToken=null; localStorage.removeItem('mp_admin_token');
+  apiCall('POST','/api/admin/logout').catch(()=>{});
+  adminToken=null; adminLoggedIn=false;
+  localStorage.removeItem('mp_admin_token');
+  renderAdminContent();
 }
 
-// Firebase Auth otomatis inget status login di browser, jadi kalau admin refresh halaman
-// atau buka lagi nanti, nggak perlu login ulang selama belum logout manual.
-if(auth){
-  ((user)=>{
-    adminLoggedIn=!!user;
-    const overlay=document.getElementById('adminOverlay');
-    if(overlay&&overlay.classList.contains('open')){
-      renderAdminContent();
-    }
-    if(!user){
-      stopAdminListeners();
-    }
-  });
+// Restore admin session dari localStorage token
+if(adminToken){
+  adminLoggedIn=true;
 }
 
 function setAdminFilter(f){
