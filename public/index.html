@@ -2106,7 +2106,7 @@ function renderProducts(){
     const img=getImg(p);
     const name=(p.short_name||p.name.replace(/\(.*?\)/g,'')).trim();
     let pr=p.min_price===p.max_price?fmt(p.min_price):fmt(p.min_price)+' – '+fmt(p.max_price);
-    return `<div class="p-card" onclick="openProduct('${p.id}')">
+    return `<div class="p-card" onclick="location.href='/produk/${p.id}'">
       <div class="p-img" style="position:relative">
         <img src="${img}" alt="${name}" loading="lazy">
         <span class="p-pill">${catShort(p.category)}</span>
@@ -2119,7 +2119,7 @@ function renderProducts(){
         <div class="p-price">${pr}</div>
         <div class="p-sub">per pack isi 100 pcs</div>
         <div class="p-vars">${p.variants.length} pilihan ukuran</div>
-        <button class="p-btn">+ Keranjang</button>
+        <button class="p-btn" onclick="quickAdd('${p.id}',event)">+ Keranjang</button>
       </div></div>`;
   }).join('');
 }
@@ -2147,7 +2147,7 @@ function renderRecentlyViewed(){
     const img=getImg(p);
     const name=(p.short_name||p.name.replace(/\(.*?\)/g,'')).trim();
     let pr=p.min_price===p.max_price?fmt(p.min_price):fmt(p.min_price)+' – '+fmt(p.max_price);
-    return `<div class="p-card" onclick="openProduct('${p.id}')">
+    return `<div class="p-card" onclick="location.href='/produk/${p.id}'">
       <div class="p-img" style="position:relative">
         <img src="${img}" alt="${name}" loading="lazy">
         <span class="p-pill">${catShort(p.category)}</span>
@@ -2159,7 +2159,7 @@ function renderRecentlyViewed(){
         <div class="p-price">${pr}</div>
         <div class="p-sub">per pack isi 100 pcs</div>
         <div class="p-vars">${p.variants.length} pilihan ukuran</div>
-        <button class="p-btn">+ Keranjang</button>
+        <button class="p-btn" onclick="quickAdd('${p.id}',event)">+ Keranjang</button>
       </div></div>`;
   }).join('');
 }
@@ -2370,6 +2370,19 @@ function pdAddToCart(){
 }
 
 function pdBuyNow(){pdAddToCart();setTimeout(goCheckout,100);}
+
+// ── QUICK ADD dari kartu (tambah varian termurah, tanpa buka modal) ──
+function quickAdd(id,e){
+  if(e)e.stopPropagation();
+  const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
+  const v=(p.variants||[]).filter(x=>x.price>0).sort((a,b)=>a.price-b.price)[0];
+  if(!v){alert('Produk belum punya varian harga');return;}
+  const key=p.id+'|'+v.name;
+  const ex=cart.find(c=>c.key===key);
+  if(ex)ex.qty+=getMinPack(p);
+  else cart.push({key,productId:p.id,productName:p.name,variantName:v.name,price:v.price,qty:getMinPack(p),img:getImg(p)});
+  updateCount();saveCartLS();openCart();
+}
 
 // ── WISHLIST ──
 function isWished(id){return wishlist.includes(id);}
