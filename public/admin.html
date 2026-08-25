@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Dashboard — Murah Plastic</title>
+<link rel="icon" href="/favicon.svg">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C8191A;--gold:#C9890A;--gold-bright:#F5C842;--dark:#1a1a1a;
+  --font:'Segoe UI',system-ui,sans-serif;
+  --sidebar-w:240px;
+}
+body{font-family:var(--font);background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex}
+
+/* ── Sidebar ── */
+.sidebar{width:var(--sidebar-w);background:#1e293b;border-right:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100}
+.sidebar-logo{padding:20px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sidebar-logo .brand{font-size:18px;font-weight:900;color:#fff}
+.sidebar-logo .brand span{color:var(--gold-bright)}
+.sidebar-logo .sub{font-size:11px;color:#64748b;margin-top:2px}
+.sidebar-nav{flex:1;padding:12px 0;overflow-y:auto}
+.nav-section{padding:8px 16px 4px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;border-radius:0;transition:background .15s;font-size:13px;font-weight:500;color:#94a3b8;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:rgba(255,255,255,.05);color:#e2e8f0}
+.nav-item.active{background:rgba(245,200,66,.12);color:var(--gold-bright);border-right:3px solid var(--gold-bright)}
+.nav-item .icon{font-size:16px;width:20px;text-align:center}
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;border-radius:99px;font-size:10px;font-weight:700;padding:1px 6px;min-width:18px;text-align:center}
+.sidebar-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.07)}
+.admin-user{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.04)}
+.admin-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--red));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.admin-info{flex:1;min-width:0}
+.admin-name{font-size:12px;font-weight:700;color:#e2e8f0}
+.admin-role{font-size:10px;color:#64748b}
+.logout-btn{background:none;border:none;color:#64748b;cursor:pointer;font-size:16px;padding:4px;border-radius:4px;transition:color .15s}
+.logout-btn:hover{color:#f87171}
+
+/* ── Main Content ── */
+.main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#1e293b;border-bottom:1px solid rgba(255,255,255,.07);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-title{font-size:16px;font-weight:700;color:#fff}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.refresh-btn{background:rgba(255,255,255,.07);border:none;color:#94a3b8;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-family:var(--font);transition:background .15s}
+.refresh-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.content{padding:24px;flex:1}
+
+/* ── Login Page ── */
+.login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0f172a}
+.login-card{background:#1e293b;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px;width:100%;max-width:380px;text-align:center}
+.login-logo{font-size:48px;margin-bottom:16px}
+.login-title{font-size:22px;font-weight:900;color:#fff;margin-bottom:6px}
+.login-sub{font-size:13px;color:#64748b;margin-bottom:28px}
+.login-input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;font-size:14px;color:#fff;font-family:var(--font);outline:none;transition:border .15s;margin-bottom:12px}
+.login-input:focus{border-color:var(--gold-bright)}
+.login-btn{width:100%;background:linear-gradient(135deg,var(--gold),#F5C842);border:none;border-radius:10px;padding:13px;font-size:15px;font-weight:800;color:#000;cursor:pointer;font-family:var(--font);transition:opacity .15s;margin-top:4px}
+.login-btn:hover{opacity:.9}
+.login-btn:disabled{opacity:.5;cursor:not-allowed}
+.login-error{color:#f87171;font-size:12px;margin-top:10px;min-height:18px}
+
+/* ── Stats Cards ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:#1e293b;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:18px 20px}
+.stat-label{font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.stat-value{font-size:26px;font-weight:900;color:#fff}
+.stat-sub{font-size:11px;color:#64748b;margin-top:4px}
+.stat-card.gold .stat-value{color:var(--gold-bright)}
+.stat-card.green .stat-value{color:#34d399}
+.stat-card.red .stat-value{color:#f87171}
+.stat-card.blue .stat-value{color:#60a5fa}
+
+/* ── Filter Bar ── */
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.filter-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#94a3b8;padding:6px 14px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s}
+.filter-btn:hover{background:rgba(255,255,255,.1);color:#e2e8f0}
+.filter-btn.active{background:var(--gold-bright);color:#000;border-color:var(--gold-bright)}
+
+/* ── Table ── */
+.table-wrap{background:#1e293b;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden}
+.table-head{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}
+.table-title{font-size:14px;font-weight:700;color:#fff}
+.export-btn{background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.3);color:var(--gold-bright);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)}
+table{width:100%;border-collapse:collapse}
+thead tr{background:rgba(255,255,255,.03)}
+th{padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(255,255,255,.06)}
+td{padding:12px 16px;font-size:13px;color:#cbd5e1;border-bottom:1px solid rgba(255,255,255,.04)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.order-id{font-weight:700;color:#fff;font-family:monospace;font-size:12px}
+.order-customer{font-weight:600;color:#e2e8f0}
+.order-phone{font-size:11px;color:#64748b}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700}
+.s-waiting{background:rgba(245,200,66,.15);color:var(--gold-bright)}
+.s-processing{background:rgba(59,130,246,.15);color:#60a5fa}
+.s-shipped{background:rgba(16,185,129,.15);color:#34d399}
+.s-done{background:rgba(100,116,139,.15);color:#94a3b8}
+.s-cancel{background:rgba(239,68,68,.15);color:#f87171}
+.action-btns{display:flex;gap:6px;align-items:center}
+.action-btn{background:rgba(255,255,255,.07);border:none;color:#94a3b8;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:var(--font);transition:background .15s;white-space:nowrap}
+.action-btn:hover{background:rgba(255,255,255,.13);color:#fff}
+.action-btn.wa{background:rgba(37,211,102,.15);color:#25D366}
+.action-btn.del{background:rgba(239,68,68,.12);color:#f87171}
+.status-select{background:#0f172a;border:1px solid rgba(255,255,255,.1);color:#e2e8f0;padding:4px 8px;border-radius:6px;font-size:12px;font-family:var(--font);cursor:pointer}
+
+/* ── Q&A Section ── */
+.qna-list{display:flex;flex-direction:column;gap:12px}
+.qna-card{background:#1e293b;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px}
+.qna-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.qna-user{font-weight:700;color:#e2e8f0;font-size:13px}
+.qna-product{background:rgba(245,200,66,.12);color:var(--gold-bright);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600}
+.qna-date{font-size:11px;color:#475569;margin-left:auto}
+.qna-q{font-size:13px;color:#cbd5e1;margin-bottom:10px;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:8px;border-left:3px solid rgba(255,255,255,.15)}
+.qna-answer{display:flex;gap:8px}
+.qna-answer textarea{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;font-size:12px;color:#fff;font-family:var(--font);resize:vertical;min-height:60px;outline:none}
+.qna-answer textarea:focus{border-color:var(--gold-bright)}
+.qna-answer-btn{background:linear-gradient(135deg,var(--gold),#F5C842);border:none;color:#000;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--font);white-space:nowrap;align-self:flex-start;margin-top:2px}
+.answered-badge{background:rgba(16,185,129,.12);color:#34d399;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700}
+.answered-text{font-size:12px;color:#34d399;padding:8px 12px;background:rgba(16,185,129,.07);border-radius:8px;border-left:3px solid #34d399;margin-top:6px}
+
+/* ── Komplain Section ── */
+.komplain-card{background:#1e293b;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:12px}
+.komplain-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.komplain-id{font-family:monospace;font-size:12px;font-weight:700;color:#fff}
+.komplain-customer{font-size:13px;color:#94a3b8}
+.komplain-status-select{background:#0f172a;border:1px solid rgba(255,255,255,.1);color:#e2e8f0;padding:5px 10px;border-radius:8px;font-size:12px;font-family:var(--font)}
+.komplain-detail{font-size:12px;color:#94a3b8;margin-bottom:8px}
+.komplain-proof{display:inline-block;margin-top:6px}
+.komplain-proof img{max-width:180px;border-radius:8px;border:1px solid rgba(255,255,255,.1)}
+
+/* ── Empty State ── */
+.empty{text-align:center;padding:60px 20px;color:#475569}
+.empty-icon{font-size:48px;margin-bottom:12px}
+.empty-text{font-size:14px;font-weight:600}
+
+/* ── Loading ── */
+.loading{text-align:center;padding:60px 20px;color:#475569;font-size:14px}
+
+/* ── Mobile ── */
+.mobile-menu-btn{display:none;background:none;border:none;color:#e2e8f0;font-size:22px;cursor:pointer;padding:4px}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%);transition:transform .25s}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .mobile-menu-btn{display:block}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+  .sidebar-overlay.open{display:block}
+  th:nth-child(4),td:nth-child(4),th:nth-child(5),td:nth-child(5){display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">Murah <span>Plastic</span></div>
+    <div class="sub">Admin Dashboard</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Menu</div>
+    <button class="nav-item active" onclick="setTab('orders')" id="nav-orders">
+      <span class="icon">📦</span> Pesanan
+      <span class="nav-badge" id="badge-orders" style="display:none"></span>
+    </button>
+    <button class="nav-item" onclick="setTab('qna')" id="nav-qna">
+      <span class="icon">💬</span> Tanya Jawab
+      <span class="nav-badge" id="badge-qna" style="display:none"></span>
+    </button>
+    <button class="nav-item" onclick="setTab('komplain')" id="nav-komplain">
+      <span class="icon">🛠️</span> Komplain
+      <span class="nav-badge" id="badge-komplain" style="display:none"></span>
+    </button>
+    <div class="nav-section" style="margin-top:12px">Pengaturan</div>
+    <button class="nav-item" onclick="window.open('https://murah-plastic.imangoess78.workers.dev','_blank')">
+      <span class="icon">🌐</span> Lihat Toko
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="admin-user">
+      <div class="admin-avatar">A</div>
+      <div class="admin-info">
+        <div class="admin-name">Admin</div>
+        <div class="admin-role">Murah Plastic</div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()" title="Logout">⏻</button>
+    </div>
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="mobile-menu-btn" onclick="openSidebar()">☰</button>
+      <div class="topbar-title" id="topbarTitle">📦 Pesanan</div>
+    </div>
+    <div class="topbar-right">
+      <span style="font-size:12px;color:#64748b"><span class="status-dot"></span>Live</span>
+      <button class="refresh-btn" onclick="fetchData()">🔄 Refresh</button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="mainContent">
+    <div class="loading">⏳ Memuat...</div>
+  </div>
+</div>
+
+<!-- Login Page (hidden by default, shown if not logged in) -->
+<div class="login-page" id="loginPage" style="display:none;position:fixed;inset:0;z-index:999">
+  <div class="login-card">
+    <div class="login-logo">🔐</div>
+    <div class="login-title">Admin Murah Plastic</div>
+    <div class="login-sub">Masukkan password untuk melanjutkan</div>
+    <input class="login-input" type="password" id="loginPass" placeholder="Password admin"
+      onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Masuk →</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<script>
+// ── State ──
+let adminToken = localStorage.getItem('mp_admin_token') || null;
+let currentTab = 'orders';
+let ordersCache = [];
+let qnaCache = [];
+let orderFilter = 'Semua';
+let pollInterval = null;
+
+const fmt = n => 'Rp' + Math.round(n).toLocaleString('id-ID');
+
+// ── API ──
+async function api(method, path, body) {
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (adminToken) opts.headers['Authorization'] = 'Bearer ' + adminToken;
+  if (body !== undefined) opts.body = JSON.stringify(body);
+  const res = await fetch(path, opts);
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error(txt || res.status);
+  }
+  return res.json();
+}
+
+// ── Auth ──
+async function doLogin() {
+  const pass = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+  errEl.textContent = '';
+  if (!pass) { errEl.textContent = 'Password wajib diisi.'; return; }
+  btn.disabled = true; btn.textContent = '⏳ Memproses...';
+  try {
+    const r = await api('POST', '/api/admin/login', { password: pass });
+    adminToken = r.token;
+    localStorage.setItem('mp_admin_token', r.token);
+    document.getElementById('loginPage').style.display = 'none';
+    startPolling();
+  } catch(e) {
+    btn.disabled = false; btn.textContent = 'Masuk →';
+    errEl.textContent = e.message.includes('Unauthorized') ? 'Password salah.' : 'Gagal login: ' + e.message;
+  }
+}
+
+function doLogout() {
+  if (!confirm('Yakin mau logout?')) return;
+  api('POST', '/api/admin/logout').catch(() => {});
+  adminToken = null;
+  localStorage.removeItem('mp_admin_token');
+  clearInterval(pollInterval);
+  document.getElementById('loginPage').style.display = 'flex';
+}
+
+// ── Data ──
+async function fetchData() {
+  if (!adminToken) return;
+  try {
+    const [orders, questions] = await Promise.all([
+      api('GET', '/api/orders'),
+      api('GET', '/api/questions')
+    ]);
+    ordersCache = orders;
+    qnaCache = questions;
+    updateBadges();
+    renderTab();
+  } catch(e) {
+    console.error('Fetch gagal:', e);
+    if (e.message.includes('401') || e.message.includes('Unauthorized')) {
+      adminToken = null;
+      localStorage.removeItem('mp_admin_token');
+      document.getElementById('loginPage').style.display = 'flex';
+    }
+  }
+}
+
+function startPolling() {
+  fetchData();
+  clearInterval(pollInterval);
+  pollInterval = setInterval(fetchData, 15000);
+}
+
+function updateBadges() {
+  const pending = ordersCache.filter(o => o.status === 'Menunggu Pembayaran').length;
+  const unanswered = qnaCache.filter(q => !q.answer).length;
+  const komplain = ordersCache.filter(o => o.complaint && o.complaint.status === 'Menunggu Diproses').length;
+
+  const b = (id, n) => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = n; el.style.display = n ? '' : 'none'; }
+  };
+  b('badge-orders', pending);
+  b('badge-qna', unanswered);
+  b('badge-komplain', komplain);
+}
+
+// ── Tabs ──
+const TAB_TITLES = { orders: '📦 Pesanan', qna: '💬 Tanya Jawab', komplain: '🛠️ Komplain' };
+
+function setTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + tab);
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('topbarTitle').textContent = TAB_TITLES[tab] || tab;
+  closeSidebar();
+  renderTab();
+}
+
+function renderTab() {
+  if (currentTab === 'orders') renderOrders();
+  else if (currentTab === 'qna') renderQna();
+  else if (currentTab === 'komplain') renderKomplain();
+}
+
+// ── Orders Tab ──
+const STATUSES = ['Semua','Menunggu Pembayaran','Diproses','Dikirim','Selesai','Dibatalkan'];
+const STATUS_CLASS = {
+  'Menunggu Pembayaran':'s-waiting','Diproses':'s-processing',
+  'Dikirim':'s-shipped','Selesai':'s-done','Dibatalkan':'s-cancel'
+};
+
+function renderOrders() {
+  const filtered = orderFilter === 'Semua' ? ordersCache : ordersCache.filter(o => o.status === orderFilter);
+  const totalRev = ordersCache.filter(o => o.status !== 'Dibatalkan').reduce((s, o) => s + (o.total || 0), 0);
+  const todayCount = ordersCache.filter(o => new Date(o.date).toDateString() === new Date().toDateString()).length;
+  const pendingCount = ordersCache.filter(o => o.status === 'Menunggu Pembayaran').length;
+
+  document.getElementById('mainContent').innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card gold">
+        <div class="stat-label">Total Omzet</div>
+        <div class="stat-value">${fmt(totalRev)}</div>
+        <div class="stat-sub">Semua order (non-batal)</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-label">Order Hari Ini</div>
+        <div class="stat-value">${todayCount}</div>
+        <div class="stat-sub">Pesanan masuk hari ini</div>
+      </div>
+      <div class="stat-card red">
+        <div class="stat-label">Perlu Konfirmasi</div>
+        <div class="stat-value">${pendingCount}</div>
+        <div class="stat-sub">Menunggu pembayaran</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Total Order</div>
+        <div class="stat-value">${ordersCache.length}</div>
+        <div class="stat-sub">Semua status</div>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      ${STATUSES.map(s => `<button class="filter-btn${orderFilter===s?' active':''}" onclick="setFilter('${s}')">${s}</button>`).join('')}
+      <button class="filter-btn" onclick="exportOrders()" style="margin-left:auto">📥 Export CSV</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-head">
+        <div class="table-title">${filtered.length} pesanan</div>
+      </div>
+      ${filtered.length === 0
+        ? `<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Belum ada pesanan</div></div>`
+        : `<table>
+          <thead><tr>
+            <th>Order ID</th><th>Pelanggan</th><th>Produk</th><th>Total</th><th>Status</th><th>Aksi</th>
+          </tr></thead>
+          <tbody>
+          ${filtered.map(o => {
+            const items = (o.items || []).map(it => `${(it.productName||it.name||'Produk').substring(0,20)} ×${it.qty}`).join(', ');
+            const phone = (o.customer_phone || '').replace(/[^0-9]/g,'').replace(/^0/,'62');
+            const waText = encodeURIComponent(`Halo ${o.customer_name}, update pesanan ${o.id}: ${o.status}`);
+            return `<tr>
+              <td><div class="order-id">${o.id}</div><div class="order-phone">${new Date(o.date).toLocaleDateString('id-ID')}</div></td>
+              <td><div class="order-customer">${o.customer_name||'-'}</div><div class="order-phone">${o.customer_phone||'-'}</div></td>
+              <td style="max-width:200px;font-size:12px;color:#94a3b8">${items||'-'}</td>
+              <td style="font-weight:700;color:#fff;white-space:nowrap">${fmt(o.total||0)}</td>
+              <td>
+                <select class="status-select" onchange="updateStatus('${o.id}',this.value,this)">
+                  ${['Menunggu Pembayaran','Diproses','Dikirim','Selesai','Dibatalkan'].map(s =>
+                    `<option${o.status===s?' selected':''}>${s}</option>`
+                  ).join('')}
+                </select>
+              </td>
+              <td>
+                <div class="action-btns">
+                  <a href="https://wa.me/${phone}?text=${waText}" target="_blank" class="action-btn wa">WA</a>
+                  <button class="action-btn" onclick="showResi('${o.id}','${o.resi||''}')">📬 Resi</button>
+                  <button class="action-btn del" onclick="deleteOrder('${o.id}')">🗑️</button>
+                </div>
+              </td>
+            </tr>`;
+          }).join('')}
+          </tbody>
+        </table>`
+      }
+    </div>
+  `;
+}
+
+function setFilter(f) { orderFilter = f; renderOrders(); }
+
+function updateStatus(id, status, sel) {
+  api('PUT', '/api/orders/' + id, { status })
+    .then(() => { const o = ordersCache.find(x => x.id === id); if (o) o.status = status; updateBadges(); })
+    .catch(e => { alert('Gagal update: ' + e.message); sel.value = ordersCache.find(x => x.id === id)?.status || ''; });
+}
+
+function showResi(id, current) {
+  const resi = prompt('Masukkan nomor resi:', current || '');
+  if (resi === null) return;
+  api('PUT', '/api/orders/' + id, { resi })
+    .then(() => { const o = ordersCache.find(x => x.id === id); if (o) o.resi = resi; alert('✅ Resi tersimpan'); })
+    .catch(e => alert('Gagal: ' + e.message));
+}
+
+function deleteOrder(id) {
+  if (!confirm('Hapus pesanan ' + id + '? Tidak bisa di-undo.')) return;
+  api('DELETE', '/api/orders/' + id)
+    .then(() => { ordersCache = ordersCache.filter(o => o.id !== id); renderOrders(); })
+    .catch(e => alert('Gagal hapus: ' + e.message));
+}
+
+function exportOrders() {
+  const rows = [['ID','Tanggal','Nama','HP','Alamat','Produk','Total','Status','Resi']];
+  ordersCache.forEach(o => {
+    const items = (o.items||[]).map(it => `${it.productName||it.name||''} x${it.qty}`).join('; ');
+    rows.push([o.id, o.date, o.customer_name, o.customer_phone, o.customer_address, items, o.total, o.status, o.resi||'']);
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = 'orders-murah-plastic-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+}
+
+// ── Q&A Tab ──
+function renderQna() {
+  const sorted = [...qnaCache].sort((a, b) => (a.answer ? 1 : 0) - (b.answer ? 1 : 0) || new Date(b.date) - new Date(a.date));
+  document.getElementById('mainContent').innerHTML = `
+    <div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:13px;color:#64748b">${qnaCache.filter(q=>!q.answer).length} belum dijawab dari ${qnaCache.length} pertanyaan</div>
+    </div>
+    <div class="qna-list">
+      ${sorted.length === 0
+        ? `<div class="empty"><div class="empty-icon">💬</div><div class="empty-text">Belum ada pertanyaan</div></div>`
+        : sorted.map(q => `
+          <div class="qna-card">
+            <div class="qna-meta">
+              <span class="qna-user">👤 ${q.user_name||'Anonim'}</span>
+              <span class="qna-product">${(q.product_name||'').substring(0,30)}</span>
+              ${q.answer ? '<span class="answered-badge">✅ Terjawab</span>' : '<span style="background:rgba(245,200,66,.12);color:var(--gold-bright);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700">⏳ Belum dijawab</span>'}
+              <span class="qna-date">${new Date(q.date).toLocaleDateString('id-ID')}</span>
+            </div>
+            <div class="qna-q">${q.question}</div>
+            ${q.answer
+              ? `<div class="answered-text">💬 ${q.answer}</div>`
+              : `<div class="qna-answer">
+                  <textarea id="ans-${q.id}" placeholder="Tulis jawaban..."></textarea>
+                  <button class="qna-answer-btn" onclick="submitAnswer('${q.id}')">Kirim →</button>
+                </div>`
+            }
+          </div>
+        `).join('')}
+    </div>
+  `;
+}
+
+function submitAnswer(id) {
+  const ans = (document.getElementById('ans-' + id) || {}).value || '';
+  if (!ans.trim()) { alert('Jawaban tidak boleh kosong!'); return; }
+  api('PUT', '/api/questions/' + id, { answer: ans })
+    .then(() => { const q = qnaCache.find(x => x.id === id); if (q) q.answer = ans; renderQna(); updateBadges(); })
+    .catch(e => alert('Gagal: ' + e.message));
+}
+
+// ── Komplain Tab ──
+function renderKomplain() {
+  const komplain = ordersCache.filter(o => o.complaint);
+  document.getElementById('mainContent').innerHTML = `
+    <div style="margin-bottom:16px;font-size:13px;color:#64748b">${komplain.length} komplain aktif</div>
+    ${komplain.length === 0
+      ? `<div class="empty"><div class="empty-icon">🛠️</div><div class="empty-text">Tidak ada komplain</div></div>`
+      : komplain.map(o => {
+          const c = o.complaint || {};
+          return `<div class="komplain-card">
+            <div class="komplain-header">
+              <div>
+                <div class="komplain-id">${o.id}</div>
+                <div class="komplain-customer">👤 ${o.customer_name} · ${o.customer_phone}</div>
+              </div>
+              <select class="komplain-status-select" onchange="updateKomplainStatus('${o.id}',this.value)">
+                ${['Menunggu Diproses','Sedang Diproses','Selesai','Ditolak'].map(s =>
+                  `<option${(c.status||'')=== s?' selected':''}>${s}</option>`
+                ).join('')}
+              </select>
+            </div>
+            <div class="komplain-detail">
+              <strong>Alasan:</strong> ${c.reason||'-'}<br>
+              <strong>Deskripsi:</strong> ${c.description||'-'}<br>
+              ${c.proofUrl ? `<div class="komplain-proof"><img src="${c.proofUrl}" alt="Bukti"><br><a href="${c.proofUrl}" target="_blank" style="color:var(--gold-bright);font-size:11px">Lihat bukti →</a></div>` : ''}
+            </div>
+          </div>`;
+        }).join('')
+    }
+  `;
+}
+
+function updateKomplainStatus(orderId, status) {
+  const o = ordersCache.find(x => x.id === orderId);
+  if (!o) return;
+  const complaint = { ...(o.complaint || {}), status };
+  api('PUT', '/api/orders/' + orderId, { complaint })
+    .then(() => { o.complaint = complaint; updateBadges(); })
+    .catch(e => alert('Gagal: ' + e.message));
+}
+
+// ── Mobile Sidebar ──
+function openSidebar() {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.add('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+// ── Init ──
+if (!adminToken) {
+  document.getElementById('loginPage').style.display = 'flex';
+} else {
+  startPolling();
+}
+</script>
+</body>
+</html>
