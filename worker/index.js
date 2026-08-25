@@ -11,6 +11,32 @@ function json(data, status = 200) {
   });
 }
 
+import { PRODUCTS_SEED } from './products_seed.js';
+
+function slugify(s) {
+  return String(s || '').toLowerCase().trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/[\s_]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '') || 'artikel-' + Date.now();
+}
+
+async function ensureProducts(env) {
+  const { results } = await env.DB.prepare('SELECT COUNT(*) AS n FROM products').all();
+  if (results[0].n > 0) return;
+  // Seed from embedded data
+  for (const p of PRODUCTS_SEED) {
+    await env.DB.prepare(
+      `INSERT OR IGNORE INTO products (id, name, short_name, desc, category, img_key, img, min_price, max_price, variants, specs, active)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,1)`
+    ).bind(
+      p.id, p.name, p.short_name || '', p.desc || '', p.category || '',
+      p.img_key || '', p.img || '', p.min_price || 0, p.max_price || 0,
+      JSON.stringify(p.variants || []), JSON.stringify(p.specs || {})
+    ).run();
+  }
+}
+
 function nanoid() {
   return crypto.randomUUID().replace(/-/g, '').slice(0, 12);
 }
@@ -203,6 +229,176 @@ export default {
       await env.DB.prepare('UPDATE orders SET complaint=? WHERE id=?')
         .bind(JSON.stringify(complaint), orderId).run();
       return json({ url: publicUrl });
+    }
+
+    // ── GET /api/products ── (public — seed otomatis jika kosong)
+    if (path === '/api/products' && request.method === 'GET') {
+      await ensureProducts(env);
+      const { results } = await env.DB.prepare(
+        'SELECT * FROM products WHERE active=1 ORDER BY category, name'
+      ).all();
+      return json(results.map(p => ({ ...p, variants: JSON.parse(p.variants || '[]'), specs: JSON.parse(p.specs || '{}') })));
+    }
+
+    // ── POST /api/products ── (admin)
+    if (path === '/api/products' && request.method === 'POST') {
+      if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
+      const b = await request.json();
+      const id = b.id || ('P-' + nanoid());
+      await env.DB.prepare(
+        `INSERT INTO products (id, name, short_name, desc, category, img_key, img, min_price, max_price, variants, specs, active)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`
+      ).bind(
+        id, b.name || '', b.short_name || '', b.desc || '', b.category || '',
+        b.img_key || '', b.img || '', Number(b.min_price) || 0, Number(b.max_price) || 0,
+        JSON.stringify(b.variants || []), JSON.stringify(b.specs || {}), b.active === undefined ? 1 : (b.active ? 1 : 0)
+      ).run();
+      return json({ id });
+    }
+
+    // ── PUT /api/products/:id ── (admin)
+    const pMatch = path.match(/^\/api\/products\/([^/]+)$/);
+    if (pMatch && request.method === 'PUT') {
+      if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
+      const b = await request.json();
+      const fields = [], vals = [];
+      if (b.name !== undefined)         { fields.push('name=?');         vals.push(b.name); }
+      if (b.short_name !== undefined)   { fields.push('short_name=?');   vals.push(b.short_name); }
+      if (b.desc !== undefined)         { fields.push('desc=?');         vals.push(b.desc); }
+      if (b.category !== undefined)     { fields.push('category=?');     vals.push(b.category); }
+      if (b.img_key !== undefined)      { fields.push('img_key=?');      vals.push(b.img_key); }
+      if (b.img !== undefined)          { fields.push('img=?');          vals.push(b.img); }
+      if (b.min_price !== undefined)    { fields.push('min_price=?');    vals.push(Number(b.min_price)); }
+      if (b.max_price !== undefined)    { fields.push('max_price=?');    vals.push(Number(b.max_price)); }
+      if (b.variants !== undefined)     { fields.push('variants=?');     vals.push(JSON.stringify(b.variants)); }
+      if (b.specs !== undefined)        { fields.push('specs=?');        vals.push(JSON.stringify(b.specs)); }
+      if (b.active !== undefined)       { fields.push('active=?');       vals.push(b.active ? 1 : 0); }
+      if (!fields.length) return json({ error: 'Nothing to update' }, 400);
+      fields.push("updated_at=datetime('now')");
+      vals.push(pMatch[1]);
+      await env.DB.prepare(`UPDATE products SET ${fields.join(',')} WHERE id=?`).bind(...vals).run();
+      return json({ ok: true });
+    }
+
+    // ── DELETE /api/products/:id ── (admin)
+    if (pMatch && request.method === 'DELETE') {
+      if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
+      await env.DB.prepare('DELETE FROM products WHERE id=?').bind(pMatch[1]).run();
+      return json({ ok: true });
+    }
+
+    // ── GET /api/articles ── (public read; admin via ?all=1)
+    if (path === '/api/articles' && request.method === 'GET') {
+      const isAdm = await isAdmin(request, env);
+      const all = url.searchParams.get('all') === '1';
+      let q = 'SELECT * FROM articles';
+      if (!(isAdm && all)) q += " WHERE status='Published'";
+      q += ' ORDER BY created_at DESC LIMIT 100';
+      const { results } = await env.DB.prepare(q).all();
+      return json(results);
+    }
+
+    // ── POST /api/articles ── (admin)
+    if (path === '/api/articles' && request.method === 'POST') {
+      if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
+      const b = await request.json();
+      const id = b.id || ('A-' + nanoid());
+      const slug = b.slug || slugify(b.title);
+      await env.DB.prepare(
+        `INSERT INTO articles (id, slug, title, category, content, image, status) VALUES (?,?,?,?,?,?,?)`
+      ).bind(id, slug, b.title || '', b.category || 'Blog', b.content || '', b.image || '', b.status || 'Draft').run();
+      return json({ id, slug });
+    }
+
+    // ── PUT /api/articles/:id ── (admin)
+    const aMatch = path.match(/^\/api\/articles\/([^/]+)$/);
+    if (aMatch && request.method === 'PUT') {
+      if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
+      const b = await request.json();
+      const fields = [], vals = [];
+      if (b.title !== undefined)    { fields.push('title=?');    vals.push(b.title); }
+      if (b.slug !== undefined)     { fields.push('slug=?');     vals.push(b.slug); }
+      if (b.category !== undefined) { fields.push('category=?'); vals.push(b.category); }
+      if (b.content !== undefined)  { fields.push('content=?');  vals.push(b.content); }
+      if (b.image !== undefined)    { fields.push('image=?');    vals.push(b.image); }
+      if (b.status !== undefined)   { fields.push('status=?');   vals.push(b.status); }
+      if (!fields.length) return json({ error: 'Nothing to update' }, 400);
+      fields.push("updated_at=datetime('now')");
+      vals.push(aMatch[1]);
+      await env.DB.prepare(`UPDATE articles SET ${fields.join(',')} WHERE id=?`).bind(...vals).run();
+      return json({ ok: true });
+    }
+
+    // ── DELETE /api/articles/:id ── (admin)
+    if (aMatch && request.method === 'DELETE') {
+      if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
+      await env.DB.prepare('DELETE FROM articles WHERE id=?').bind(aMatch[1]).run();
+      return json({ ok: true });
+    }
+
+    // ── GET /api/customers ── (admin — derive unik dari orders)
+    if (path === '/api/customers' && request.method === 'GET') {
+      if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
+      const { results } = await env.DB.prepare('SELECT * FROM orders ORDER BY date DESC').all();
+      const map = new Map();
+      for (const o of results) {
+        const key = (o.customer_phone || o.customer_name || '?').trim();
+        if (!map.has(key)) {
+          map.set(key, {
+            name: o.customer_name || '-', phone: o.customer_phone || '',
+            address: o.customer_address || '', orders: 0, total: 0,
+            first_order: o.date, last_order: o.date,
+          });
+        }
+        const c = map.get(key);
+        c.orders += 1;
+        c.total += o.total || 0;
+        if (o.date > c.last_order) c.last_order = o.date;
+        if (o.date < c.first_order) c.first_order = o.date;
+      }
+      return json([...map.values()].sort((a, b) => b.total - a.total));
+    }
+
+    // ── GET /api/stats ── (admin dashboard)
+    if (path === '/api/stats' && request.method === 'GET') {
+      if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
+      const { results: orders } = await env.DB.prepare('SELECT * FROM orders').all();
+      const { results: prods } = await env.DB.prepare('SELECT COUNT(*) AS n FROM products').all();
+      const { results: qs } = await env.DB.prepare('SELECT COUNT(*) AS n FROM questions WHERE answer=\'\' OR answer IS NULL').all();
+      const { results: arts } = await env.DB.prepare('SELECT COUNT(*) AS n FROM articles').all();
+
+      const revenue = orders.filter(o => o.status !== 'Dibatalkan').reduce((s, o) => s + (o.total || 0), 0);
+      const today = new Date().toISOString().slice(0, 10);
+      const todayCount = orders.filter(o => (o.date || '').slice(0, 10) === today).length;
+      const pending = orders.filter(o => o.status === 'Menunggu Pembayaran').length;
+      const cancelled = orders.filter(o => o.status === 'Dibatalkan').length;
+
+      // Last 7 days series
+      const days = [];
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
+        const list = orders.filter(o => (o.date || '').slice(0, 10) === d);
+        days.push({ date: d, orders: list.length, revenue: list.filter(o => o.status !== 'Dibatalkan').reduce((s, o) => s + (o.total || 0), 0) });
+      }
+
+      // Top products
+      const prodCount = {};
+      for (const o of orders) {
+        let items = [];
+        try { items = JSON.parse(o.items || '[]'); } catch (e) {}
+        for (const it of items) {
+          const k = it.productName || it.name || 'Produk';
+          prodCount[k] = (prodCount[k] || 0) + (it.qty || 1);
+        }
+      }
+      const topProducts = Object.entries(prodCount).sort((a, b) => b[1] - a[1]).slice(0, 10)
+        .map(([name, qty]) => ({ name, qty }));
+
+      // Status breakdown
+      const byStatus = {};
+      for (const o of orders) byStatus[o.status] = (byStatus[o.status] || 0) + 1;
+
+      return json({ revenue, ordersCount: orders.length, todayCount, pending, cancelled, productCount: prods[0].n, unanswered: qs[0].n, articleCount: arts[0].n, days, topProducts, byStatus });
     }
 
     return json({ error: 'Not found' }, 404);

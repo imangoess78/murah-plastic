@@ -4,182 +4,202 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admin Dashboard — Murah Plastic</title>
-<link rel="icon" href="/favicon.svg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23C8191A'/><text x='50' y='68' font-size='50' font-weight='900' fill='white' text-anchor='middle'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --red:#C8191A;--gold:#C9890A;--gold-bright:#F5C842;--dark:#1a1a1a;
-  --font:'Segoe UI',system-ui,sans-serif;
-  --sidebar-w:240px;
+  --red:#C8191A;--red-dark:#9E1010;--red-light:#FFF0F0;
+  --gold:#C9890A;--gold-light:#FFF8E7;--gold-bright:#F5C842;
+  --grad-hero:linear-gradient(135deg,#6B0000 0%,#C8191A 40%,#E86510 75%,#C9890A 100%);
+  --grad-gold:linear-gradient(90deg,#C9890A 0%,#F5C842 50%,#C9890A 100%);
+  --grad-btn:linear-gradient(135deg,#C8191A 0%,#E86510 100%);
+  --dark:#1A0A00;--mid:#5A3A1A;--muted:#9A7A5A;
+  --light:#FFFDF8;--border:rgba(201,137,10,0.15);
+  --shadow:0 2px 16px rgba(201,137,10,0.10);
+  --radius:16px;--radius-sm:10px;
+  --font:"Plus Jakarta Sans",system-ui,sans-serif;
+  --sidebar-w:250px;
 }
-body{font-family:var(--font);background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex}
-
-/* ── Sidebar ── */
-.sidebar{width:var(--sidebar-w);background:#1e293b;border-right:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100}
-.sidebar-logo{padding:20px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
-.sidebar-logo .brand{font-size:18px;font-weight:900;color:#fff}
-.sidebar-logo .brand span{color:var(--gold-bright)}
-.sidebar-logo .sub{font-size:11px;color:#64748b;margin-top:2px}
-.sidebar-nav{flex:1;padding:12px 0;overflow-y:auto}
-.nav-section{padding:8px 16px 4px;font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;border-radius:0;transition:background .15s;font-size:13px;font-weight:500;color:#94a3b8;border:none;background:none;width:100%;text-align:left}
-.nav-item:hover{background:rgba(255,255,255,.05);color:#e2e8f0}
-.nav-item.active{background:rgba(245,200,66,.12);color:var(--gold-bright);border-right:3px solid var(--gold-bright)}
+body{font-family:var(--font);background:var(--light);color:var(--dark);min-height:100vh;display:flex}
+.sidebar{width:var(--sidebar-w);background:white;border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;box-shadow:var(--shadow)}
+.sidebar-logo{padding:20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sidebar-logo .logo-box{width:40px;height:40px;background:var(--grad-hero);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:white;flex-shrink:0}
+.sidebar-logo .brand{font-size:16px;font-weight:900;color:var(--dark);line-height:1.1}
+.sidebar-logo .brand span{color:var(--gold)}
+.sidebar-logo .sub{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.sidebar-nav{flex:1;padding:8px 0;overflow-y:auto}
+.nav-section{padding:8px 16px 4px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;border-radius:0;transition:background .15s;font-size:13px;font-weight:600;color:var(--mid);border:none;background:none;width:100%;text-align:left;margin:1px 0}
+.nav-item:hover{background:var(--gold-light);color:var(--gold)}
+.nav-item.active{background:var(--red-light);color:var(--red);border-left:3px solid var(--red);font-weight:800}
 .nav-item .icon{font-size:16px;width:20px;text-align:center}
-.nav-badge{margin-left:auto;background:var(--red);color:#fff;border-radius:99px;font-size:10px;font-weight:700;padding:1px 6px;min-width:18px;text-align:center}
-.sidebar-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.07)}
-.admin-user{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.04)}
-.admin-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--red));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.nav-badge{margin-left:auto;background:var(--grad-gold);color:var(--dark);border-radius:99px;font-size:10px;font-weight:800;padding:1px 7px;min-width:18px;text-align:center}
+.sidebar-footer{padding:12px 16px;border-top:1px solid var(--border)}
+.admin-user{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-sm);background:var(--gold-light)}
+.admin-avatar{width:32px;height:32px;border-radius:50%;background:var(--grad-hero);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:white;flex-shrink:0}
 .admin-info{flex:1;min-width:0}
-.admin-name{font-size:12px;font-weight:700;color:#e2e8f0}
-.admin-role{font-size:10px;color:#64748b}
-.logout-btn{background:none;border:none;color:#64748b;cursor:pointer;font-size:16px;padding:4px;border-radius:4px;transition:color .15s}
-.logout-btn:hover{color:#f87171}
-
-/* ── Main Content ── */
+.admin-name{font-size:12px;font-weight:800;color:var(--dark)}
+.admin-role{font-size:10px;color:var(--muted);font-weight:600}
+.logout-btn{background:none;border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:14px;padding:4px 8px;border-radius:6px;transition:all .15s;flex-shrink:0}
+.logout-btn:hover{color:var(--red);border-color:var(--red);background:var(--red-light)}
 .main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
-.topbar{background:#1e293b;border-bottom:1px solid rgba(255,255,255,.07);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.topbar-title{font-size:16px;font-weight:700;color:#fff}
+.topbar{background:white;border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+.topbar-title{font-size:16px;font-weight:800;color:var(--dark)}
 .topbar-right{display:flex;align-items:center;gap:10px}
-.refresh-btn{background:rgba(255,255,255,.07);border:none;color:#94a3b8;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-family:var(--font);transition:background .15s}
-.refresh-btn:hover{background:rgba(255,255,255,.12);color:#fff}
-.status-dot{width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;margin-right:6px;animation:pulse 2s infinite}
+.refresh-btn{background:var(--gold-light);border:1px solid var(--border);color:var(--gold);padding:7px 14px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:700;font-family:var(--font);transition:all .15s}
+.refresh-btn:hover{background:var(--gold);color:white;border-color:var(--gold)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
 .content{padding:24px;flex:1}
-
-/* ── Login Page ── */
-.login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0f172a}
-.login-card{background:#1e293b;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:40px;width:100%;max-width:380px;text-align:center}
-.login-logo{font-size:48px;margin-bottom:16px}
-.login-title{font-size:22px;font-weight:900;color:#fff;margin-bottom:6px}
-.login-sub{font-size:13px;color:#64748b;margin-bottom:28px}
-.login-input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 16px;font-size:14px;color:#fff;font-family:var(--font);outline:none;transition:border .15s;margin-bottom:12px}
-.login-input:focus{border-color:var(--gold-bright)}
-.login-btn{width:100%;background:linear-gradient(135deg,var(--gold),#F5C842);border:none;border-radius:10px;padding:13px;font-size:15px;font-weight:800;color:#000;cursor:pointer;font-family:var(--font);transition:opacity .15s;margin-top:4px}
+.login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--grad-hero);position:fixed;inset:0;z-index:999}
+.login-card{background:white;border-radius:var(--radius);padding:40px;width:100%;max-width:380px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-logo{width:64px;height:64px;background:var(--grad-hero);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;margin:0 auto 16px}
+.login-title{font-size:22px;font-weight:900;color:var(--dark);margin-bottom:4px}
+.login-title span{color:var(--gold)}
+.login-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+.login-input{width:100%;background:var(--light);border:2px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-size:14px;color:var(--dark);font-family:var(--font);outline:none;transition:border .15s;margin-bottom:12px}
+.login-input:focus{border-color:var(--gold)}
+.login-btn{width:100%;background:var(--grad-btn);color:white;border:none;border-radius:24px;padding:13px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font);transition:opacity .15s;margin-top:4px}
 .login-btn:hover{opacity:.9}
 .login-btn:disabled{opacity:.5;cursor:not-allowed}
-.login-error{color:#f87171;font-size:12px;margin-top:10px;min-height:18px}
-
-/* ── Stats Cards ── */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
-.stat-card{background:#1e293b;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:18px 20px}
-.stat-label{font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
-.stat-value{font-size:26px;font-weight:900;color:#fff}
-.stat-sub{font-size:11px;color:#64748b;margin-top:4px}
-.stat-card.gold .stat-value{color:var(--gold-bright)}
-.stat-card.green .stat-value{color:#34d399}
-.stat-card.red .stat-value{color:#f87171}
-.stat-card.blue .stat-value{color:#60a5fa}
-
-/* ── Filter Bar ── */
+.login-error{color:var(--red);font-size:12px;margin-top:10px;min-height:18px;font-weight:600}
+.card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:16px;margin-bottom:20px}
+.stat-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+.stat-label{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.stat-value{font-size:24px;font-weight:900;color:var(--dark)}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:2px;font-weight:600}
+.stat-card.gold .stat-value{color:var(--gold)}
+.stat-card.green .stat-value{color:#16a34a}
+.stat-card.red .stat-value{color:var(--red)}
+.stat-card.blue .stat-value{color:#2563eb}
+.stat-card.orange .stat-value{color:#ea580c}
 .filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.filter-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#94a3b8;padding:6px 14px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s}
-.filter-btn:hover{background:rgba(255,255,255,.1);color:#e2e8f0}
-.filter-btn.active{background:var(--gold-bright);color:#000;border-color:var(--gold-bright)}
-
-/* ── Table ── */
-.table-wrap{background:#1e293b;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden}
-.table-head{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}
-.table-title{font-size:14px;font-weight:700;color:#fff}
-.export-btn{background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.3);color:var(--gold-bright);padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.filter-btn{background:white;border:1px solid var(--border);color:var(--mid);padding:6px 14px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s}
+.filter-btn:hover{background:var(--gold-light);border-color:var(--gold);color:var(--gold)}
+.filter-btn.active{background:var(--grad-btn);color:white;border-color:var(--red)}
+.table-wrap{background:white;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow)}
+.table-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.table-title{font-size:14px;font-weight:800;color:var(--dark)}
 table{width:100%;border-collapse:collapse}
-thead tr{background:rgba(255,255,255,.03)}
-th{padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(255,255,255,.06)}
-td{padding:12px 16px;font-size:13px;color:#cbd5e1;border-bottom:1px solid rgba(255,255,255,.04)}
+thead tr{background:var(--gold-light)}
+th{padding:10px 16px;text-align:left;font-size:11px;font-weight:800;color:var(--mid);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border)}
+td{padding:10px 16px;font-size:13px;color:var(--dark);border-bottom:1px solid var(--border)}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,.02)}
-.order-id{font-weight:700;color:#fff;font-family:monospace;font-size:12px}
-.order-customer{font-weight:600;color:#e2e8f0}
-.order-phone{font-size:11px;color:#64748b}
-.status-badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700}
-.s-waiting{background:rgba(245,200,66,.15);color:var(--gold-bright)}
-.s-processing{background:rgba(59,130,246,.15);color:#60a5fa}
-.s-shipped{background:rgba(16,185,129,.15);color:#34d399}
-.s-done{background:rgba(100,116,139,.15);color:#94a3b8}
-.s-cancel{background:rgba(239,68,68,.15);color:#f87171}
-.action-btns{display:flex;gap:6px;align-items:center}
-.action-btn{background:rgba(255,255,255,.07);border:none;color:#94a3b8;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:var(--font);transition:background .15s;white-space:nowrap}
-.action-btn:hover{background:rgba(255,255,255,.13);color:#fff}
-.action-btn.wa{background:rgba(37,211,102,.15);color:#25D366}
-.action-btn.del{background:rgba(239,68,68,.12);color:#f87171}
-.status-select{background:#0f172a;border:1px solid rgba(255,255,255,.1);color:#e2e8f0;padding:4px 8px;border-radius:6px;font-size:12px;font-family:var(--font);cursor:pointer}
-
-/* ── Q&A Section ── */
+tr:hover td{background:rgba(201,137,10,.04)}
+.order-id{font-weight:800;font-family:monospace;font-size:12px;color:var(--red)!important}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:800}
+.s-waiting{background:var(--gold-light);color:var(--gold)}
+.s-processing{background:#EFF6FF;color:#2563eb}
+.s-shipped{background:#F0FDF4;color:#16a34a}
+.s-done{background:#F8FAFC;color:#64748b}
+.s-cancel{background:var(--red-light);color:var(--red)}
+.action-btns{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.action-btn{background:var(--light);border:1px solid var(--border);color:var(--mid);padding:4px 10px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:700;font-family:var(--font);transition:all .15s;white-space:nowrap}
+.action-btn:hover{background:var(--gold-light);border-color:var(--gold);color:var(--gold)}
+.action-btn.wa{background:#F0FDF4;border-color:#22c55e;color:#16a34a}
+.action-btn.wa:hover{background:#22c55e;color:white}
+.action-btn.del{background:var(--red-light);border-color:var(--red);color:var(--red)}
+.action-btn.del:hover{background:var(--red);color:white}
+.action-btn.primary{background:var(--grad-btn);border:none;color:white}
+.action-btn.primary:hover{opacity:.9}
+.status-select{background:white;border:2px solid var(--border);color:var(--dark);padding:4px 8px;border-radius:8px;font-size:12px;font-family:var(--font);cursor:pointer;font-weight:600;outline:none}
+.status-select:focus{border-color:var(--gold)}
+.search-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.search-input{flex:1;background:white;border:2px solid var(--border);border-radius:var(--radius-sm);padding:9px 14px;font-size:13px;font-family:var(--font);color:var(--dark);outline:none;transition:border .15s;max-width:320px}
+.search-input:focus{border-color:var(--gold)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:var(--radius);width:100%;max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);padding:24px}
+.modal h2{font-size:18px;font-weight:900;color:var(--dark);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.modal-close{float:right;background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);padding:0 4px}
+.modal label{display:block;font-size:12px;font-weight:700;color:var(--mid);margin-bottom:4px;margin-top:12px}
+.modal input,.modal select,.modal textarea{width:100%;background:var(--light);border:2px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-size:13px;font-family:var(--font);color:var(--dark);outline:none;transition:border .15s}
+.modal input:focus,.modal select:focus,.modal textarea:focus{border-color:var(--gold)}
+.modal textarea{min-height:100px;resize:vertical}
+.modal .form-row{display:flex;gap:12px;flex-wrap:wrap}
+.modal .form-row>*{flex:1;min-width:120px}
+.modal .btn-row{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+.modal .btn-row .btn{background:var(--light);border:1px solid var(--border);color:var(--mid);padding:9px 20px;border-radius:24px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s}
+.modal .btn-row .btn:hover{background:var(--border)}
+.modal .btn-row .btn.primary{background:var(--grad-btn);border:none;color:white}
+.modal .btn-row .btn.primary:hover{opacity:.9}
+.chart-bar{display:flex;align-items:flex-end;gap:8px;height:120px;padding:10px 0;justify-content:space-around}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.chart-col .bar{width:100%;max-width:40px;border-radius:4px 4px 0 0;background:var(--grad-gold);transition:height .3s;min-height:4px}
+.chart-col .bar-label{font-size:9px;color:var(--muted);font-weight:700;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.chart-col .bar-val{font-size:9px;color:var(--dark);font-weight:800;text-align:center}
 .qna-list{display:flex;flex-direction:column;gap:12px}
-.qna-card{background:#1e293b;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px}
-.qna-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.qna-user{font-weight:700;color:#e2e8f0;font-size:13px}
-.qna-product{background:rgba(245,200,66,.12);color:var(--gold-bright);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600}
-.qna-date{font-size:11px;color:#475569;margin-left:auto}
-.qna-q{font-size:13px;color:#cbd5e1;margin-bottom:10px;padding:8px 12px;background:rgba(255,255,255,.04);border-radius:8px;border-left:3px solid rgba(255,255,255,.15)}
+.qna-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.qna-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.qna-user{font-weight:800;color:var(--dark);font-size:13px}
+.qna-product{background:var(--gold-light);color:var(--gold);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700}
+.qna-date{font-size:11px;color:var(--muted);margin-left:auto}
+.qna-q{font-size:13px;color:var(--mid);margin-bottom:10px;padding:8px 12px;background:var(--light);border-radius:8px;border-left:3px solid var(--gold)}
 .qna-answer{display:flex;gap:8px}
-.qna-answer textarea{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;font-size:12px;color:#fff;font-family:var(--font);resize:vertical;min-height:60px;outline:none}
-.qna-answer textarea:focus{border-color:var(--gold-bright)}
-.qna-answer-btn{background:linear-gradient(135deg,var(--gold),#F5C842);border:none;color:#000;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--font);white-space:nowrap;align-self:flex-start;margin-top:2px}
-.answered-badge{background:rgba(16,185,129,.12);color:#34d399;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700}
-.answered-text{font-size:12px;color:#34d399;padding:8px 12px;background:rgba(16,185,129,.07);border-radius:8px;border-left:3px solid #34d399;margin-top:6px}
-
-/* ── Komplain Section ── */
-.komplain-card{background:#1e293b;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;margin-bottom:12px}
-.komplain-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
-.komplain-id{font-family:monospace;font-size:12px;font-weight:700;color:#fff}
-.komplain-customer{font-size:13px;color:#94a3b8}
-.komplain-status-select{background:#0f172a;border:1px solid rgba(255,255,255,.1);color:#e2e8f0;padding:5px 10px;border-radius:8px;font-size:12px;font-family:var(--font)}
-.komplain-detail{font-size:12px;color:#94a3b8;margin-bottom:8px}
-.komplain-proof{display:inline-block;margin-top:6px}
-.komplain-proof img{max-width:180px;border-radius:8px;border:1px solid rgba(255,255,255,.1)}
-
-/* ── Empty State ── */
-.empty{text-align:center;padding:60px 20px;color:#475569}
-.empty-icon{font-size:48px;margin-bottom:12px}
-.empty-text{font-size:14px;font-weight:600}
-
-/* ── Loading ── */
-.loading{text-align:center;padding:60px 20px;color:#475569;font-size:14px}
-
-/* ── Mobile ── */
-.mobile-menu-btn{display:none;background:none;border:none;color:#e2e8f0;font-size:22px;cursor:pointer;padding:4px}
+.qna-answer textarea{flex:1;background:var(--light);border:2px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--dark);font-family:var(--font);resize:vertical;min-height:60px;outline:none}
+.qna-answer textarea:focus{border-color:var(--gold)}
+.qna-answer-btn{background:var(--grad-btn);border:none;color:white;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer;font-family:var(--font);white-space:nowrap;align-self:flex-start;margin-top:2px}
+.answered-badge{background:#F0FDF4;color:#16a34a;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700}
+.answered-text{font-size:12px;color:#16a34a;padding:8px 12px;background:#F0FDF4;border-radius:8px;border-left:3px solid #16a34a;margin-top:6px}
+.komplain-card{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.komplain-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.komplain-id{font-family:monospace;font-size:12px;font-weight:800;color:var(--red)}
+.komplain-customer{font-size:13px;color:var(--mid)}
+.komplain-status-select{background:white;border:2px solid var(--border);color:var(--dark);padding:5px 10px;border-radius:8px;font-size:12px;font-family:var(--font);font-weight:600;outline:none}
+.komplain-detail{font-size:12px;color:var(--mid);margin-bottom:8px;line-height:1.5}
+.komplain-proof img{max-width:180px;border-radius:8px;border:1px solid var(--border);margin-top:6px}
+.toast-container{position:fixed;top:80px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;font-size:13px;font-weight:700;color:var(--dark);box-shadow:0 8px 24px rgba(0,0,0,.12);animation:slideIn .3s ease;pointer-events:auto;display:flex;align-items:center;gap:8px;max-width:360px}
+.toast.success{border-left:4px solid #16a34a}
+.toast.error{border-left:4px solid var(--red)}
+.toast.info{border-left:4px solid var(--gold)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.empty{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty-icon{font-size:40px;margin-bottom:8px}
+.empty-text{font-size:14px;font-weight:700}
+.loading{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px;font-weight:600}
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--dark);font-size:22px;cursor:pointer;padding:4px;margin-right:8px}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99}
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%);transition:transform .25s}
   .sidebar.open{transform:translateX(0)}
+  .sidebar-overlay.open{display:block}
   .main{margin-left:0}
   .mobile-menu-btn{display:block}
-  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
-  .sidebar-overlay.open{display:block}
   th:nth-child(4),td:nth-child(4),th:nth-child(5),td:nth-child(5){display:none}
+  .content{padding:16px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .qna-grid,.report-grid,.settings-grid{grid-template-columns:1fr!important}
 }
 </style>
 </head>
 <body>
 
-<!-- Sidebar Overlay (mobile) -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
-    <div class="brand">Murah <span>Plastic</span></div>
-    <div class="sub">Admin Dashboard</div>
+    <div class="logo-box">M</div>
+    <div><div class="brand">Murah <span>Plastic</span></div><div class="sub">Admin Dashboard</div></div>
   </div>
   <nav class="sidebar-nav">
-    <div class="nav-section">Menu</div>
-    <button class="nav-item active" onclick="setTab('orders')" id="nav-orders">
-      <span class="icon">📦</span> Pesanan
-      <span class="nav-badge" id="badge-orders" style="display:none"></span>
-    </button>
-    <button class="nav-item" onclick="setTab('qna')" id="nav-qna">
-      <span class="icon">💬</span> Tanya Jawab
-      <span class="nav-badge" id="badge-qna" style="display:none"></span>
-    </button>
-    <button class="nav-item" onclick="setTab('komplain')" id="nav-komplain">
-      <span class="icon">🛠️</span> Komplain
-      <span class="nav-badge" id="badge-komplain" style="display:none"></span>
-    </button>
-    <div class="nav-section" style="margin-top:12px">Pengaturan</div>
-    <button class="nav-item" onclick="window.open('https://murah-plastic.imangoess78.workers.dev','_blank')">
-      <span class="icon">🌐</span> Lihat Toko
-    </button>
+    <div class="nav-section">Overview</div>
+    <button class="nav-item active" onclick="setTab('dashboard')" id="nav-dashboard"><span class="icon">📊</span>Dashboard</button>
+    <div class="nav-section">Toko</div>
+    <button class="nav-item" onclick="setTab('orders')" id="nav-orders"><span class="icon">📦</span>Pesanan<span class="nav-badge" id="badge-orders" style="display:none">0</span></button>
+    <button class="nav-item" onclick="setTab('products')" id="nav-products"><span class="icon">🛍️</span>Produk</button>
+    <button class="nav-item" onclick="setTab('customers')" id="nav-customers"><span class="icon">👥</span>Pelanggan</button>
+    <button class="nav-item" onclick="setTab('komplain')" id="nav-komplain"><span class="icon">🛠️</span>Komplain<span class="nav-badge" id="badge-komplain" style="display:none">0</span></button>
+    <button class="nav-item" onclick="setTab('qna')" id="nav-qna"><span class="icon">💬</span>Tanya Jawab<span class="nav-badge" id="badge-qna" style="display:none">0</span></button>
+    <div class="nav-section">Konten</div>
+    <button class="nav-item" onclick="setTab('articles')" id="nav-articles"><span class="icon">📝</span>Blog/Artikel</button>
+    <div class="nav-section">Laporan</div>
+    <button class="nav-item" onclick="setTab('reports')" id="nav-reports"><span class="icon">📈</span>Laporan</button>
+    <div class="nav-section">Pengaturan</div>
+    <button class="nav-item" onclick="setTab('settings')" id="nav-settings"><span class="icon">⚙️</span>Pengaturan</button>
   </nav>
   <div class="sidebar-footer">
     <div class="admin-user">
@@ -188,66 +208,82 @@ tr:hover td{background:rgba(255,255,255,.02)}
         <div class="admin-name">Admin</div>
         <div class="admin-role">Murah Plastic</div>
       </div>
-      <button class="logout-btn" onclick="doLogout()" title="Logout">⏻</button>
+      <button class="logout-btn" onclick="doLogout()" title="Logout">✕</button>
     </div>
   </div>
 </aside>
 
-<!-- Main -->
 <div class="main">
-  <!-- Topbar -->
   <div class="topbar">
     <div style="display:flex;align-items:center;gap:12px">
       <button class="mobile-menu-btn" onclick="openSidebar()">☰</button>
-      <div class="topbar-title" id="topbarTitle">📦 Pesanan</div>
+      <div class="topbar-title" id="topbarTitle">📊 Dashboard</div>
     </div>
     <div class="topbar-right">
-      <span style="font-size:12px;color:#64748b"><span class="status-dot"></span>Live</span>
-      <button class="refresh-btn" onclick="fetchData()">🔄 Refresh</button>
+      <span style="font-size:12px;color:var(--muted);font-weight:600"><span class="status-dot"></span>Live</span>
+      <button class="refresh-btn" onclick="fetchAll()">↻ Refresh</button>
     </div>
   </div>
-
-  <!-- Content -->
   <div class="content" id="mainContent">
-    <div class="loading">⏳ Memuat...</div>
+    <div class="loading">⏳ Memuat dashboard...</div>
   </div>
 </div>
 
-<!-- Login Page (hidden by default, shown if not logged in) -->
-<div class="login-page" id="loginPage" style="display:none;position:fixed;inset:0;z-index:999">
+<div class="login-page" id="loginPage" style="display:none">
   <div class="login-card">
-    <div class="login-logo">🔐</div>
-    <div class="login-title">Admin Murah Plastic</div>
-    <div class="login-sub">Masukkan password untuk melanjutkan</div>
-    <input class="login-input" type="password" id="loginPass" placeholder="Password admin"
-      onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="login-logo">M</div>
+    <div class="login-title">Murah <span>Plastic</span></div>
+    <div class="login-sub">Masukkan password admin untuk melanjutkan</div>
+    <input class="login-input" type="password" id="loginPass" placeholder="Password admin" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" id="loginBtn" onclick="doLogin()">Masuk →</button>
     <div class="login-error" id="loginError"></div>
   </div>
 </div>
 
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()"><div class="modal" id="modalContent"></div></div>
+
 <script>
-// ── State ──
-let adminToken = localStorage.getItem('mp_admin_token') || null;
-let currentTab = 'orders';
-let ordersCache = [];
-let qnaCache = [];
-let orderFilter = 'Semua';
+'use strict';
+let TOKEN = localStorage.getItem('mp_admin_token') || null;
+let currentTab = 'dashboard';
 let pollInterval = null;
+let ORDERS = [], PRODUCTS = [], QUESTIONS = [], ARTICLES = [], CUSTOMERS = [], STATS = null;
+let orderFilter = 'Semua';
+let productSearch = '', customerSearch = '', articleSearch = '';
+let debounceTimer = null;
 
 const fmt = n => 'Rp' + Math.round(n).toLocaleString('id-ID');
+const td = d => { const dt = new Date(d); return isNaN(dt) ? (d||'-') : dt.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}); };
+const STATUSES = ['Semua','Menunggu Pembayaran','Diproses','Dikirim','Selesai','Dibatalkan'];
+const STATUS_CLASS = {'Menunggu Pembayaran':'s-waiting','Diproses':'s-processing','Dikirim':'s-shipped','Selesai':'s-done','Dibatalkan':'s-cancel'};
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
-// ── API ──
+function toast(msg, type) {
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type || 'info');
+  const icons = {success:'✅',error:'❌',info:'ℹ️'};
+  el.innerHTML = '<span>'+(icons[type||'info']||'ℹ️')+'</span> ' + msg;
+  document.getElementById('toastContainer').appendChild(el);
+  setTimeout(() => { el.style.transition='opacity .3s'; el.style.opacity='0'; setTimeout(()=>el.remove(),300); }, 3000);
+}
+
 async function api(method, path, body) {
   const opts = { method, headers: { 'Content-Type': 'application/json' } };
-  if (adminToken) opts.headers['Authorization'] = 'Bearer ' + adminToken;
+  if (TOKEN) opts.headers['Authorization'] = 'Bearer ' + TOKEN;
   if (body !== undefined) opts.body = JSON.stringify(body);
   const res = await fetch(path, opts);
-  if (!res.ok) {
-    const txt = await res.text();
-    throw new Error(txt || res.status);
+  const text = await res.text();
+  let data = null;
+  try { data = text ? JSON.parse(text) : null; } catch (e) { data = text; }
+  if (res.status === 401) {
+    TOKEN = null; localStorage.removeItem('mp_admin_token');
+    clearInterval(pollInterval);
+    document.getElementById('loginPage').style.display = 'flex';
+    throw new Error('Sesi berakhir, silakan login ulang');
   }
-  return res.json();
+  if (!res.ok) throw new Error((data && data.error) ? data.error : ('HTTP ' + res.status));
+  return data;
 }
 
 // ── Auth ──
@@ -260,11 +296,13 @@ async function doLogin() {
   btn.disabled = true; btn.textContent = '⏳ Memproses...';
   try {
     const r = await api('POST', '/api/admin/login', { password: pass });
-    adminToken = r.token;
+    TOKEN = r.token;
     localStorage.setItem('mp_admin_token', r.token);
     document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('loginPass').value = '';
+    toast('Login berhasil! Selamat datang 👋', 'success');
     startPolling();
-  } catch(e) {
+  } catch (e) {
     btn.disabled = false; btn.textContent = 'Masuk →';
     errEl.textContent = e.message.includes('Unauthorized') ? 'Password salah.' : 'Gagal login: ' + e.message;
   }
@@ -273,56 +311,51 @@ async function doLogin() {
 function doLogout() {
   if (!confirm('Yakin mau logout?')) return;
   api('POST', '/api/admin/logout').catch(() => {});
-  adminToken = null;
-  localStorage.removeItem('mp_admin_token');
+  TOKEN = null; localStorage.removeItem('mp_admin_token');
   clearInterval(pollInterval);
   document.getElementById('loginPage').style.display = 'flex';
+  toast('Anda telah logout', 'info');
 }
 
-// ── Data ──
-async function fetchData() {
-  if (!adminToken) return;
+// ── Data fetch ──
+async function fetchAll() {
+  if (!TOKEN) return;
   try {
-    const [orders, questions] = await Promise.all([
+    const [orders, products, questions, articles, customers, stats] = await Promise.all([
       api('GET', '/api/orders'),
-      api('GET', '/api/questions')
+      api('GET', '/api/products'),
+      api('GET', '/api/questions'),
+      api('GET', '/api/articles?all=1'),
+      api('GET', '/api/customers'),
+      api('GET', '/api/stats')
     ]);
-    ordersCache = orders;
-    qnaCache = questions;
+    ORDERS = orders; PRODUCTS = products; QUESTIONS = questions; ARTICLES = articles; CUSTOMERS = customers; STATS = stats;
     updateBadges();
     renderTab();
-  } catch(e) {
-    console.error('Fetch gagal:', e);
-    if (e.message.includes('401') || e.message.includes('Unauthorized')) {
-      adminToken = null;
-      localStorage.removeItem('mp_admin_token');
-      document.getElementById('loginPage').style.display = 'flex';
-    }
+  } catch (e) {
+    if (!e.message.includes('Sesi berakhir')) toast('Gagal memuat data: ' + e.message, 'error');
   }
 }
 
 function startPolling() {
-  fetchData();
+  fetchAll();
   clearInterval(pollInterval);
-  pollInterval = setInterval(fetchData, 15000);
+  pollInterval = setInterval(fetchAll, 15000);
 }
 
 function updateBadges() {
-  const pending = ordersCache.filter(o => o.status === 'Menunggu Pembayaran').length;
-  const unanswered = qnaCache.filter(q => !q.answer).length;
-  const komplain = ordersCache.filter(o => o.complaint && o.complaint.status === 'Menunggu Diproses').length;
-
-  const b = (id, n) => {
-    const el = document.getElementById(id);
-    if (el) { el.textContent = n; el.style.display = n ? '' : 'none'; }
-  };
-  b('badge-orders', pending);
-  b('badge-qna', unanswered);
-  b('badge-komplain', komplain);
+  const pending = ORDERS.filter(o => o.status === 'Menunggu Pembayaran').length;
+  const unanswered = QUESTIONS.filter(q => !q.answer).length;
+  const komplain = ORDERS.filter(o => o.complaint && (JSON.parse(o.complaint||'{}').status || 'Menunggu Diproses') !== 'Selesai').length;
+  const b = (id, n) => { const el = document.getElementById(id); if (el) { el.textContent = n; el.style.display = n ? '' : 'none'; } };
+  b('badge-orders', pending); b('badge-qna', unanswered); b('badge-komplain', komplain);
 }
 
 // ── Tabs ──
-const TAB_TITLES = { orders: '📦 Pesanan', qna: '💬 Tanya Jawab', komplain: '🛠️ Komplain' };
+const TAB_TITLES = {
+  dashboard:'📊 Dashboard', orders:'📦 Pesanan', products:'🛍️ Produk', customers:'👥 Pelanggan',
+  komplain:'🛠️ Komplain', qna:'💬 Tanya Jawab', articles:'📝 Blog/Artikel', reports:'📈 Laporan', settings:'⚙️ Pengaturan'
+};
 
 function setTab(tab) {
   currentTab = tab;
@@ -335,229 +368,755 @@ function setTab(tab) {
 }
 
 function renderTab() {
-  if (currentTab === 'orders') renderOrders();
-  else if (currentTab === 'qna') renderQna();
-  else if (currentTab === 'komplain') renderKomplain();
+  const c = document.getElementById('mainContent');
+  if (currentTab === 'dashboard') renderDashboard(c);
+  else if (currentTab === 'orders') renderOrders(c);
+  else if (currentTab === 'products') renderProducts(c);
+  else if (currentTab === 'customers') renderCustomers(c);
+  else if (currentTab === 'komplain') renderKomplain(c);
+  else if (currentTab === 'qna') renderQna(c);
+  else if (currentTab === 'articles') renderArticles(c);
+  else if (currentTab === 'reports') renderReports(c);
+  else if (currentTab === 'settings') renderSettings(c);
 }
 
-// ── Orders Tab ──
-const STATUSES = ['Semua','Menunggu Pembayaran','Diproses','Dikirim','Selesai','Dibatalkan'];
-const STATUS_CLASS = {
-  'Menunggu Pembayaran':'s-waiting','Diproses':'s-processing',
-  'Dikirim':'s-shipped','Selesai':'s-done','Dibatalkan':'s-cancel'
-};
+// ── Dashboard ──
+function renderDashboard(c) {
+  const s = STATS || { revenue:0, ordersCount:ORDERS.length, todayCount:0, pending:0, productCount:PRODUCTS.length, unanswered:0, days:[], topProducts:[], byStatus:{} };
+  const days = s.days && s.days.length ? s.days : [];
+  const maxRev = Math.max(1, ...days.map(d => d.revenue));
+  const maxOrd = Math.max(1, ...days.map(d => d.orders));
+  const recent = ORDERS.slice(0, 5);
+  const unans = QUESTIONS.filter(q => !q.answer).slice(0, 3);
 
-function renderOrders() {
-  const filtered = orderFilter === 'Semua' ? ordersCache : ordersCache.filter(o => o.status === orderFilter);
-  const totalRev = ordersCache.filter(o => o.status !== 'Dibatalkan').reduce((s, o) => s + (o.total || 0), 0);
-  const todayCount = ordersCache.filter(o => new Date(o.date).toDateString() === new Date().toDateString()).length;
-  const pendingCount = ordersCache.filter(o => o.status === 'Menunggu Pembayaran').length;
-
-  document.getElementById('mainContent').innerHTML = `
+  c.innerHTML = `
     <div class="stats-grid">
-      <div class="stat-card gold">
-        <div class="stat-label">Total Omzet</div>
-        <div class="stat-value">${fmt(totalRev)}</div>
-        <div class="stat-sub">Semua order (non-batal)</div>
-      </div>
-      <div class="stat-card blue">
-        <div class="stat-label">Order Hari Ini</div>
-        <div class="stat-value">${todayCount}</div>
-        <div class="stat-sub">Pesanan masuk hari ini</div>
-      </div>
-      <div class="stat-card red">
-        <div class="stat-label">Perlu Konfirmasi</div>
-        <div class="stat-value">${pendingCount}</div>
-        <div class="stat-sub">Menunggu pembayaran</div>
-      </div>
-      <div class="stat-card green">
-        <div class="stat-label">Total Order</div>
-        <div class="stat-value">${ordersCache.length}</div>
-        <div class="stat-sub">Semua status</div>
-      </div>
+      <div class="stat-card gold"><div class="stat-label">Total Omzet</div><div class="stat-value">${fmt(s.revenue)}</div><div class="stat-sub">${s.ordersCount} pesanan (non-batal)</div></div>
+      <div class="stat-card red"><div class="stat-label">Order Hari Ini</div><div class="stat-value">${s.todayCount}</div><div class="stat-sub">Pesanan masuk hari ini</div></div>
+      <div class="stat-card orange"><div class="stat-label">Menunggu Konfirmasi</div><div class="stat-value">${s.pending}</div><div class="stat-sub">Perlu dicek pembayaran</div></div>
+      <div class="stat-card green"><div class="stat-label">Total Produk</div><div class="stat-value">${s.productCount}</div><div class="stat-sub">${s.articleCount||0} artikel blog</div></div>
     </div>
 
-    <div class="filter-bar">
-      ${STATUSES.map(s => `<button class="filter-btn${orderFilter===s?' active':''}" onclick="setFilter('${s}')">${s}</button>`).join('')}
-      <button class="filter-btn" onclick="exportOrders()" style="margin-left:auto">📥 Export CSV</button>
+    <div class="card" style="margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+        <div class="table-title">📈 Omzet 7 Hari Terakhir</div>
+        <div style="font-size:11px;color:var(--muted);font-weight:700">Grafik omzet harian (Rp)</div>
+      </div>
+      ${days.length ? `<div class="chart-bar">${days.map(d => `
+        <div class="chart-col">
+          <div class="bar-val">${d.revenue ? (d.revenue/1000).toFixed(0)+'k' : ''}</div>
+          <div class="bar" style="height:${Math.max(4, Math.round(d.revenue / maxRev * 100))}px"></div>
+          <div class="bar-label">${d.date.slice(8)}/${d.date.slice(5,7)}</div>
+        </div>`).join('')}</div>` : '<div class="empty"><div class="empty-icon">📊</div><div class="empty-text">Belum ada data penjualan</div></div>'}
     </div>
 
     <div class="table-wrap">
       <div class="table-head">
-        <div class="table-title">${filtered.length} pesanan</div>
+        <div class="table-title">🕒 Pesanan Terbaru</div>
+        <button class="action-btn primary" onclick="setTab('orders')">Lihat Semua →</button>
       </div>
-      ${filtered.length === 0
-        ? `<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Belum ada pesanan</div></div>`
-        : `<table>
-          <thead><tr>
-            <th>Order ID</th><th>Pelanggan</th><th>Produk</th><th>Total</th><th>Status</th><th>Aksi</th>
-          </tr></thead>
-          <tbody>
-          ${filtered.map(o => {
-            const items = (o.items || []).map(it => `${(it.productName||it.name||'Produk').substring(0,20)} ×${it.qty}`).join(', ');
-            const phone = (o.customer_phone || '').replace(/[^0-9]/g,'').replace(/^0/,'62');
-            const waText = encodeURIComponent(`Halo ${o.customer_name}, update pesanan ${o.id}: ${o.status}`);
-            return `<tr>
-              <td><div class="order-id">${o.id}</div><div class="order-phone">${new Date(o.date).toLocaleDateString('id-ID')}</div></td>
-              <td><div class="order-customer">${o.customer_name||'-'}</div><div class="order-phone">${o.customer_phone||'-'}</div></td>
-              <td style="max-width:200px;font-size:12px;color:#94a3b8">${items||'-'}</td>
-              <td style="font-weight:700;color:#fff;white-space:nowrap">${fmt(o.total||0)}</td>
-              <td>
-                <select class="status-select" onchange="updateStatus('${o.id}',this.value,this)">
-                  ${['Menunggu Pembayaran','Diproses','Dikirim','Selesai','Dibatalkan'].map(s =>
-                    `<option${o.status===s?' selected':''}>${s}</option>`
-                  ).join('')}
-                </select>
-              </td>
-              <td>
-                <div class="action-btns">
-                  <a href="https://wa.me/${phone}?text=${waText}" target="_blank" class="action-btn wa">WA</a>
-                  <button class="action-btn" onclick="showResi('${o.id}','${o.resi||''}')">📬 Resi</button>
-                  <button class="action-btn del" onclick="deleteOrder('${o.id}')">🗑️</button>
-                </div>
-              </td>
-            </tr>`;
-          }).join('')}
-          </tbody>
-        </table>`
-      }
+      ${recent.length === 0 ? '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Belum ada pesanan</div></div>' : `
+      <table>
+        <thead><tr><th>ID</th><th>Pelanggan</th><th>Total</th><th>Status</th><th>Tanggal</th></tr></thead>
+        <tbody>${recent.map(o => `
+          <tr>
+            <td><span class="order-id">${esc(o.id)}</span></td>
+            <td><b>${esc(o.customer_name)}</b><br><span style="font-size:11px;color:var(--muted)">${esc(o.customer_phone)}</span></td>
+            <td style="font-weight:800">${fmt(o.total)}</td>
+            <td><span class="status-badge ${STATUS_CLASS[o.status]||'s-done'}">${esc(o.status)}</span></td>
+            <td style="font-size:12px;color:var(--muted)">${td(o.date)}</td>
+          </tr>`).join('')}</tbody>
+      </table>`}
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="table-title" style="margin-bottom:12px">💬 Pertanyaan Belum Dijawab</div>
+      ${unans.length === 0 ? '<div class="empty"><div class="empty-icon">🎉</div><div class="empty-text">Semua pertanyaan sudah terjawab!</div></div>' : unans.map(q => `
+        <div style="padding:10px 12px;background:var(--light);border-radius:8px;margin-bottom:8px;border-left:3px solid var(--gold)">
+          <b style="font-size:12px">${esc(q.user_name||'Anonim')}</b> <span style="font-size:11px;color:var(--muted)">· ${esc(q.product_name||'')}</span>
+          <div style="font-size:13px;margin-top:4px">${esc(q.question)}</div>
+        </div>`).join('')}
+      ${unans.length ? `<button class="action-btn primary" style="margin-top:8px" onclick="setTab('qna')">Jawab Sekarang →</button>` : ''}
     </div>
   `;
 }
 
-function setFilter(f) { orderFilter = f; renderOrders(); }
+// ── Orders ──
+function renderOrders(c) {
+  const q = (orderMatch || '').toLowerCase();
+  const filtered = ORDERS.filter(o =>
+    (orderFilter === 'Semua' || o.status === orderFilter) &&
+    (!q || (o.id || '').toLowerCase().includes(q) || (o.customer_name || '').toLowerCase().includes(q) || (o.customer_phone || '').includes(q))
+  );
+  const totalRev = ORDERS.filter(o => o.status !== 'Dibatalkan').reduce((s, o) => s + (o.total || 0), 0);
+
+  c.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card gold"><div class="stat-label">Total Omzet</div><div class="stat-value">${fmt(totalRev)}</div></div>
+      <div class="stat-card blue"><div class="stat-label">Total Order</div><div class="stat-value">${ORDERS.length}</div></div>
+      <div class="stat-card orange"><div class="stat-label">Menunggu Bayar</div><div class="stat-value">${ORDERS.filter(o=>o.status==='Menunggu Pembayaran').length}</div></div>
+      <div class="stat-card red"><div class="stat-label">Dibatalkan</div><div class="stat-value">${ORDERS.filter(o=>o.status==='Dibatalkan').length}</div></div>
+    </div>
+
+    <div class="filter-bar">
+      ${STATUSES.map(s => `<button class="filter-btn${orderFilter===s?' active':''}" onclick="setOrderFilter('${s}')">${s}</button>`).join('')}
+      <button class="filter-btn" style="margin-left:auto" onclick="exportOrders()">📥 Export CSV</button>
+      <button class="action-btn primary" style="padding:6px 14px" onclick="openOrderModal()">+ Pesanan Baru</button>
+    </div>
+
+    <div class="search-bar">
+      <input class="search-input" placeholder="🔍 Cari ID / nama / no HP..." value="${esc(orderMatch)}" oninput="debounce(()=>{orderMatch=this.value;renderOrders(document.getElementById('mainContent'))},300)">
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-head"><div class="table-title">${filtered.length} pesanan</div></div>
+      ${filtered.length === 0 ? '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Tidak ada pesanan ditemukan</div></div>' : `
+      <table>
+        <thead><tr><th>ID</th><th>Pelanggan</th><th>Produk</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody>${filtered.map(o => {
+          let items = [];
+          try { items = JSON.parse(o.items || '[]'); } catch(e){}
+          const itemTxt = items.map(it => `${(it.productName||it.name||'Produk').substring(0,22)} ×${it.qty}`).join('<br>');
+          const phone = (o.customer_phone||'').replace(/[^0-9]/g,'').replace(/^0/,'62');
+          const waText = encodeURIComponent(`Halo ${o.customer_name||''}, update pesanan ${o.id}: ${o.status}`);
+          return `<tr>
+            <td><span class="order-id">${esc(o.id)}</span><br><span style="font-size:10px;color:var(--muted)">${td(o.date)}</span></td>
+            <td><b>${esc(o.customer_name||'-')}</b><br><span style="font-size:11px;color:var(--muted)">${esc(o.customer_phone||'')}</span></td>
+            <td style="font-size:11px;color:var(--mid);max-width:200px">${itemTxt||'-'}</td>
+            <td style="font-weight:800;white-space:nowrap">${fmt(o.total||0)}</td>
+            <td><select class="status-select" onchange="updateStatus('${esc(o.id)}',this.value,this)">
+              ${['Menunggu Pembayaran','Diproses','Dikirim','Selesai','Dibatalkan'].map(s => `<option${o.status===s?' selected':''}>${s}</option>`).join('')}
+            </select></td>
+            <td><div class="action-btns">
+              <a href="https://wa.me/${phone}?text=${waText}" target="_blank" class="action-btn wa">WA</a>
+              <button class="action-btn" onclick="openOrderDetail('${esc(o.id)}')">📋</button>
+              <button class="action-btn" onclick="showResi('${esc(o.id)}','${esc(o.resi||'')}')">📬</button>
+              <button class="action-btn del" onclick="deleteOrder('${esc(o.id)}')">🗑</button>
+            </div></td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>`}
+    </div>
+  `;
+}
+
+function setOrderFilter(f) { orderFilter = f; renderTab(); }
+
+function debounce(fn, ms) { clearTimeout(debounceTimer); debounceTimer = setTimeout(fn, ms); }
 
 function updateStatus(id, status, sel) {
   api('PUT', '/api/orders/' + id, { status })
-    .then(() => { const o = ordersCache.find(x => x.id === id); if (o) o.status = status; updateBadges(); })
-    .catch(e => { alert('Gagal update: ' + e.message); sel.value = ordersCache.find(x => x.id === id)?.status || ''; });
+    .then(() => { const o = ORDERS.find(x => x.id === id); if (o) o.status = status; updateBadges(); toast('Status diubah: ' + status, 'success'); })
+    .catch(e => { toast('Gagal update: ' + e.message, 'error'); sel.value = (ORDERS.find(x => x.id === id) || {}).status || ''; });
 }
 
 function showResi(id, current) {
   const resi = prompt('Masukkan nomor resi:', current || '');
   if (resi === null) return;
   api('PUT', '/api/orders/' + id, { resi })
-    .then(() => { const o = ordersCache.find(x => x.id === id); if (o) o.resi = resi; alert('✅ Resi tersimpan'); })
-    .catch(e => alert('Gagal: ' + e.message));
+    .then(() => { const o = ORDERS.find(x => x.id === id); if (o) o.resi = resi; toast('✅ Resi tersimpan', 'success'); })
+    .catch(e => toast('Gagal: ' + e.message, 'error'));
 }
 
 function deleteOrder(id) {
   if (!confirm('Hapus pesanan ' + id + '? Tidak bisa di-undo.')) return;
   api('DELETE', '/api/orders/' + id)
-    .then(() => { ordersCache = ordersCache.filter(o => o.id !== id); renderOrders(); })
-    .catch(e => alert('Gagal hapus: ' + e.message));
+    .then(() => { ORDERS = ORDERS.filter(o => o.id !== id); renderTab(); toast('Pesanan dihapus', 'success'); })
+    .catch(e => toast('Gagal hapus: ' + e.message, 'error'));
+}
+
+function openOrderDetail(id) {
+  const o = ORDERS.find(x => x.id === id);
+  if (!o) return;
+  let items = [];
+  try { items = JSON.parse(o.items || '[]'); } catch(e){}
+  let complaint = {};
+  try { complaint = JSON.parse(o.complaint || '{}'); } catch(e){}
+  const phone = (o.customer_phone||'').replace(/[^0-9]/g,'').replace(/^0/,'62');
+  openModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>📋 Detail Pesanan <span style="color:var(--gold)">${esc(o.id)}</span></h2>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Dibuat: ${td(o.date)} · Status: <span class="status-badge ${STATUS_CLASS[o.status]||'s-done'}">${esc(o.status)}</span></div>
+    <div class="card" style="padding:14px;margin-bottom:12px">
+      <b style="font-size:14px">👤 ${esc(o.customer_name||'-')}</b><br>
+      <span style="font-size:12px;color:var(--mid)">📱 ${esc(o.customer_phone||'-')}<br>📍 ${esc(o.customer_address||'-')}<br>📝 ${esc(o.customer_note||'-')}</span>
+    </div>
+    <table><thead><tr><th>Produk</th><th>Varian</th><th>Qty</th><th>Harga</th><th>Subtotal</th></tr></thead>
+    <tbody>${items.map(it => `<tr>
+      <td>${esc(it.productName||it.name||'')}</td><td>${esc(it.variant||it.variantName||'-')}</td>
+      <td>${it.qty}</td><td>${fmt(it.price||0)}</td><td>${fmt((it.price||0)*(it.qty||1))}</td>
+    </tr>`).join('') || '<tr><td colspan="5">-</td></tr>'}</tbody></table>
+    <div style="margin-top:12px;font-size:13px">
+      <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Subtotal</span><b>${fmt(o.sub||0)}</b></div>
+      <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Diskon (${o.disc||0}%)</span><b style="color:var(--red)">-${fmt(o.disc_amt||0)}</b></div>
+      <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Member (${o.member_disc||0}%)</span><b style="color:var(--red)">-${fmt(o.member_amt||0)}</b></div>
+      ${(o.voucher_amt||0) ? `<div style="display:flex;justify-content:space-between;padding:3px 0"><span>Voucher</span><b style="color:var(--red)">-${fmt(o.voucher_amt)}</b></div>` : ''}
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--border);font-size:15px"><span>Total</span><b style="color:var(--red)">${fmt(o.total||0)}</b></div>
+    </div>
+    ${o.resi ? `<div style="margin-top:10px;font-size:12px;color:var(--mid)">📬 Resi: <b>${esc(o.resi)}</b></div>` : ''}
+    ${complaint.status ? `<div style="margin-top:10px;padding:10px;background:var(--red-light);border-radius:8px;font-size:12px"><b>🛠️ Komplain:</b> ${esc(complaint.reason||'')} — ${esc(complaint.description||'')} <span class="status-badge s-processing">${esc(complaint.status||'')}</span></div>` : ''}
+    <div class="btn-row">
+      <button class="btn" onclick="closeModal()">Tutup</button>
+      <a class="btn primary" style="text-decoration:none;text-align:center" href="https://wa.me/${phone}?text=${encodeURIComponent('Halo '+o.customer_name+', ini detail pesanan '+o.id)}" target="_blank">💬 Chat WA</a>
+    </div>
+  `);
+}
+
+function openOrderModal() {
+  openModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>➕ Pesanan Baru</h2>
+    <label>Nama Pelanggan</label><input id="om-name" placeholder="Nama lengkap">
+    <label>No. HP</label><input id="om-phone" placeholder="08xxxxxxxxxx">
+    <label>Alamat</label><textarea id="om-address" placeholder="Alamat lengkap"></textarea>
+    <label>Catatan</label><input id="om-note" placeholder="Catatan (opsional)">
+    <label>Total (Rp)</label><input id="om-total" type="number" placeholder="Contoh: 50000">
+    <label>Metode Pembayaran</label>
+    <select id="om-payment"><option>Transfer Bank</option><option>COD</option><option>QRIS</option><option>ShopeePay</option><option>GoPay</option><option>OVO</option><option>DANA</option></select>
+    <label>Status</label>
+    <select id="om-status"><option>Menunggu Pembayaran</option><option>Diproses</option><option>Dikirim</option><option>Selesai</option><option>Dibatalkan</option></select>
+    <div class="btn-row">
+      <button class="btn" onclick="closeModal()">Batal</button>
+      <button class="btn primary" onclick="createOrder()">Simpan</button>
+    </div>
+  `);
+}
+
+async function createOrder() {
+  const name = document.getElementById('om-name').value.trim();
+  const phone = document.getElementById('om-phone').value.trim();
+  const total = Number(document.getElementById('om-total').value);
+  if (!name || !phone || !total) { toast('Nama, HP, dan Total wajib diisi', 'error'); return; }
+  const id = 'ORD-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,5).toUpperCase();
+  const payload = {
+    id, date: new Date().toISOString(),
+    customer: { name, phone, address: document.getElementById('om-address').value, note: document.getElementById('om-note').value },
+    items: [{ productName: 'Pesanan manual', name: 'Pesanan manual', qty: 1, price: total }],
+    sub: total, disc: 0, discAmt: 0, memberDisc: 0, memberAmt: 0, voucherAmt: 0,
+    total, payment: document.getElementById('om-payment').value, status: document.getElementById('om-status').value
+  };
+  try {
+    await api('POST', '/api/orders', payload);
+    closeModal(); toast('Pesanan ' + id + ' dibuat ✅', 'success');
+    fetchAll();
+  } catch (e) { toast('Gagal: ' + e.message, 'error'); }
 }
 
 function exportOrders() {
-  const rows = [['ID','Tanggal','Nama','HP','Alamat','Produk','Total','Status','Resi']];
-  ordersCache.forEach(o => {
-    const items = (o.items||[]).map(it => `${it.productName||it.name||''} x${it.qty}`).join('; ');
-    rows.push([o.id, o.date, o.customer_name, o.customer_phone, o.customer_address, items, o.total, o.status, o.resi||'']);
+  const rows = [['ID','Tanggal','Nama','HP','Alamat','Total','Status','Resi']];
+  ORDERS.forEach(o => {
+    rows.push([o.id, o.date, o.customer_name, o.customer_phone, o.customer_address, o.total, o.status, o.resi||'']);
   });
-  const csv = rows.map(r => r.map(v => `"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const csv = rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g,'""') + '"').join(',')).join('\n');
   const a = document.createElement('a');
   a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
   a.download = 'orders-murah-plastic-' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
+  toast('CSV diexport 📥', 'success');
 }
 
-// ── Q&A Tab ──
-function renderQna() {
-  const sorted = [...qnaCache].sort((a, b) => (a.answer ? 1 : 0) - (b.answer ? 1 : 0) || new Date(b.date) - new Date(a.date));
-  document.getElementById('mainContent').innerHTML = `
-    <div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
-      <div style="font-size:13px;color:#64748b">${qnaCache.filter(q=>!q.answer).length} belum dijawab dari ${qnaCache.length} pertanyaan</div>
+// ── Products ──
+function renderProducts(c) {
+  const q = productSearch.toLowerCase();
+  const cats = [...new Set(PRODUCTS.map(p => p.category))].sort();
+  const filtered = PRODUCTS.filter(p => !q || (p.name||'').toLowerCase().includes(q) || (p.category||'').toLowerCase().includes(q) || (p.short_name||'').toLowerCase().includes(q));
+
+  c.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card green"><div class="stat-label">Total Produk</div><div class="stat-value">${PRODUCTS.length}</div></div>
+      <div class="stat-card gold"><div class="stat-label">Kategori</div><div class="stat-value">${cats.length}</div></div>
+      <div class="stat-card blue"><div class="stat-label">Total Varian</div><div class="stat-value">${PRODUCTS.reduce((s,p)=>s+(p.variants?p.variants.length:0),0)}</div></div>
     </div>
-    <div class="qna-list">
-      ${sorted.length === 0
-        ? `<div class="empty"><div class="empty-icon">💬</div><div class="empty-text">Belum ada pertanyaan</div></div>`
-        : sorted.map(q => `
+
+    <div class="search-bar">
+      <input class="search-input" placeholder="🔍 Cari produk / kategori..." value="${esc(productSearch)}" oninput="debounce(()=>{productSearch=this.value;renderProducts(document.getElementById('mainContent'))},300)">
+      <button class="action-btn primary" style="padding:8px 16px" onclick="openProductModal()">+ Produk Baru</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-head"><div class="table-title">${filtered.length} produk</div></div>
+      ${filtered.length === 0 ? '<div class="empty"><div class="empty-icon">🛍️</div><div class="empty-text">Tidak ada produk ditemukan</div></div>' : `
+      <table>
+        <thead><tr><th>Gambar</th><th>Nama Produk</th><th>Kategori</th><th>Harga</th><th>Varian</th><th>Aksi</th></tr></thead>
+        <tbody>${filtered.map(p => {
+          const variants = p.variants || [];
+          const stock = variants.reduce((s,v)=>s+(v.stock||0),0);
+          const img = p.img || '';
+          return `<tr>
+            <td>${img ? `<img src="${esc(img)}" style="width:44px;height:44px;object-fit:cover;border-radius:8px;border:1px solid var(--border)" onerror="this.style.display='none'">` : '<span style="font-size:22px">🛍️</span>'}</td>
+            <td style="max-width:280px"><b style="font-size:12px">${esc((p.short_name||p.name||'').substring(0,80))}</b><br><span style="font-size:10px;color:var(--muted);font-family:monospace">${esc(p.id)}</span></td>
+            <td><span style="background:var(--gold-light);color:var(--gold);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700">${esc(p.category||'-')}</span></td>
+            <td style="font-weight:800;white-space:nowrap">${fmt(p.min_price||0)}<br><span style="font-size:10px;color:var(--muted);font-weight:600">– ${fmt(p.max_price||0)}</span></td>
+            <td><b>${variants.length}</b> <span style="font-size:10px;color:var(--muted)">varian · stok ${stock.toLocaleString('id-ID')}</span></td>
+            <td><div class="action-btns">
+              <button class="action-btn" onclick="openProductDetail('${esc(p.id)}')">📋</button>
+              <button class="action-btn" onclick="openProductModal('${esc(p.id)}')">✏️</button>
+              <button class="action-btn del" onclick="deleteProduct('${esc(p.id)}')">🗑</button>
+            </div></td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table>`}
+    </div>
+  `;
+}
+
+function openProductDetail(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const variants = p.variants || [];
+  const specs = p.specs || {};
+  openModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>📋 Detail Produk</h2>
+    <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+      ${p.img ? `<img src="${esc(p.img)}" style="width:120px;height:120px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border)" onerror="this.style.display='none'">` : ''}
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:15px;font-weight:800">${esc(p.short_name||p.name)}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">${esc(p.category)} · ID: <span style="font-family:monospace">${esc(p.id)}</span></div>
+        <div style="font-size:13px;color:var(--mid);margin-top:8px"><b>Harga:</b> ${fmt(p.min_price)} – ${fmt(p.max_price)}</div>
+      </div>
+    </div>
+    <table><thead><tr><th>Varian</th><th>Harga</th><th>Stok</th><th>Min Qty</th></tr></thead>
+    <tbody>${variants.map(v => `<tr><td>${esc(v.name)}</td><td>${fmt(v.price)}</td><td>${(v.stock||0).toLocaleString('id-ID')}</td><td>${v.min_qty||1}</td></tr>`).join('') || '<tr><td colspan="4">Tidak ada varian</td></tr>'}</tbody></table>
+    ${Object.keys(specs).length ? `<div style="margin-top:12px;font-size:12px"><b>Spesifikasi:</b><br>${Object.entries(specs).map(([k,v]) => `<span style="color:var(--muted)">${esc(k)}</span>: ${esc(v)}<br>`).join('')}</div>` : ''}
+    ${p.desc ? `<div style="margin-top:12px;font-size:12px;color:var(--mid);max-height:120px;overflow-y:auto">${esc(p.desc).substring(0,600)}...</div>` : ''}
+    <div class="btn-row"><button class="btn" onclick="closeModal()">Tutup</button></div>
+  `);
+}
+
+function openProductModal(id) {
+  const p = id ? PRODUCTS.find(x => x.id === id) : null;
+  const variants = (p && p.variants) ? p.variants : [];
+  openModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>${p ? '✏️ Edit Produk' : '➕ Produk Baru'}</h2>
+    ${p ? `<input type="hidden" id="pm-id" value="${esc(p.id)}">` : ''}
+    <label>Nama Produk</label><input id="pm-name" value="${esc(p?p.name:'')}" placeholder="Nama lengkap produk">
+    <label>Nama Singkat</label><input id="pm-short" value="${esc(p?p.short_name:'')}" placeholder="Nama singkat untuk tampilan">
+    <label>Kategori</label><input id="pm-cat" value="${esc(p?p.category:'')}" placeholder="Contoh: OPP Lem Tebal">
+    <label>URL Gambar</label><input id="pm-img" value="${esc(p?p.img:'')}" placeholder="https://...">
+    <div class="form-row">
+      <div><label>Harga Min (Rp)</label><input id="pm-min" type="number" value="${p?p.min_price:''}"></div>
+      <div><label>Harga Max (Rp)</label><input id="pm-max" type="number" value="${p?p.max_price:''}"></div>
+    </div>
+    <label>Deskripsi</label><textarea id="pm-desc" placeholder="Deskripsi produk...">${esc(p?p.desc:'')}</textarea>
+    <label>Varian (JSON — [{name, price, stock, min_qty}])</label>
+    <textarea id="pm-variants" style="min-height:120px;font-family:monospace;font-size:12px">${esc(JSON.stringify(variants, null, 2))}</textarea>
+    <div class="btn-row">
+      <button class="btn" onclick="closeModal()">Batal</button>
+      <button class="btn primary" onclick="saveProduct()">Simpan</button>
+    </div>
+  `);
+}
+
+async function saveProduct() {
+  const id = (document.getElementById('pm-id')||{}).value || null;
+  let variants = [];
+  try { variants = JSON.parse(document.getElementById('pm-variants').value || '[]'); }
+  catch (e) { toast('Format varian JSON tidak valid', 'error'); return; }
+  const payload = {
+    name: document.getElementById('pm-name').value,
+    short_name: document.getElementById('pm-short').value,
+    category: document.getElementById('pm-cat').value,
+    img: document.getElementById('pm-img').value,
+    min_price: Number(document.getElementById('pm-min').value) || 0,
+    max_price: Number(document.getElementById('pm-max').value) || 0,
+    desc: document.getElementById('pm-desc').value,
+    variants
+  };
+  if (!payload.name) { toast('Nama produk wajib diisi', 'error'); return; }
+  try {
+    if (id) { await api('PUT', '/api/products/' + id, payload); toast('Produk diperbarui ✅', 'success'); }
+    else { await api('POST', '/api/products', payload); toast('Produk dibuat ✅', 'success'); }
+    closeModal(); fetchAll();
+  } catch (e) { toast('Gagal: ' + e.message, 'error'); }
+}
+
+function deleteProduct(id) {
+  if (!confirm('Hapus produk ini? Tidak bisa di-undo.')) return;
+  api('DELETE', '/api/products/' + id)
+    .then(() => { PRODUCTS = PRODUCTS.filter(p => p.id !== id); renderTab(); toast('Produk dihapus', 'success'); })
+    .catch(e => toast('Gagal hapus: ' + e.message, 'error'));
+}
+
+// ── Customers ──
+function renderCustomers(c) {
+  const q = customerSearch.toLowerCase();
+  const filtered = CUSTOMERS.filter(x => !q || (x.name||'').toLowerCase().includes(q) || (x.phone||'').includes(q));
+  c.innerHTML = `
+    <div class="search-bar">
+      <input class="search-input" placeholder="🔍 Cari nama / no HP..." value="${esc(customerSearch)}" oninput="debounce(()=>{customerSearch=this.value;renderCustomers(document.getElementById('mainContent'))},300)">
+    </div>
+    <div class="table-wrap">
+      <div class="table-head"><div class="table-title">${filtered.length} pelanggan</div></div>
+      ${filtered.length === 0 ? '<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Belum ada data pelanggan</div></div>' : `
+      <table>
+        <thead><tr><th>Nama</th><th>No. HP</th><th>Alamat</th><th>Total Pesanan</th><th>Total Belanja</th><th>Aksi</th></tr></thead>
+        <tbody>${filtered.map(x => `
+          <tr>
+            <td><b>${esc(x.name)}</b></td>
+            <td>${esc(x.phone)}</td>
+            <td style="font-size:12px;color:var(--mid);max-width:220px">${esc((x.address||'').substring(0,60))}</td>
+            <td>${x.orders} pesanan</td>
+            <td style="font-weight:800;white-space:nowrap">${fmt(x.total)}</td>
+            <td><div class="action-btns">
+              <button class="action-btn" onclick="openCustomerDetail('${esc(x.phone)}')">📋</button>
+              ${x.phone ? `<a class="action-btn wa" href="https://wa.me/${x.phone.replace(/[^0-9]/g,'').replace(/^0/,'62')}" target="_blank">WA</a>` : ''}
+            </div></td>
+          </tr>`).join('')}</tbody>
+      </table>`}
+    </div>
+  `;
+}
+
+function openCustomerDetail(phone) {
+  const orders = ORDERS.filter(o => (o.customer_phone||'').includes(phone) || (o.customer_phone||'').replace(/^0/,'62').includes(phone.replace(/^0/,'62')));
+  openModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>👤 Riwayat Pelanggan</h2>
+    ${orders.length === 0 ? '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Tidak ada riwayat</div></div>' : `
+    <table><thead><tr><th>ID</th><th>Tanggal</th><th>Total</th><th>Status</th></tr></thead>
+    <tbody>${orders.map(o => `<tr>
+      <td><span class="order-id">${esc(o.id)}</span></td>
+      <td style="font-size:12px">${td(o.date)}</td>
+      <td style="font-weight:800">${fmt(o.total)}</td>
+      <td><span class="status-badge ${STATUS_CLASS[o.status]||'s-done'}">${esc(o.status)}</span></td>
+    </tr>`).join('')}</tbody></table>
+    <div style="margin-top:12px;font-size:14px;font-weight:800">Total belanja: <span style="color:var(--red)">${fmt(orders.reduce((s,o)=>s+(o.total||0),0))}</span></div>`}
+    <div class="btn-row"><button class="btn" onclick="closeModal()">Tutup</button></div>
+  `);
+}
+
+// ── Komplain ──
+function renderKomplain(c) {
+  const komplain = ORDERS.filter(o => o.complaint);
+  c.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card red"><div class="stat-label">Total Komplain</div><div class="stat-value">${komplain.length}</div></div>
+      <div class="stat-card orange"><div class="stat-label">Menunggu Diproses</div><div class="stat-value">${komplain.filter(o=>(JSON.parse(o.complaint||'{}').status||'')==='Menunggu Diproses').length}</div></div>
+      <div class="stat-card green"><div class="stat-label">Selesai</div><div class="stat-value">${komplain.filter(o=>(JSON.parse(o.complaint||'{}').status||'')==='Selesai').length}</div></div>
+    </div>
+    ${komplain.length === 0 ? '<div class="card"><div class="empty"><div class="empty-icon">🛠️</div><div class="empty-text">Tidak ada komplain 🎉</div></div></div>' : komplain.map(o => {
+      let cobj = {};
+      try { cobj = JSON.parse(o.complaint || '{}'); } catch(e){}
+      const phone = (o.customer_phone||'').replace(/[^0-9]/g,'').replace(/^0/,'62');
+      return `<div class="komplain-card">
+        <div class="komplain-header">
+          <div>
+            <div class="komplain-id">${esc(o.id)}</div>
+            <div class="komplain-customer">👤 ${esc(o.customer_name)} · ${esc(o.customer_phone)}</div>
+          </div>
+          <select class="komplain-status-select" onchange="updateKomplainStatus('${esc(o.id)}',this.value)">
+            ${['Menunggu Diproses','Sedang Diproses','Selesai','Ditolak'].map(s => `<option${(cobj.status||'')===s?' selected':''}>${s}</option>`).join('')}
+          </select>
+        </div>
+        <div class="komplain-detail">
+          <b>Alasan:</b> ${esc(cobj.reason||'-')}<br>
+          <b>Deskripsi:</b> ${esc(cobj.description||'-')}<br>
+          ${cobj.receivedDate ? `<b>Diterima:</b> ${esc(cobj.receivedDate)}<br>` : ''}
+          ${cobj.proofUrl ? `<div class="komplain-proof"><img src="${esc(cobj.proofUrl)}" alt="Bukti" onerror="this.style.display='none'"><br><a href="${esc(cobj.proofUrl)}" target="_blank" style="color:var(--gold);font-size:11px;font-weight:700">Lihat bukti →</a></div>` : ''}
+        </div>
+        <div class="action-btns" style="margin-top:8px">
+          ${phone ? `<a class="action-btn wa" href="https://wa.me/${phone}?text=${encodeURIComponent('Halo '+o.customer_name+', terkait komplain order '+o.id)}" target="_blank">💬 Hubungi Customer</a>` : ''}
+        </div>
+      </div>`;
+    }).join('')}
+  `;
+}
+
+function updateKomplainStatus(orderId, status) {
+  const o = ORDERS.find(x => x.id === orderId);
+  if (!o) return;
+  let cobj = {};
+  try { cobj = JSON.parse(o.complaint || '{}'); } catch(e){}
+  cobj.status = status;
+  api('PUT', '/api/orders/' + orderId, { complaint: cobj })
+    .then(() => { o.complaint = JSON.stringify(cobj); updateBadges(); toast('Status komplain: ' + status, 'success'); })
+    .catch(e => toast('Gagal: ' + e.message, 'error'));
+}
+
+// ── Q&A ──
+function renderQna(c) {
+  const unanswered = QUESTIONS.filter(q => !q.answer).sort((a,b) => new Date(b.date) - new Date(a.date));
+  const answered = QUESTIONS.filter(q => q.answer).sort((a,b) => new Date(b.answered_at||b.date) - new Date(a.answered_at||a.date));
+  c.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="qna-grid">
+      <div>
+        <div class="card" style="padding:14px;margin-bottom:12px;background:var(--gold-light)">
+          <div class="table-title" style="color:var(--gold)">⏳ Belum Dijawab (${unanswered.length})</div>
+        </div>
+        ${unanswered.length === 0 ? '<div class="card"><div class="empty"><div class="empty-icon">🎉</div><div class="empty-text">Semua sudah dijawab!</div></div></div>' : `
+        <div class="qna-list">${unanswered.map(q => `
           <div class="qna-card">
             <div class="qna-meta">
-              <span class="qna-user">👤 ${q.user_name||'Anonim'}</span>
-              <span class="qna-product">${(q.product_name||'').substring(0,30)}</span>
-              ${q.answer ? '<span class="answered-badge">✅ Terjawab</span>' : '<span style="background:rgba(245,200,66,.12);color:var(--gold-bright);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700">⏳ Belum dijawab</span>'}
-              <span class="qna-date">${new Date(q.date).toLocaleDateString('id-ID')}</span>
+              <span class="qna-user">👤 ${esc(q.user_name||'Anonim')}</span>
+              <span class="qna-product">${esc((q.product_name||'').substring(0,30))}</span>
+              <span class="qna-date">${td(q.date)}</span>
             </div>
-            <div class="qna-q">${q.question}</div>
-            ${q.answer
-              ? `<div class="answered-text">💬 ${q.answer}</div>`
-              : `<div class="qna-answer">
-                  <textarea id="ans-${q.id}" placeholder="Tulis jawaban..."></textarea>
-                  <button class="qna-answer-btn" onclick="submitAnswer('${q.id}')">Kirim →</button>
-                </div>`
-            }
-          </div>
-        `).join('')}
+            <div class="qna-q">${esc(q.question)}</div>
+            <div class="qna-answer">
+              <textarea id="ans-${esc(q.id)}" placeholder="Tulis jawaban..."></textarea>
+              <button class="qna-answer-btn" onclick="submitAnswer('${esc(q.id)}')">Kirim →</button>
+            </div>
+          </div>`).join('')}</div>`}
+      </div>
+      <div>
+        <div class="card" style="padding:14px;margin-bottom:12px;background:#F0FDF4">
+          <div class="table-title" style="color:#16a34a">✅ Sudah Dijawab (${answered.length})</div>
+        </div>
+        ${answered.length === 0 ? '<div class="card"><div class="empty"><div class="empty-icon">💬</div><div class="empty-text">Belum ada pertanyaan terjawab</div></div></div>' : `
+        <div class="qna-list">${answered.map(q => `
+          <div class="qna-card">
+            <div class="qna-meta">
+              <span class="qna-user">👤 ${esc(q.user_name||'Anonim')}</span>
+              <span class="qna-product">${esc((q.product_name||'').substring(0,30))}</span>
+              <span class="qna-date">${td(q.answered_at||q.date)}</span>
+            </div>
+            <div class="qna-q">${esc(q.question)}</div>
+            <div class="answered-text">💬 ${esc(q.answer)}</div>
+          </div>`).join('')}</div>`}
+      </div>
     </div>
   `;
 }
 
 function submitAnswer(id) {
-  const ans = (document.getElementById('ans-' + id) || {}).value || '';
-  if (!ans.trim()) { alert('Jawaban tidak boleh kosong!'); return; }
+  const ans = ((document.getElementById('ans-' + id)) || {}).value || '';
+  if (!ans.trim()) { toast('Jawaban tidak boleh kosong', 'error'); return; }
   api('PUT', '/api/questions/' + id, { answer: ans })
-    .then(() => { const q = qnaCache.find(x => x.id === id); if (q) q.answer = ans; renderQna(); updateBadges(); })
-    .catch(e => alert('Gagal: ' + e.message));
+    .then(() => { const q = QUESTIONS.find(x => x.id === id); if (q) { q.answer = ans; q.answered_at = new Date().toISOString(); } renderTab(); updateBadges(); toast('Jawaban terkirim ✅', 'success'); })
+    .catch(e => toast('Gagal: ' + e.message, 'error'));
 }
 
-// ── Komplain Tab ──
-function renderKomplain() {
-  const komplain = ordersCache.filter(o => o.complaint);
-  document.getElementById('mainContent').innerHTML = `
-    <div style="margin-bottom:16px;font-size:13px;color:#64748b">${komplain.length} komplain aktif</div>
-    ${komplain.length === 0
-      ? `<div class="empty"><div class="empty-icon">🛠️</div><div class="empty-text">Tidak ada komplain</div></div>`
-      : komplain.map(o => {
-          const c = o.complaint || {};
-          return `<div class="komplain-card">
-            <div class="komplain-header">
-              <div>
-                <div class="komplain-id">${o.id}</div>
-                <div class="komplain-customer">👤 ${o.customer_name} · ${o.customer_phone}</div>
-              </div>
-              <select class="komplain-status-select" onchange="updateKomplainStatus('${o.id}',this.value)">
-                ${['Menunggu Diproses','Sedang Diproses','Selesai','Ditolak'].map(s =>
-                  `<option${(c.status||'')=== s?' selected':''}>${s}</option>`
-                ).join('')}
-              </select>
-            </div>
-            <div class="komplain-detail">
-              <strong>Alasan:</strong> ${c.reason||'-'}<br>
-              <strong>Deskripsi:</strong> ${c.description||'-'}<br>
-              ${c.proofUrl ? `<div class="komplain-proof"><img src="${c.proofUrl}" alt="Bukti"><br><a href="${c.proofUrl}" target="_blank" style="color:var(--gold-bright);font-size:11px">Lihat bukti →</a></div>` : ''}
-            </div>
-          </div>`;
-        }).join('')
-    }
+// ── Articles ──
+function renderArticles(c) {
+  const q = articleSearch.toLowerCase();
+  const filtered = ARTICLES.filter(a => !q || (a.title||'').toLowerCase().includes(q) || (a.category||'').toLowerCase().includes(q));
+  c.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card green"><div class="stat-label">Total Artikel</div><div class="stat-value">${ARTICLES.length}</div></div>
+      <div class="stat-card gold"><div class="stat-label">Published</div><div class="stat-value">${ARTICLES.filter(a=>a.status==='Published').length}</div></div>
+      <div class="stat-card blue"><div class="stat-label">Draft</div><div class="stat-value">${ARTICLES.filter(a=>a.status==='Draft').length}</div></div>
+    </div>
+    <div class="search-bar">
+      <input class="search-input" placeholder="🔍 Cari artikel..." value="${esc(articleSearch)}" oninput="debounce(()=>{articleSearch=this.value;renderArticles(document.getElementById('mainContent'))},300)">
+      <button class="action-btn primary" style="padding:8px 16px" onclick="openArticleModal()">+ Artikel Baru</button>
+    </div>
+    <div class="table-wrap">
+      <div class="table-head"><div class="table-title">${filtered.length} artikel</div></div>
+      ${filtered.length === 0 ? '<div class="empty"><div class="empty-icon">📝</div><div class="empty-text">Belum ada artikel. Klik "+ Artikel Baru" untuk membuat.</div></div>' : `
+      <table>
+        <thead><tr><th>Judul</th><th>Kategori</th><th>Status</th><th>Views</th><th>Tanggal</th><th>Aksi</th></tr></thead>
+        <tbody>${filtered.map(a => `
+          <tr>
+            <td style="max-width:280px"><b style="font-size:13px">${esc(a.title)}</b><br><span style="font-size:10px;color:var(--muted);font-family:monospace">/${esc(a.slug)}</span></td>
+            <td><span style="background:var(--gold-light);color:var(--gold);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700">${esc(a.category||'Blog')}</span></td>
+            <td><span class="status-badge ${a.status==='Published'?'s-shipped':'s-waiting'}">${esc(a.status||'Draft')}</span></td>
+            <td>${a.views||0}</td>
+            <td style="font-size:12px;color:var(--muted)">${td(a.created_at)}</td>
+            <td><div class="action-btns">
+              <button class="action-btn" onclick="openArticleModal('${esc(a.id)}')">✏️</button>
+              <button class="action-btn" onclick="toggleArticle('${esc(a.id)}')">${a.status==='Published'?'⏸ Draft':'🚀 Publish'}</button>
+              <button class="action-btn del" onclick="deleteArticle('${esc(a.id)}')">🗑</button>
+            </div></td>
+          </tr>`).join('')}</tbody>
+      </table>`}
+    </div>
   `;
 }
 
-function updateKomplainStatus(orderId, status) {
-  const o = ordersCache.find(x => x.id === orderId);
-  if (!o) return;
-  const complaint = { ...(o.complaint || {}), status };
-  api('PUT', '/api/orders/' + orderId, { complaint })
-    .then(() => { o.complaint = complaint; updateBadges(); })
-    .catch(e => alert('Gagal: ' + e.message));
+function openArticleModal(id) {
+  const a = id ? ARTICLES.find(x => x.id === id) : null;
+  openModal(`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>${a ? '✏️ Edit Artikel' : '➕ Artikel Baru'}</h2>
+    ${a ? `<input type="hidden" id="am-id" value="${esc(a.id)}">` : ''}
+    <label>Judul</label><input id="am-title" value="${esc(a?a.title:'')}" placeholder="Judul artikel">
+    <div class="form-row">
+      <div><label>Kategori</label><input id="am-cat" value="${esc(a?a.category:'Blog')}" placeholder="Blog / Tips / Panduan"></div>
+      <div><label>Status</label>
+        <select id="am-status"><option${a&&a.status==='Draft'?' selected':''}>Draft</option><option${a&&a.status==='Published'?' selected':''}>Published</option></select>
+      </div>
+    </div>
+    <label>Slug (URL)</label><input id="am-slug" value="${esc(a?a.slug:'')}" placeholder="auto-generated dari judul">
+    <label>URL Gambar Cover</label><input id="am-img" value="${esc(a?a.image:'')}" placeholder="https://...">
+    <label>Konten</label><textarea id="am-content" style="min-height:200px" placeholder="Tulis konten artikel...">${esc(a?a.content:'')}</textarea>
+    <div class="btn-row">
+      <button class="btn" onclick="closeModal()">Batal</button>
+      <button class="btn primary" onclick="saveArticle()">Simpan</button>
+    </div>
+  `);
 }
 
-// ── Mobile Sidebar ──
-function openSidebar() {
-  document.getElementById('sidebar').classList.add('open');
-  document.getElementById('sidebarOverlay').classList.add('open');
+async function saveArticle() {
+  const id = (document.getElementById('am-id')||{}).value || null;
+  const title = document.getElementById('am-title').value.trim();
+  if (!title) { toast('Judul wajib diisi', 'error'); return; }
+  const payload = {
+    title,
+    category: document.getElementById('am-cat').value || 'Blog',
+    status: document.getElementById('am-status').value,
+    slug: document.getElementById('am-slug').value.trim(),
+    image: document.getElementById('am-img').value,
+    content: document.getElementById('am-content').value
+  };
+  try {
+    if (id) { await api('PUT', '/api/articles/' + id, payload); toast('Artikel diperbarui ✅', 'success'); }
+    else { await api('POST', '/api/articles', payload); toast('Artikel dibuat ✅', 'success'); }
+    closeModal(); fetchAll();
+  } catch (e) { toast('Gagal: ' + e.message, 'error'); }
 }
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
+
+function toggleArticle(id) {
+  const a = ARTICLES.find(x => x.id === id);
+  if (!a) return;
+  const next = a.status === 'Published' ? 'Draft' : 'Published';
+  api('PUT', '/api/articles/' + id, { status: next })
+    .then(() => { a.status = next; renderTab(); toast('Status artikel: ' + next, 'success'); })
+    .catch(e => toast('Gagal: ' + e.message, 'error'));
 }
+
+function deleteArticle(id) {
+  if (!confirm('Hapus artikel ini?')) return;
+  api('DELETE', '/api/articles/' + id)
+    .then(() => { ARTICLES = ARTICLES.filter(a => a.id !== id); renderTab(); toast('Artikel dihapus', 'success'); })
+    .catch(e => toast('Gagal hapus: ' + e.message, 'error'));
+}
+
+// ── Reports ──
+function renderReports(c) {
+  const s = STATS || { revenue:0, ordersCount:0, todayCount:0, pending:0, cancelled:0, byStatus:{}, topProducts:[] };
+  const byStatus = s.byStatus || {};
+  const totalByStatus = Object.values(byStatus).reduce((a,b)=>a+b,0) || 1;
+  const statusColors = {'Menunggu Pembayaran':'var(--gold)','Diproses':'#2563eb','Dikirim':'#16a34a','Selesai':'#64748b','Dibatalkan':'var(--red)'};
+  const avg = s.ordersCount ? Math.round(s.revenue / s.ordersCount) : 0;
+
+  c.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card gold"><div class="stat-label">Total Pendapatan</div><div class="stat-value">${fmt(s.revenue)}</div></div>
+      <div class="stat-card blue"><div class="stat-label">Jumlah Pesanan</div><div class="stat-value">${s.ordersCount}</div></div>
+      <div class="stat-card green"><div class="stat-label">Rata-rata Order</div><div class="stat-value">${fmt(avg)}</div></div>
+      <div class="stat-card red"><div class="stat-label">Dibatalkan</div><div class="stat-value">${s.cancelled||0}</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="report-grid">
+      <div class="card">
+        <div class="table-title" style="margin-bottom:12px">🏆 Top 10 Produk Terlaris</div>
+        ${(s.topProducts||[]).length === 0 ? '<div class="empty"><div class="empty-text">Belum ada data</div></div>' : `
+        <table><thead><tr><th>#</th><th>Produk</th><th>Qty Terjual</th></tr></thead>
+        <tbody>${s.topProducts.map((t,i) => `
+          <tr><td style="font-weight:800;color:var(--gold)">${i+1}</td><td style="font-size:12px;max-width:240px">${esc(t.name.substring(0,60))}</td><td><b>${t.qty}</b> pcs</td></tr>`).join('')}</tbody></table>`}
+      </div>
+      <div class="card">
+        <div class="table-title" style="margin-bottom:12px">📊 Distribusi Status Pesanan</div>
+        ${totalByStatus <= 1 ? '<div class="empty"><div class="empty-text">Belum ada data</div></div>' : `
+        <div style="display:flex;flex-direction:column;gap:12px">
+          ${Object.entries(byStatus).map(([st, n]) => `
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:4px">
+                <span>${esc(st)}</span><span>${n} (${Math.round(n/totalByStatus*100)}%)</span>
+              </div>
+              <div style="background:var(--gold-light);border-radius:99px;height:10px;overflow:hidden">
+                <div style="width:${Math.round(n/totalByStatus*100)}%;height:100%;background:${statusColors[st]||'var(--gold)'};border-radius:99px"></div>
+              </div>
+            </div>`).join('')}
+        </div>`}
+      </div>
+    </div>
+
+    <div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end">
+      <button class="action-btn primary" style="padding:8px 16px" onclick="window.print()">🖨️ Cetak / PDF</button>
+    </div>
+  `;
+}
+
+// ── Settings ──
+function renderSettings(c) {
+  c.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="settings-grid">
+      <div class="card">
+        <div class="table-title" style="margin-bottom:12px">🏪 Info Toko</div>
+        <div style="font-size:13px;line-height:2">
+          <b>Nama:</b> Murah Plastic<br>
+          <b>WhatsApp:</b> 0812-9153-8111<br>
+          <b>Alamat:</b> Tangerang 15145<br>
+          <b>Status:</b> <span class="status-badge s-shipped">Aktif</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-title" style="margin-bottom:12px">🔐 Keamanan</div>
+        <div style="font-size:13px;color:var(--mid);margin-bottom:12px">Ubah password admin. Perubahan password perlu konfirmasi developer untuk diterapkan di server.</div>
+        <label style="font-size:12px;font-weight:700;color:var(--mid)">Password Lama</label>
+        <input class="login-input" type="password" id="set-old" placeholder="Password lama">
+        <label style="font-size:12px;font-weight:700;color:var(--mid)">Password Baru</label>
+        <input class="login-input" type="password" id="set-new" placeholder="Password baru (min 8 karakter)">
+        <button class="action-btn primary" style="padding:8px 16px;margin-top:8px" onclick="changePassword()">Simpan Password</button>
+      </div>
+      <div class="card">
+        <div class="table-title" style="margin-bottom:12px">ℹ️ Tentang</div>
+        <div style="font-size:13px;line-height:1.8;color:var(--mid)">
+          <b>Platform:</b> Cloudflare Workers + D1 + R2<br>
+          <b>Versi Admin:</b> 2.0<br>
+          <b>Auto-refresh:</b> 15 detik<br>
+          <b>Toko:</b> <a href="https://murah-plastic.imangoess78.workers.dev" target="_blank" style="color:var(--gold);font-weight:700">murah-plastic.imangoess78.workers.dev</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-title" style="margin-bottom:12px">🧹 Data</div>
+        <div style="font-size:13px;color:var(--mid);margin-bottom:12px">Kelola data toko. Ekspor data untuk backup.</div>
+        <div class="action-btns">
+          <button class="action-btn" onclick="exportOrders()">📥 Export Pesanan (CSV)</button>
+          <button class="action-btn" onclick="exportProducts()">📥 Export Produk (CSV)</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function changePassword() {
+  const oldP = document.getElementById('set-old').value;
+  const newP = document.getElementById('set-new').value;
+  if (!oldP || !newP) { toast('Isi password lama dan baru', 'error'); return; }
+  if (newP.length < 8) { toast('Password baru minimal 8 karakter', 'error'); return; }
+  toast('Fitur ubah password belum aktif di server — hubungi developer', 'info');
+}
+
+function exportProducts() {
+  const rows = [['ID','Nama','Kategori','Harga Min','Harga Max','Varian']];
+  PRODUCTS.forEach(p => {
+    rows.push([p.id, p.name, p.category, p.min_price, p.max_price, (p.variants||[]).map(v=>v.name).join(' | ')]);
+  });
+  const csv = rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g,'""') + '"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = 'produk-murah-plastic-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  toast('CSV produk diexport 📥', 'success');
+}
+
+// ── Modal helpers ──
+function openModal(html) {
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('modalContent').innerHTML = '';
+}
+
+// ── Mobile sidebar ──
+function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebarOverlay').classList.add('open'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
 
 // ── Init ──
-if (!adminToken) {
-  document.getElementById('loginPage').style.display = 'flex';
-} else {
-  startPolling();
-}
+(function init() {
+  if (TOKEN) {
+    startPolling();
+  } else {
+    document.getElementById('loginPage').style.display = 'flex';
+  }
+})();
 </script>
 </body>
 </html>

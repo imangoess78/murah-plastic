@@ -56,3 +56,39 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+
+
+-- Products (admin CRUD + frontpage source)
+CREATE TABLE IF NOT EXISTS products (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  short_name TEXT DEFAULT '',
+  desc TEXT DEFAULT '',
+  category TEXT DEFAULT '',
+  img_key TEXT DEFAULT '',
+  img TEXT DEFAULT '',
+  min_price INTEGER DEFAULT 0,
+  max_price INTEGER DEFAULT 0,
+  variants TEXT DEFAULT '[]',
+  specs TEXT DEFAULT '{}',
+  active INTEGER DEFAULT 1,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
+
+-- Articles / Blog
+CREATE TABLE IF NOT EXISTS articles (
+  id TEXT PRIMARY KEY,
+  slug TEXT NOT NULL UNIQUE,
+  title TEXT NOT NULL,
+  category TEXT DEFAULT 'Blog',
+  content TEXT DEFAULT '',
+  image TEXT DEFAULT '',
+  status TEXT DEFAULT 'Draft',
+  views INTEGER DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_articles_status ON articles(status);
+CREATE INDEX IF NOT EXISTS idx_articles_created ON articles(created_at DESC);
