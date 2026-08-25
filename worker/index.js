@@ -21,6 +21,7 @@ function json(data, status = 200) {
 }
 
 import { PRODUCTS_SEED } from './products_seed.js';
+import { renderProduct, renderPost, renderArticles } from './pages.js';
 
 function slugify(s) {
   return String(s || '').toLowerCase().trim()
@@ -80,6 +81,25 @@ export default {
       headers.set('Content-Type', obj.httpMetadata?.contentType || 'image/jpeg');
       headers.set('Access-Control-Allow-Origin', '*');
       return new Response(obj.body, { headers });
+    }
+
+    // ── Halaman publik: single product, single post, artikel list, cart, checkout, tentang kami, faq ──
+    if (path.startsWith('/produk/')) {
+      const pid = decodeURIComponent(path.slice('/produk/'.length));
+      await ensureProducts(env);
+      const page = await renderProduct(env, pid);
+      if (!page) return new Response('Produk tidak ditemukan', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+      return new Response(page.html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=300' } });
+    }
+    if (path.startsWith('/artikel/')) {
+      const slug = decodeURIComponent(path.slice('/artikel/'.length));
+      const page = await renderPost(env, slug);
+      if (!page) return new Response('Artikel tidak ditemukan', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+      return new Response(page.html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=300' } });
+    }
+    if (path === '/artikel') {
+      const page = await renderArticles(env);
+      return new Response(page.html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=300' } });
     }
 
     if (!path.startsWith('/api/')) return env.ASSETS.fetch(request);

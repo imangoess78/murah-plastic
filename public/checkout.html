@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — Murah Plastic</title>
+<meta name="description" content="Selesaikan pesanan plastik OPP kamu. Pembayaran mudah via transfer, GoPay, OVO, atau QRIS.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23C8191A'/><text x='50' y='68' font-size='50' font-weight='900' fill='white' text-anchor='middle'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="page-title">✅ Checkout</div>
+    <div class="page-sub">Isi data pengiriman dan pilih metode pembayaran untuk menyelesaikan pesanan.</div>
+  </div>
+
+  <div class="co-wrap" id="coWrap">
+    <!-- akan diisi JS -->
+  </div>
+</div>
+
+<footer class="footer" id="site-footer"></footer>
+<script src="/assets/site.js"></script>
+<script>
+(function () {
+  const SP = MP;
+  const DISC_TIERS = [{min:100,pct:20},{min:50,pct:10},{min:10,pct:5},{min:5,pct:2}];
+  const MEMBER_DISCOUNT = 10;
+  const WA = '628129153811';
+  const PAYMENTS = [
+    { id:'Transfer', icon:'🏦', name:'Transfer Bank', sub:'BCA / BRI / Mandiri / BNI' },
+    { id:'GoPay', icon:'📱', name:'GoPay', sub:'Dompet digital' },
+    { id:'OVO', icon:'💜', name:'OVO', sub:'Dompet digital' },
+    { id:'QRIS', icon:'🔳', name:'QRIS', sub:'Semua e-wallet & m-banking' }
+  ];
+
+  let selPay = null;
+
+  function getDisc(qty) {
+    for (const t of DISC_TIERS) if (qty >= t.min) return t.pct;
+    return 0;
+  }
+
+  function render() {
+    const cart = SP.getCart();
+    const wrap = document.getElementById('coWrap');
+
+    if (!cart.length) {
+      wrap.innerHTML = '<div class="cart-empty" style="background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)"><div class="cart-empty-icon">🛒</div><div class="cart-empty-title">Keranjang kosong</div><div class="cart-empty-sub">Tambahkan produk dulu sebelum checkout.</div><a class="btn-red" href="/#produkSection">🛍️ Mulai Belanja</a></div>';
+      return;
+    }
+
+    const sub = cart.reduce((s, c) => s + c.price * c.qty, 0);
+    const tq = cart.reduce((s, c) => s + c.qty, 0);
+    const discPct = getDisc(tq);
+    const discAmt = sub * discPct / 100;
+    const afterDisc = sub - discAmt;
+    const memberDisc = MEMBER_DISCOUNT; // selamanya member 10%
+    const memberAmt = afterDisc * memberDisc / 100;
+    const total = afterDisc - memberAmt;
+    const freeShip = sub >= 500000;
+
+    const itemsRows = cart.map(c => `
+      <div class="order-row">
+        <span style="flex:1">${SP.esc(c.productName.replace(/\(.*?\)/g,'').trim().substring(0,40))} — ${SP.esc(c.variantName)} <strong>× ${c.qty}</strong></span>
+        <span style="font-weight:700">${SP.fmt(c.price * c.qty)}</span>
+      </div>`).join('');
+
+    wrap.innerHTML = `
+      <div class="co-card">
+        <div class="co-card-title">📋 Ringkasan Pesanan</div>
+        ${itemsRows}
+        <div class="order-row" style="margin-top:8px"><span>Subtotal</span><span>${SP.fmt(sub)}</span></div>
+        ${discPct > 0 ? `<div class="order-row" style="color:#16A34A"><span>Diskon ${discPct}%</span><span>-${SP.fmt(discAmt)}</span></div>` : ''}
+        <div class="order-row" style="color:#16A34A"><span>Diskon Member ${memberDisc}%</span><span>-${SP.fmt(memberAmt)}</span></div>
+        <div class="order-row"><span>Ongkir</span><span>${freeShip ? '✅ Gratis' : 'Dihitung saat konfirmasi'}</span></div>
+        <div class="order-row" style="font-weight:900;font-size:15px;color:var(--dark);border-top:1px solid var(--border);margin-top:8px;padding-top:12px"><span>Total</span><span>${SP.fmt(total)}</span></div>
+      </div>
+
+      <div class="co-card">
+        <div class="co-card-title">📍 Data Penerima</div>
+        <div class="fg">
+          <label class="fl">Nama Lengkap *</label>
+          <input class="fi" id="coName" placeholder="Nama penerima" autocomplete="name">
+        </div>
+        <div class="fg">
+          <label class="fl">No. WhatsApp / HP *</label>
+          <input class="fi" id="coPhone" type="tel" placeholder="08xxxxxxxxxx" autocomplete="tel">
+        </div>
+        <div class="fg">
+          <label class="fl">Alamat Lengkap *</label>
+          <textarea class="fta" id="coAddr" placeholder="Jalan, nomor rumah, kelurahan, kecamatan, kota, kode pos"></textarea>
+        </div>
+        <div class="fg">
+          <label class="fl">Catatan (opsional)</label>
+          <textarea class="fta" id="coNote" placeholder="Catatan untuk penjual, misal warna/ketebalan tertentu"></textarea>
+        </div>
+      </div>
+
+      <div class="co-card">
+        <div class="co-card-title">💳 Metode Pembayaran</div>
+        <div class="pay-grid">
+          ${PAYMENTS.map(p => `
+            <div class="pay-opt${selPay === p.id ? ' sel' : ''}" onclick="selPayFn('${p.id}')">
+              <span class="pay-icon">${p.icon}</span>
+              <div><div class="pay-name">${p.name}</div><div class="pay-sub">${p.sub}</div></div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <button class="place-btn" id="placeBtn" onclick="placeOrder()">🛒 Buat Pesanan — ${SP.fmt(total)}</button>
+      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">Pesanan akan dikonfirmasi via WhatsApp. Pembayaran menunggu konfirmasi admin.</p>
+    `;
+  }
+
+  window.selPayFn = function(id) { selPay = id; render(); };
+
+  window.placeOrder = async function() {
+    const cart = SP.getCart();
+    if (!cart.length) return;
+    const name = document.getElementById('coName').value.trim();
+    const phone = document.getElementById('coPhone').value.trim();
+    const addr = document.getElementById('coAddr').value.trim();
+    const note = document.getElementById('coNote').value.trim();
+    if (!name || !phone || !addr) { alert('Lengkapi nama, no. HP, dan alamat dulu ya!'); return; }
+    if (!selPay) { alert('Pilih metode pembayaran dulu ya!'); return; }
+
+    const sub = cart.reduce((s, c) => s + c.price * c.qty, 0);
+    const tq = cart.reduce((s, c) => s + c.qty, 0);
+    const disc = getDisc(tq);
+    const discAmt = sub * disc / 100;
+    const afterDisc = sub - discAmt;
+    const memberDisc = MEMBER_DISCOUNT;
+    const memberAmt = afterDisc * memberDisc / 100;
+    const total = afterDisc - memberAmt;
+    const voucherAmt = 0;
+
+    const id = 'MP-' + Date.now().toString(36).toUpperCase();
+    const order = {
+      id,
+      date: new Date().toISOString(),
+      customer: { name, phone, address: addr, note },
+      items: cart.map(c => ({ productId: c.productId, productName: c.productName, variantName: c.variantName, price: c.price, qty: c.qty })),
+      sub, disc, discAmt, memberDisc, memberAmt, voucherAmt, total,
+      payment: selPay,
+      status: 'Menunggu Konfirmasi'
+    };
+
+    const btn = document.getElementById('placeBtn');
+    btn.disabled = true; btn.textContent = 'Mengirim pesanan...';
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+      });
+      if (!res.ok) throw new Error(await res.text());
+
+      SP.saveCart([]);
+      SP.updateCartBadge();
+
+      const itemsText = cart.map(c => `- ${c.productName} (${c.variantName}) × ${c.qty} = ${SP.fmt(c.price * c.qty)}`).join('\n');
+      const waMsg = encodeURIComponent(
+        `Halo Admin Murah Plastic! Saya baru saja membuat pesanan:\n\n` +
+        `*No. Pesanan:* ${id}\n` +
+        `*Nama:* ${name}\n` +
+        `*No. HP:* ${phone}\n` +
+        `*Alamat:* ${addr}\n` +
+        `*Payment:* ${selPay}\n\n` +
+        `*Detail Pesanan:*\n${itemsText}\n\n` +
+        `*Total: ${SP.fmt(total)}*\n` +
+        `(catatan: ${note || '-'})`
+      );
+
+      document.getElementById('coWrap').innerHTML = `
+        <div class="success-box" style="background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)">
+          <div class="success-icon">🎉</div>
+          <div class="success-title">Pesanan Berhasil Dibuat!</div>
+          <div class="order-id-badge">${id}</div>
+          <div class="success-sub">
+            Terima kasih, <strong>${SP.esc(name)}</strong>!<br>
+            Pesanan kamu sudah kami terima dan akan segera dikonfirmasi admin via WhatsApp.<br>
+            Silakan klik tombol di bawah untuk konfirmasi cepat ke admin.
+          </div>
+          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+            <a class="btn-red" href="https://wa.me/${WA}?text=${waMsg}" target="_blank" rel="noopener">💬 Konfirmasi via WhatsApp</a>
+            <a class="btn-outline" href="/">← Kembali ke Home</a>
+          </div>
+        </div>`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (e) {
+      console.error('order failed', e);
+      btn.disabled = false; btn.textContent = '🛒 Buat Pesanan — ' + SP.fmt(total);
+      alert('Gagal mengirim pesanan. Coba lagi ya!');
+    }
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>

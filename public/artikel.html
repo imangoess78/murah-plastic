@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Artikel & Tips — Murah Plastic</title>
+<meta name="description" content="Panduan memilih plastik OPP, tips packaging UMKM, dan info seputar kemasan produk dari Murah Plastic.">
+<link rel="canonical" href="https://murah-plastic.imangoess78.workers.dev/artikel">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Artikel & Tips — Murah Plastic">
+<meta property="og:description" content="Panduan memilih plastik OPP, tips packaging UMKM, dan info seputar kemasan produk dari Murah Plastic.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23C8191A'/><text x='50' y='68' font-size='50' font-weight='900' fill='white' text-anchor='middle'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="page-title">📝 Artikel & Tips</div>
+    <div class="page-sub">Panduan memilih plastik OPP, tips packaging untuk UMKM, dan info seputar kemasan produk.</div>
+  </div>
+  <div id="articleList" style="padding-bottom:40px">
+    <div style="text-align:center;padding:50px 0;color:var(--muted)">Memuat artikel...</div>
+  </div>
+</div>
+
+<footer class="footer" id="site-footer"></footer>
+<script src="/assets/site.js"></script>
+<script>
+(function () {
+  const SP = MP;
+  const el = document.getElementById('articleList');
+  const fmtDate = d => { try { return new Date(d).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}); } catch(e){ return String(d||'').slice(0,10); } };
+  const stripHtml = s => String(s||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+  const trunc = (s,n) => { const t=stripHtml(s); return t.length>n ? t.slice(0,n).trimEnd()+'…' : t; };
+
+  fetch('/api/articles').then(r => r.json()).then(arr => {
+    if (!arr || !arr.length) {
+      el.innerHTML = '<div class="cart-empty" style="padding:60px 0"><div class="cart-empty-icon">📝</div><div class="cart-empty-title">Belum Ada Artikel</div><div class="cart-empty-sub">Artikel & tips seputar plastik OPP akan segera hadir. Sambil menunggu, yuk lihat koleksi produk kami.</div><a class="btn-red" href="/#produkSection">🛒 Lihat Produk</a></div>';
+      return;
+    }
+    el.innerHTML = `<div class="a-grid">${arr.map(a => `
+      <a class="a-card" href="/artikel/${encodeURIComponent(a.slug)}">
+        ${a.image ? `<div class="a-thumb"><img src="${a.image.replace(/^https:\/\/pub-[a-f0-9]+\.r2\.dev\//,'/img/')}" alt="${SP.esc(a.title)}" loading="lazy" onerror="this.parentElement.textContent='📝'"></div>` : '<div class="a-thumb">📝</div>'}
+        <div class="a-body">
+          <div class="a-tag">${SP.esc(a.category || 'Blog')}</div>
+          <div class="a-title">${SP.esc(a.title)}</div>
+          <div class="a-desc">${SP.esc(trunc(a.content, 110))}</div>
+          <div class="a-meta">📅 ${fmtDate(a.created_at)} · 👁️ ${Number(a.views || 0)}x dibaca</div>
+          <div class="a-read">Baca selengkapnya →</div>
+        </div>
+      </a>`).join('')}</div>`;
+  }).catch(() => {
+    el.innerHTML = '<div class="cart-empty" style="padding:60px 0"><div class="cart-empty-icon">😕</div><div class="cart-empty-title">Gagal Memuat Artikel</div><div class="cart-empty-sub">Coba muat ulang halaman ini, atau hubungi admin via WhatsApp.</div><a class="btn-red" href="https://wa.me/628129153811" target="_blank" rel="noopener">💬 Chat WhatsApp</a></div>';
+  });
+})();
+</script>
+</body>
+</html>

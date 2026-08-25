@@ -886,10 +886,10 @@ a{text-decoration:none;color:inherit}
 <div class="topbar">
   <div class="topbar-links">
     <a href="javascript:void(0)" onclick="openAdmin()" style="color:var(--gold-bright);font-weight:700">⚡ Admin</a>
-    <a href="#">Tentang Kami</a>
+    <a href="/tentang-kami">Tentang Kami</a>
     <a href="javascript:void(0)" onclick="openTracking()">📦 Lacak Pesanan</a>
     <a href="javascript:void(0)" onclick="openRetur()">🔄 Retur & Komplain</a>
-    <a href="#">FAQ</a>
+    <a href="/faq">FAQ</a>
     <a href="https://shopee.co.id/murahplastic" target="_blank">Toko Shopee</a>
   </div>
   <div class="topbar-right">
@@ -1209,10 +1209,12 @@ a{text-decoration:none;color:inherit}
       <div>
         <div class="f-col-title">Informasi</div>
         <ul class="f-links">
+          <li><a href="/artikel">📝 Artikel & Tips</a></li>
+          <li><a href="/tentang-kami">Tentang Kami</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/cart">🛒 Keranjang</a></li>
           <li><a href="javascript:void(0)" onclick="openTracking()">📦 Lacak Pesanan</a></li>
-          <li><a href="#">Kebijakan Pengiriman</a></li>
-          <li><a href="javascript:void(0)" onclick="openRetur()">🔄 Retur & Komplain</a>
-    <a href="#">FAQ</a></li>
+          <li><a href="javascript:void(0)" onclick="openRetur()">🔄 Retur & Komplain</a></li>
           <li><a href="https://shopee.co.id/murahplastic" target="_blank">Toko Shopee</a></li>
         </ul>
       </div>
@@ -2017,6 +2019,9 @@ function getMinPack(p){return (p&&NO_MIN_IDS.includes(p.id))?1:5;}
 // isi manual ID produk yang paling laku berdasarkan data penjualan asli di Shopee/Tokopedia dll.
 const BESTSELLER_IDS=['29463366459','19626400134'];
 let cart=[],curProd=null,selVar=null,curCat='Semua',selPay=null,slideIdx=0;
+// Cart di-persist ke localStorage supaya halaman /cart dan /checkout bisa baca (key: mp_cart)
+try{const _c=JSON.parse(localStorage.getItem('mp_cart')||'[]');if(Array.isArray(_c))cart=_c;}catch(e){}
+function saveCartLS(){try{localStorage.setItem('mp_cart',JSON.stringify(cart));}catch(e){}}
 let mixCart={};
 // Login admin sekarang pakai Firebase Authentication beneran (lihat doAdminLogin()),
 // bukan password yang dicek di JavaScript lagi — makanya konstanta ADMIN_PASS udah dihapus.
@@ -2361,7 +2366,7 @@ function pdAddToCart(){
     else cart.push({key,productId:p.id,productName:p.name,variantName:vname,price:v.price,qty,img:getImg(p)});
   });
   mixCart[p.id]={};
-  updateCount();closePD();
+  updateCount();saveCartLS();closePD();
 }
 
 function pdBuyNow(){pdAddToCart();setTimeout(goCheckout,100);}
@@ -2433,8 +2438,8 @@ function renderCart(){
   if(ft)ft.style.display='block';
 }
 
-function cqty(i,d){cart[i].qty=Math.max(1,cart[i].qty+d);updateCount();renderCart();}
-function rmItem(i){cart.splice(i,1);updateCount();renderCart();}
+function cqty(i,d){cart[i].qty=Math.max(1,cart[i].qty+d);updateCount();renderCart();saveCartLS();}
+function rmItem(i){cart.splice(i,1);updateCount();renderCart();saveCartLS();}
 
 // ── CHECKOUT ──
 function goCheckout(){
@@ -2745,7 +2750,7 @@ async function placeOrder(){
   // Langsung buka WA ke toko otomatis begitu pesanan dibuat
   sendStoreNotif();
 
-  cart=[];appliedVoucher=null;updateCount();
+  cart=[];appliedVoucher=null;updateCount();saveCartLS();
 
   document.getElementById('checkoutPage').classList.remove('show');
 
@@ -3795,7 +3800,7 @@ const snap={exists:!!(_ord&&_ord.id),data:()=>_ord};
     else cart.push({key,productId:item.productId,productName:p.name,variantName:item.variantName,price:v.price,qty:item.qty,img:getImg(p)});
     addedCount++;
   });
-  updateCount();
+  updateCount();saveCartLS();
   const tOverlay=document.getElementById('trackingOverlay');if(tOverlay)tOverlay.classList.remove('open');
   if(addedCount>0){
     openCart();

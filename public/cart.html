@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Keranjang Belanja — Murah Plastic</title>
+<meta name="description" content="Keranjang belanja Murah Plastic — distributor plastik OPP termurah se-Indonesia.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23C8191A'/><text x='50' y='68' font-size='50' font-weight='900' fill='white' text-anchor='middle'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="page-title">🛒 Keranjang Belanja</div>
+    <div class="page-sub">Kelola pesanan plastik OPP kamu sebelum checkout.</div>
+  </div>
+  <div class="cart-layout" id="cartLayout">
+    <div class="cart-card" id="cartItemsCard">
+      <div class="cart-card-title">📦 Item Pesanan</div>
+      <div id="cartItemsList"></div>
+    </div>
+    <div class="cart-card" id="cartSummary">
+      <div class="cart-card-title">🧾 Ringkasan</div>
+      <div id="summaryContent"></div>
+      <a class="btn-red" id="checkoutBtn" href="/checkout" style="width:100%;margin-top:14px;text-align:center">✅ Lanjut ke Checkout</a>
+      <a class="btn-outline" href="/#produkSection" style="width:100%;margin-top:10px;text-align:center">← Lanjut Belanja</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer" id="site-footer"></footer>
+<script src="/assets/site.js"></script>
+<script>
+(function () {
+  const DISC_TIERS = [{min:100,pct:20},{min:50,pct:10},{min:10,pct:5},{min:5,pct:2}];
+  const SP = MP;
+
+  function render() {
+    const cart = SP.getCart();
+    const list = document.getElementById('cartItemsList');
+    const sum = document.getElementById('summaryContent');
+
+    if (!cart.length) {
+      list.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div class="cart-empty-title">Keranjang kosong</div><div class="cart-empty-sub">Belum ada produk yang ditambahkan. Yuk mulai belanja!</div><a class="btn-red" href="/#produkSection">🛍️ Mulai Belanja</a></div>';
+      document.getElementById('checkoutBtn').style.display = 'none';
+      sum.innerHTML = '<div style="font-size:13px;color:var(--muted);text-align:center;padding:20px 0">—</div>';
+      return;
+    }
+
+    list.innerHTML = cart.map((item, i) => `
+      <div class="c-item">
+        <div class="c-item-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--light)">📦</div>
+        <div class="c-item-info">
+          <a class="c-item-name" href="/produk/${encodeURIComponent(item.productId)}">${SP.esc(item.productName.replace(/\(.*?\)/g,'').trim().substring(0,46))}</a>
+          <div class="c-item-var">${SP.esc(item.variantName)}</div>
+          <div class="c-item-price">${SP.fmt(item.price)} / pack</div>
+          <div class="c-qty-row">
+            <button class="cqb" onclick="cqty(${i},-1)">−</button>
+            <span style="font-weight:700;min-width:22px;text-align:center">${item.qty}</span>
+            <button class="cqb" onclick="cqty(${i},1)">+</button>
+            <button class="c-remove" onclick="rmItem(${i})">✕ Hapus</button>
+          </div>
+        </div>
+        <div class="c-subtotal">${SP.fmt(item.price * item.qty)}</div>
+      </div>
+    `).join('');
+
+    const sub = cart.reduce((s, c) => s + c.price * c.qty, 0);
+    const tq = cart.reduce((s, c) => s + c.qty, 0);
+    const discPct = getDisc(tq);
+    const discAmt = sub * discPct / 100;
+    const afterDisc = sub - discAmt;
+    const freeShip = sub >= 500000;
+
+    sum.innerHTML = `
+      <div class="sum-row"><span>Total Item</span><span>${tq} pack</span></div>
+      <div class="sum-row"><span>Subtotal</span><span>${SP.fmt(sub)}</span></div>
+      ${discPct > 0 ? `<div class="sum-row" style="color:#16A34A;font-weight:700"><span>Diskon ${discPct}%</span><span>-${SP.fmt(discAmt)}</span></div>` : ''}
+      <div class="sum-row"><span>Ongkir</span><span>${freeShip ? '✅ Gratis' : 'Dihitung saat konfirmasi'}</span></div>
+      <div class="sum-row grand"><span>Total</span><span>${SP.fmt(afterDisc)}</span></div>
+      ${freeShip ? '<div style="font-size:12px;color:#16A34A;font-weight:600;margin-top:8px">🚚 Gratis ongkir!</div>' : '<div style="font-size:12px;color:var(--muted);margin-top:8px">💰 Belanja Rp500rb+ gratis ongkir</div>'}
+    `;
+  }
+
+  function getDisc(qty) {
+    for (const t of DISC_TIERS) if (qty >= t.min) return t.pct;
+    return 0;
+  }
+
+  window.cqty = function(i, d) {
+    const cart = SP.getCart();
+    if (!cart[i]) return;
+    cart[i].qty = Math.max(1, cart[i].qty + d);
+    SP.saveCart(cart);
+    SP.updateCartBadge();
+    render();
+  };
+
+  window.rmItem = function(i) {
+    const cart = SP.getCart();
+    cart.splice(i, 1);
+    SP.saveCart(cart);
+    SP.updateCartBadge();
+    render();
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>
