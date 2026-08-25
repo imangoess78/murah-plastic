@@ -1,0 +1,16 @@
+{
+  "name": "murah-plastic",
+  "version": "1.0.0",
+  "description": "Murah Plastic — Toko Plastik OPP Online",
+  "scripts": {
+    "dev": "wrangler dev --port 3030",
+    "build": "echo 'Static site — no build step needed'",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create murah-plastic-db",
+    "db:migrate": "wrangler d1 execute murah-plastic-db --file=./schema.sql",
+    "db:migrate:prod": "wrangler d1 execute murah-plastic-db --remote --file=./schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^4.125.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "murah-plastic",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "murah-plastic-db",
+      "database_id": "REPLACE_WITH_D1_ID"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "murah-plastic-media"
+    }
+  ]
+}
