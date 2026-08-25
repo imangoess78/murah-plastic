@@ -4,8 +4,17 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
+// Rewrite URL gambar R2 publik -> route lokal /img/ (anti blokir domain eksternal di jaringan pengguna)
+const IMG_RE = /https:\/\/pub-[a-f0-9]+\.r2\.dev\/products\//g;
+function rewriteImg(v) {
+  if (typeof v === 'string') return v.replace(IMG_RE, '/img/products/');
+  if (Array.isArray(v)) return v.map(rewriteImg);
+  if (v && typeof v === 'object') { const o = {}; for (const k in v) o[k] = rewriteImg(v[k]); return o; }
+  return v;
+}
+
 function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
+  return new Response(JSON.stringify(rewriteImg(data)), {
     status,
     headers: { 'Content-Type': 'application/json', ...CORS },
   });
@@ -57,6 +66,22 @@ export default {
     const path = url.pathname;
 
     if (request.method === 'OPTIONS') return new Response(null, { headers: CORS });
+
+    // ── GET /img/* — serve gambar produk dari R2 binding (domain sendiri, cache permanen) ──
+    if (path.startsWith('/img/')) {
+      const key = path.slice(1).replace(/^img\//, ''); // "products/img_001.jpeg"
+      if (!key || key.split('/').length < 2) return new Response('Not Found', { status: 404 });
+      const obj = await env.R2.get(key);
+      if (!obj) return new Response('Not Found', { status: 404 });
+      const headers = new Headers();
+      obj.writeHttpMetadata(headers);
+      headers.set('etag', obj.httpEtag);
+      headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+      headers.set('Content-Type', obj.httpMetadata?.contentType || 'image/jpeg');
+      headers.set('Access-Control-Allow-Origin', '*');
+      return new Response(obj.body, { headers });
+    }
+
     if (!path.startsWith('/api/')) return env.ASSETS.fetch(request);
 
     // ── POST /api/admin/login ──
