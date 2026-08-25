@@ -2686,7 +2686,7 @@ async function placeOrder(){
   // Simpan order ke Firestore (database pusat — bisa diakses admin dari device manapun)
   // Catatan: data disimpan sebagai objek "customer" (bukan field rata name/phone/addr)
   // karena admin dashboard, pesan update status WA, dan export CSV semuanya
-  // membaca lewat o.customer.name / o.customer.phone / o.customer.address.
+  // membaca lewat o.customer_name / o.customer_phone / o.customer_address.
   // Status awal juga dipakai dalam Bahasa Indonesia ("Menunggu Pembayaran") supaya
   // konsisten dengan filter admin, badge status, dan halaman Lacak Pesanan.
   const newOrder={
@@ -3373,9 +3373,9 @@ let adminQuestionsUnsub=null;
 
 let adminPollInterval=null;
 async function startAdminListeners(){
-  if(adminPollInterval)return;
-  adminPollInterval=true; // mark as loading agar renderAdminContent tidak loop
-  await fetchAdminData();
+  if(adminPollInterval&&adminPollInterval!==true)return;
+  adminPollInterval=true; // mark loading — cegah re-entry
+  try{ await fetchAdminData(); }catch(e){ console.error(e); }
   adminPollInterval=setInterval(fetchAdminData,10000);
 }
 async function fetchAdminData(){
@@ -3427,6 +3427,10 @@ function renderAdminContent(){
   if(!adminPollInterval){
     el.innerHTML=`<div style="padding:60px 20px;text-align:center;color:rgba(255,255,255,.6)">⏳ Menghubungkan ke database...</div>`;
     startAdminListeners();
+    return;
+  }
+  if(adminPollInterval===true){
+    el.innerHTML=`<div style="padding:60px 20px;text-align:center;color:rgba(255,255,255,.6)">⏳ Memuat data...</div>`;
     return;
   }
 
@@ -3500,11 +3504,11 @@ function renderAdminContent(){
             'Dibatalkan':'status-cancel'
           }[o.status]||'status-waiting';
           
-          const itemsText=o.items.map(it=>`${it.productName.replace(/\(.*?\)/g,'').trim().substring(0,35)} × ${it.qty} pack`).join(', ');
+          const itemsText=o.items.map(it=>`${(it.productName||it.name||"Produk").replace(/\(.*?\)/g,'').trim().substring(0,35)} × ${it.qty} pack`).join(', ');
           
           // Build WA message for this order
-          const itemsWA=o.items.map(it=>`• ${it.productName.replace(/\(.*?\)/g,'').trim().substring(0,40)} - ${it.variantName} × ${it.qty} pack`).join('%0A');
-          const waMsg=`📦 *Update Pesanan ${o.id}*%0A%0AHalo ${o.customer.name},%0A%0AStatus pesanan kamu: *${o.status}*%0A%0A${itemsWA}%0A%0ATotal: ${fmt(o.total)}%0A%0ATerima kasih sudah belanja di Murah Plastic! 🙏`;
+          const itemsWA=o.items.map(it=>`• ${(it.productName||it.name||"Produk").replace(/\(.*?\)/g,'').trim().substring(0,40)} - ${(it.variantName||"")} × ${it.qty} pack`).join('%0A');
+          const waMsg=`📦 *Update Pesanan ${o.id}*%0A%0AHalo ${o.customer_name},%0A%0AStatus pesanan kamu: *${o.status}*%0A%0A${itemsWA}%0A%0ATotal: ${fmt(o.total)}%0A%0ATerima kasih sudah belanja di Murah Plastic! 🙏`;
           
           return `<div class="admin-order-card">
             <div class="admin-order-header">
@@ -3517,9 +3521,9 @@ function renderAdminContent(){
               </select>
             </div>
             <div class="admin-order-customer">
-              👤 <strong>${o.customer.name}</strong> · 📱 ${o.customer.phone}<br>
-              📍 ${o.customer.address}
-              ${o.customer.note?`<br>📝 ${o.customer.note}`:''}
+              👤 <strong>${o.customer_name}</strong> · 📱 ${o.customer_phone}<br>
+              📍 ${o.customer_address}
+              ${o.customer_note?`<br>📝 ${o.customer_note}`:''}
             </div>
             <div class="admin-order-items">${itemsText}</div>
             <div class="admin-order-footer">
@@ -3528,7 +3532,7 @@ function renderAdminContent(){
                 <div style="font-size:11px;color:rgba(255,255,255,0.4)">via ${o.payment||'-'} ${o.freeShip?'· Gratis Ongkir':''}</div>
               </div>
               <div class="admin-order-actions">
-                <a href="https://wa.me/${(o.customer.phone||'').replace(/[^0-9]/g,'').replace(/^0/,'62')}?text=${waMsg}" 
+                <a href="https://wa.me/${(o.customer_phone||'').replace(/[^0-9]/g,'').replace(/^0/,'62')}?text=${waMsg}" 
                   target="_blank" class="admin-action-btn admin-wa-btn">💬 WA</a>
                 <button onclick="deleteOrder('${o.id}')" class="admin-action-btn" style="background:rgba(200,25,26,0.3);color:#FCA5A5">🗑️</button>
               </div>
@@ -3660,10 +3664,11 @@ async function doAdminLogin(){
     localStorage.setItem('mp_admin_token',r.token);
     adminLoggedIn=true;
     if(btn){btn.disabled=false;btn.textContent='Masuk →';}
-    startAdminListeners();
+    await startAdminListeners();
   }catch(err){
     if(btn){btn.disabled=false;btn.textContent='Masuk →';}
-    if(errEl)errEl.textContent=(err.message&&err.message.includes('401'))?'Password salah.':'Gagal login: '+(err.message||'');
+    const msg=err.message||'';
+    if(errEl)errEl.textContent=msg.includes('Unauthorized')||msg.includes('401')?'Password salah.':'Gagal login: '+msg;
   }
 }
 
@@ -3713,7 +3718,7 @@ function exportOrders(){
   const rows=[['Order ID','Tanggal','Nama','HP','Alamat','Produk','Total','Payment','Status']];
   orders.forEach(o=>{
     const items=o.items.map(i=>i.productName.replace(/\(.*?\)/g,'').trim().substring(0,30)+' x'+i.qty).join('; ');
-    rows.push([o.id,new Date(o.date).toLocaleString('id-ID'),o.customer.name,o.customer.phone,o.customer.address,items,o.total,o.payment,o.status]);
+    rows.push([o.id,new Date(o.date).toLocaleString('id-ID'),o.customer_name,o.customer_phone,o.customer_address,items,o.total,o.payment,o.status]);
   });
   const csv=rows.map(r=>r.map(v=>'"'+(v||'').toString().replace(/"/g,'""')+'"').join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv'});
@@ -4743,8 +4748,8 @@ function renderKomplainItems(){
     <div class="komplain-item-row">
       <input type="checkbox" id="kItemChk${i}" onchange="toggleKomplainItem(${i},this.checked)">
       <div style="flex:1">
-        <div style="font-size:12px;font-weight:700;color:var(--dark)">${it.productName.replace(/\(.*?\)/g,'').trim().substring(0,40)}</div>
-        <div style="font-size:11px;color:var(--muted)">${it.variantName} · dibeli ${it.qty} pack · ${fmt(it.price)}/pack</div>
+        <div style="font-size:12px;font-weight:700;color:var(--dark)">${(it.productName||it.name||"Produk").replace(/\(.*?\)/g,'').trim().substring(0,40)}</div>
+        <div style="font-size:11px;color:var(--muted)">${(it.variantName||"")} · dibeli ${it.qty} pack · ${fmt(it.price)}/pack</div>
       </div>
       <input type="number" class="fi" id="kItemQty${i}" min="1" max="${it.qty}" value="1" style="width:60px;padding:6px;text-align:center;flex-shrink:0" disabled oninput="updateKomplainItemQty(${i},this.value)">
     </div>`).join('');
@@ -4813,7 +4818,7 @@ async function submitKomplain(){
       let total=0;
       const itemsDesc=Object.entries(komplainRefundItems).map(([i,q])=>{
         const it=komplainOrder.items[i];total+=it.price*q;
-        return `${it.productName.replace(/\(.*?\)/g,'').trim().substring(0,30)} (${it.variantName}) x${q}`;
+        return `${(it.productName||it.name||"Produk").replace(/\(.*?\)/g,'').trim().substring(0,30)} (${(it.variantName||"")}) x${q}`;
       }).join(', ');
       payload.type='Pengembalian Dana Sebagian';
       payload.itemsDesc=itemsDesc;
