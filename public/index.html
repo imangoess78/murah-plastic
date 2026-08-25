@@ -3374,6 +3374,7 @@ let adminQuestionsUnsub=null;
 let adminPollInterval=null;
 async function startAdminListeners(){
   if(adminPollInterval)return;
+  adminPollInterval=true; // mark as loading agar renderAdminContent tidak loop
   await fetchAdminData();
   adminPollInterval=setInterval(fetchAdminData,10000);
 }
