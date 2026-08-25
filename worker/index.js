@@ -15,10 +15,9 @@ function nanoid() {
   return crypto.randomUUID().replace(/-/g, '').slice(0, 12);
 }
 
-// Verify admin token
 async function isAdmin(request, env) {
   const auth = request.headers.get('Authorization') || '';
-  const token = auth.replace('Bearer ', '');
+  const token = auth.replace('Bearer ', '').trim();
   if (!token) return false;
   const row = await env.DB.prepare(
     "SELECT token FROM admin_sessions WHERE token=? AND expires_at > datetime('now')"
@@ -49,9 +48,33 @@ export default {
     // ── POST /api/admin/logout ──
     if (path === '/api/admin/logout' && request.method === 'POST') {
       const auth = request.headers.get('Authorization') || '';
-      const token = auth.replace('Bearer ', '');
+      const token = auth.replace('Bearer ', '').trim();
       if (token) await env.DB.prepare('DELETE FROM admin_sessions WHERE token=?').bind(token).run();
       return json({ ok: true });
+    }
+
+    // ── POST /api/users/register ──
+    if (path === '/api/users/register' && request.method === 'POST') {
+      const { name, email, password } = await request.json();
+      if (!name || !email || !password) return json({ error: 'Missing fields' }, 400);
+      const existing = await env.DB.prepare('SELECT id FROM users WHERE email=?').bind(email).first();
+      if (existing) return json({ error: 'Email already exists' }, 409);
+      const id = 'U-' + nanoid();
+      const joinDate = new Date().toLocaleDateString('id-ID');
+      await env.DB.prepare(
+        'INSERT INTO users (id, name, email, password, join_date) VALUES (?,?,?,?,?)'
+      ).bind(id, name, email, password, joinDate).run();
+      return json({ id, name, email, joinDate, method: 'email' });
+    }
+
+    // ── POST /api/users/login ──
+    if (path === '/api/users/login' && request.method === 'POST') {
+      const { email, password } = await request.json();
+      if (!email || !password) return json({ error: 'Missing fields' }, 400);
+      const user = await env.DB.prepare('SELECT * FROM users WHERE email=?').bind(email).first();
+      if (!user) return json({ error: 'Email not found' }, 404);
+      if (user.password !== password) return json({ error: 'Wrong password' }, 401);
+      return json({ id: user.id, name: user.name, email: user.email, joinDate: user.join_date, method: 'email' });
     }
 
     // ── GET /api/orders ── (admin only)
@@ -63,7 +86,11 @@ export default {
       if (status) { q += ' AND status=?'; p.push(status); }
       q += ' ORDER BY date DESC LIMIT 200';
       const { results } = await env.DB.prepare(q).bind(...p).all();
-      return json(results.map(r => ({ ...r, items: JSON.parse(r.items || '[]'), complaint: JSON.parse(r.complaint || 'null') })));
+      return json(results.map(r => ({
+        ...r,
+        items: JSON.parse(r.items || '[]'),
+        complaint: r.complaint ? JSON.parse(r.complaint) : null
+      })));
     }
 
     // ── POST /api/orders ── (create order)
@@ -89,36 +116,46 @@ export default {
     if (orderMatch && request.method === 'GET') {
       const row = await env.DB.prepare('SELECT * FROM orders WHERE id=?').bind(orderMatch[1]).first();
       if (!row) return json({ error: 'Not found' }, 404);
-      return json({ ...row, items: JSON.parse(row.items || '[]'), complaint: JSON.parse(row.complaint || 'null') });
+      return json({
+        ...row,
+        items: JSON.parse(row.items || '[]'),
+        complaint: row.complaint ? JSON.parse(row.complaint) : null
+      });
     }
 
-    // ── PUT /api/orders/:id ── (update status / resi / deadline / complaint — admin)
+    // ── PUT /api/orders/:id ──
     if (orderMatch && request.method === 'PUT') {
       if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
       const body = await request.json();
       const fields = [];
       const vals = [];
-      if (body.status !== undefined)   { fields.push('status=?');   vals.push(body.status); }
-      if (body.resi !== undefined)     { fields.push('resi=?');     vals.push(body.resi); }
-      if (body.deadline !== undefined) { fields.push('deadline=?'); vals.push(body.deadline); }
-      if (body.complaint !== undefined){ fields.push('complaint=?');vals.push(JSON.stringify(body.complaint)); }
+      if (body.status !== undefined)      { fields.push('status=?');    vals.push(body.status); }
+      if (body.resi !== undefined)        { fields.push('resi=?');      vals.push(body.resi); }
+      if (body.deadline !== undefined)    { fields.push('deadline=?');  vals.push(body.deadline); }
+      if (body.receivedDate !== undefined){ fields.push('complaint=?'); 
+        // store receivedDate inside complaint JSON
+        const row = await env.DB.prepare('SELECT complaint FROM orders WHERE id=?').bind(orderMatch[1]).first();
+        const c = row?.complaint ? JSON.parse(row.complaint) : {};
+        c.receivedDate = body.receivedDate;
+        vals.push(JSON.stringify(c));
+      }
+      if (body.complaint !== undefined)   { fields.push('complaint=?'); vals.push(JSON.stringify(body.complaint)); }
       if (!fields.length) return json({ error: 'Nothing to update' }, 400);
       vals.push(orderMatch[1]);
       await env.DB.prepare(`UPDATE orders SET ${fields.join(',')} WHERE id=?`).bind(...vals).run();
       return json({ ok: true });
     }
 
-    // ── DELETE /api/orders/:id ── (admin)
+    // ── DELETE /api/orders/:id ──
     if (orderMatch && request.method === 'DELETE') {
       if (!await isAdmin(request, env)) return json({ error: 'Unauthorized' }, 401);
       await env.DB.prepare('DELETE FROM orders WHERE id=?').bind(orderMatch[1]).run();
       return json({ ok: true });
     }
 
-    // ── GET /api/questions?productId=xxx ──
+    // ── GET /api/questions ──
     if (path === '/api/questions' && request.method === 'GET') {
       const pid = url.searchParams.get('productId');
-      const all = url.searchParams.get('all'); // admin
       let q = 'SELECT * FROM questions WHERE 1=1';
       const p = [];
       if (pid) { q += ' AND product_id=?'; p.push(pid); }
@@ -130,7 +167,7 @@ export default {
     // ── POST /api/questions ──
     if (path === '/api/questions' && request.method === 'POST') {
       const q = await request.json();
-      const id = 'Q-' + nanoid();
+      const id = q.id || ('Q-' + nanoid());
       await env.DB.prepare(`
         INSERT INTO questions (id, product_id, product_name, question, user_name, date)
         VALUES (?,?,?,?,?,?)
@@ -154,15 +191,14 @@ export default {
       const file = formData.get('file');
       const orderId = formData.get('orderId');
       if (!file || !orderId) return json({ error: 'Missing file or orderId' }, 400);
-      const ext = file.name.split('.').pop() || 'jpg';
+      const ext = (file.name || 'jpg').split('.').pop();
       const key = `payments/${orderId}-${nanoid()}.${ext}`;
       await env.R2.put(key, file.stream(), {
-        httpMetadata: { contentType: file.type },
+        httpMetadata: { contentType: file.type || 'image/jpeg' },
       });
-      const publicUrl = `https://r2.murahplastic.com/${key}`;
-      // Update order complaint dengan URL bukti bayar
+      const publicUrl = `https://pub-62025364d604448fb3fc875c6dcf73b2.r2.dev/${key}`;
       const row = await env.DB.prepare('SELECT complaint FROM orders WHERE id=?').bind(orderId).first();
-      const complaint = row ? JSON.parse(row.complaint || 'null') || {} : {};
+      const complaint = row?.complaint ? JSON.parse(row.complaint) : {};
       complaint.proofUrl = publicUrl;
       await env.DB.prepare('UPDATE orders SET complaint=? WHERE id=?')
         .bind(JSON.stringify(complaint), orderId).run();

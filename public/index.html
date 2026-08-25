@@ -1574,39 +1574,10 @@ a{text-decoration:none;color:inherit}
 </div>
 
 
-<!-- ══════════════════════════════════════════════════════════════
-     FIREBASE — Database toko (Pesanan, Komplain, Tanya Jawab) + Login Admin
-     ══════════════════════════════════════════════════════════════ -->
-<script>
-// ⚠️ GANTI SEMUA NILAI DI BAWAH INI DENGAN CONFIG FIREBASE KAMU SENDIRI
-// (Firebase Console → Project Settings → General → scroll ke "Your apps" → SDK setup and configuration)
-const firebaseConfig = {
-  apiKey: "AIzaSyBc6AS54ix6FkAJ3dkS_r7XFIUopg0vwq4",
-  authDomain: "mupa-project-59370.firebaseapp.com",
-  projectId: "mupa-project-59370",
-  storageBucket: "mupa-project-59370.firebasestorage.app",
-  messagingSenderId: "537104718429",
-  appId: "1:537104718429:web:71abb822e312a74d874bb4"
-};
-let db=null, auth=null;
-try{
-  firebase.initializeApp(firebaseConfig);
-  db = firebase.firestore();
-  auth = firebase.auth();
-}catch(err){
-  // Kalau Firebase gagal ke-load (misal: SDK diblok, config belum diisi, atau nggak ada internet),
-  // sisa kode di halaman ini (chat widget, cek ongkir, dll) TETAP jalan normal —
-  // cuma fitur yang butuh database (order, komplain, tanya jawab) yang nggak bisa dipakai.
-  console.error('⚠️ Firebase gagal dimuat — fitur database (pesanan/komplain/tanya jawab) nggak akan berfungsi:',err);
-}
-</script>
-
-<script>
 <script>
 // ── API helper (menggantikan Firebase) ──
 let adminToken = localStorage.getItem('mp_admin_token') || null;
-const db = null; // Firebase dihapus
-const auth = null;
+// db dan auth tidak dipakai (Firebase dihapus)
 
 async function apiCall(method, path, body) {
   const opts = { method, headers: { 'Content-Type': 'application/json' } };
@@ -2970,29 +2941,36 @@ function loginWithGoogle(){
   loginSuccess({name,email,method:'google'});
 }
 
-function doLogin(){
+async function doLogin(){
   const email=(document.getElementById('loginEmail')||{}).value||'';
   const pass=(document.getElementById('loginPassword')||{}).value||'';
   if(!email||!pass){alert('Email dan password wajib diisi!');return;}
-  const users=JSON.parse(localStorage.getItem('mp_users')||'{}');
-  if(users[email]){
-    if(users[email].password===btoa(pass))loginSuccess({...users[email],email});
-    else alert('Password salah!');
-  } else alert('Email tidak terdaftar. Silakan daftar dulu!');
+  try{
+    const res=await apiCall('POST','/api/users/login',{email,password:btoa(pass)});
+    loginSuccess(res);
+  }catch(e){
+    const msg=e.message||'';
+    if(msg.includes('not found'))alert('Email tidak terdaftar. Silakan daftar dulu!');
+    else if(msg.includes('wrong'))alert('Password salah!');
+    else alert('Gagal login: '+msg);
+  }
 }
 
-function doRegister(){
+async function doRegister(){
   const name=(document.getElementById('regName')||{}).value||'';
   const email=(document.getElementById('regEmail')||{}).value||'';
   const pass=(document.getElementById('regPassword')||{}).value||'';
   if(!name.trim()){alert('Nama wajib diisi!');return;}
   if(!email||!email.includes('@')){alert('Email tidak valid!');return;}
   if(pass.length<6){alert('Password minimal 6 karakter!');return;}
-  const users=JSON.parse(localStorage.getItem('mp_users')||'{}');
-  if(users[email]){alert('Email sudah terdaftar!');return;}
-  users[email]={name:name.trim(),password:btoa(pass),joinDate:new Date().toLocaleDateString('id-ID')};
-  localStorage.setItem('mp_users',JSON.stringify(users));
-  loginSuccess({name:name.trim(),email,method:'email'});
+  try{
+    const res=await apiCall('POST','/api/users/register',{name:name.trim(),email,password:btoa(pass)});
+    loginSuccess(res);
+  }catch(e){
+    const msg=e.message||'';
+    if(msg.includes('exists'))alert('Email sudah terdaftar!');
+    else alert('Gagal daftar: '+msg);
+  }
 }
 
 function loginSuccess(user){
@@ -3711,7 +3689,7 @@ function doAdminLogout(){
 // Firebase Auth otomatis inget status login di browser, jadi kalau admin refresh halaman
 // atau buka lagi nanti, nggak perlu login ulang selama belum logout manual.
 if(auth){
-  ;((user)=>{
+  ((user)=>{
     adminLoggedIn=!!user;
     const overlay=document.getElementById('adminOverlay');
     if(overlay&&overlay.classList.contains('open')){
