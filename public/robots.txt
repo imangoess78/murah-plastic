@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# Area privat / API — jangan di-index
+Disallow: /api/
+Disallow: /admin
+Disallow: /cart
+Disallow: /checkout
+Disallow: /akun
+Disallow: /produk?
+
+# AI crawler — izinkan supaya muncul di AI Overview / GEO
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://murah-plastic.imangoess78.workers.dev/sitemap.xml

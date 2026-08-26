@@ -5,15 +5,34 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Artikel & Tips — Murah Plastic</title>
 <meta name="description" content="Panduan memilih plastik OPP, tips packaging UMKM, dan info seputar kemasan produk dari Murah Plastic.">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://murah-plastic.imangoess78.workers.dev/artikel">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Murah Plastic">
 <meta property="og:title" content="Artikel & Tips — Murah Plastic">
 <meta property="og:description" content="Panduan memilih plastik OPP, tips packaging UMKM, dan info seputar kemasan produk dari Murah Plastic.">
+<meta property="og:url" content="https://murah-plastic.imangoess78.workers.dev/artikel">
+<meta property="og:image" content="https://murah-plastic.imangoess78.workers.dev/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Artikel & Tips — Murah Plastic">
+<meta property="og:locale" content="id_ID">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Artikel & Tips — Murah Plastic">
+<meta name="twitter:description" content="Panduan memilih plastik OPP, tips packaging UMKM, dan info seputar kemasan produk dari Murah Plastic.">
+<meta name="twitter:image" content="https://murah-plastic.imangoess78.workers.dev/assets/og-image.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23C8191A'/><text x='50' y='68' font-size='50' font-weight='900' fill='white' text-anchor='middle'>M</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#C8191A">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Murah Plastic">
 </head>
 <body>
 <div id="site-nav"></div>
@@ -40,7 +59,7 @@
 
   fetch('/api/articles').then(r => r.json()).then(arr => {
     if (!arr || !arr.length) {
-      el.innerHTML = '<div class="cart-empty" style="padding:60px 0"><div class="cart-empty-icon">📝</div><div class="cart-empty-title">Belum Ada Artikel</div><div class="cart-empty-sub">Artikel & tips seputar plastik OPP akan segera hadir. Sambil menunggu, yuk lihat koleksi produk kami.</div><a class="btn-red" href="/#produkSection">🛒 Lihat Produk</a></div>';
+      el.innerHTML = '<div class="cart-empty" style="padding:60px 0"><div class="cart-empty-icon">📝</div><div class="cart-empty-title">Belum Ada Artikel</div><div class="cart-empty-sub">Artikel & tips seputar plastik OPP akan segera hadir. Sambil menunggu, yuk lihat koleksi produk kami.</div><a class="btn-red" href="/shop">🛒 Lihat Produk</a></div>';
       return;
     }
     el.innerHTML = `<div class="a-grid">${arr.map(a => `
@@ -59,5 +78,6 @@
   });
 })();
 </script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>

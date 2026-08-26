@@ -5,11 +5,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Keranjang Belanja — Murah Plastic</title>
 <meta name="description" content="Keranjang belanja Murah Plastic — distributor plastik OPP termurah se-Indonesia.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://murah-plastic.imangoess78.workers.dev/cart">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Murah Plastic">
+<meta property="og:title" content="Keranjang Belanja — Murah Plastic">
+<meta property="og:description" content="Keranjang belanja Murah Plastic — distributor plastik OPP termurah se-Indonesia.">
+<meta property="og:url" content="https://murah-plastic.imangoess78.workers.dev/cart">
+<meta property="og:image" content="https://murah-plastic.imangoess78.workers.dev/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23C8191A'/><text x='50' y='68' font-size='50' font-weight='900' fill='white' text-anchor='middle'>M</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#C8191A">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Murah Plastic">
 </head>
 <body>
 <div id="site-nav"></div>
@@ -28,7 +44,7 @@
       <div class="cart-card-title">🧾 Ringkasan</div>
       <div id="summaryContent"></div>
       <a class="btn-red" id="checkoutBtn" href="/checkout" style="width:100%;margin-top:14px;text-align:center">✅ Lanjut ke Checkout</a>
-      <a class="btn-outline" href="/#produkSection" style="width:100%;margin-top:10px;text-align:center">← Lanjut Belanja</a>
+      <a class="btn-outline" href="/shop" style="width:100%;margin-top:10px;text-align:center">← Lanjut Belanja</a>
     </div>
   </div>
 </div>
@@ -43,12 +59,11 @@
   function render() {
     const cart = SP.getCart();
     const list = document.getElementById('cartItemsList');
-    const sum = document.getElementById('summaryContent');
 
     if (!cart.length) {
-      list.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div class="cart-empty-title">Keranjang kosong</div><div class="cart-empty-sub">Belum ada produk yang ditambahkan. Yuk mulai belanja!</div><a class="btn-red" href="/#produkSection">🛍️ Mulai Belanja</a></div>';
+      list.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div class="cart-empty-title">Keranjang kosong</div><div class="cart-empty-sub">Belum ada produk yang ditambahkan. Yuk mulai belanja!</div><a class="btn-red" href="/shop">🛍️ Mulai Belanja</a></div>';
       document.getElementById('checkoutBtn').style.display = 'none';
-      sum.innerHTML = '<div style="font-size:13px;color:var(--muted);text-align:center;padding:20px 0">—</div>';
+      document.getElementById('summaryContent').innerHTML = '<div style="font-size:13px;color:var(--muted);text-align:center;padding:20px 0">—</div>';
       return;
     }
 
@@ -56,20 +71,31 @@
       <div class="c-item">
         <div class="c-item-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--light)">📦</div>
         <div class="c-item-info">
-          <a class="c-item-name" href="/produk/${encodeURIComponent(item.productId)}">${SP.esc(item.productName.replace(/\(.*?\)/g,'').trim().substring(0,46))}</a>
+          <a class="c-item-name" href="/produk/${encodeURIComponent(item.slug || item.productId)}">${SP.esc(item.productName.replace(/\(.*?\)/g,'').trim().substring(0,46))}</a>
           <div class="c-item-var">${SP.esc(item.variantName)}</div>
           <div class="c-item-price">${SP.fmt(item.price)} / pack</div>
           <div class="c-qty-row">
-            <button class="cqb" onclick="cqty(${i},-1)">−</button>
-            <span style="font-weight:700;min-width:22px;text-align:center">${item.qty}</span>
-            <button class="cqb" onclick="cqty(${i},1)">+</button>
-            <button class="c-remove" onclick="rmItem(${i})">✕ Hapus</button>
+            <button class="cqb" type="button" onclick="cqty(${i},-1)">−</button>
+            <input type="number" id="ciq${i}" class="c-qty-input" value="${item.qty}" min="1" step="1" inputmode="numeric" aria-label="Jumlah ${SP.esc(item.variantName)}" oninput="cqtyInput(${i},this)" onchange="cqtyCommit(${i},this)" style="width:60px;text-align:center;font-weight:800;font-size:14px;padding:4px 6px;border:1.5px solid var(--border);border-radius:8px;background:white;color:var(--dark);font-family:var(--font)">
+            <button class="cqb" type="button" onclick="cqty(${i},1)">+</button>
+            <button class="c-remove" type="button" onclick="rmItem(${i})">✕ Hapus</button>
           </div>
         </div>
-        <div class="c-subtotal">${SP.fmt(item.price * item.qty)}</div>
+        <div class="c-subtotal" id="cisub${i}">${SP.fmt(item.price * item.qty)}</div>
       </div>
     `).join('');
 
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const cart = SP.getCart();
+    const sum = document.getElementById('summaryContent');
+    if (!cart.length) {
+      document.getElementById('checkoutBtn').style.display = 'none';
+      sum.innerHTML = '<div style="font-size:13px;color:var(--muted);text-align:center;padding:20px 0">—</div>';
+      return;
+    }
     const sub = cart.reduce((s, c) => s + c.price * c.qty, 0);
     const tq = cart.reduce((s, c) => s + c.qty, 0);
     const discPct = getDisc(tq);
@@ -95,7 +121,35 @@
   window.cqty = function(i, d) {
     const cart = SP.getCart();
     if (!cart[i]) return;
-    cart[i].qty = Math.max(1, cart[i].qty + d);
+    const inp = document.getElementById('ciq' + i);
+    let v = inp ? parseInt(inp.value, 10) : cart[i].qty;
+    if (isNaN(v) || v < 1) v = 1;
+    cart[i].qty = Math.max(1, v + d);
+    SP.saveCart(cart);
+    SP.updateCartBadge();
+    render();
+  };
+
+  window.cqtyInput = function(i, el) {
+    const cart = SP.getCart();
+    if (!cart[i]) return;
+    const v = parseInt(el.value, 10);
+    if (isNaN(v) || v < 1) return;
+    cart[i].qty = v;
+    SP.saveCart(cart);
+    SP.updateCartBadge();
+    const subEl = document.getElementById('cisub' + i);
+    if (subEl) subEl.textContent = SP.fmt(cart[i].price * v);
+    updateSummary();
+  };
+
+  window.cqtyCommit = function(i, el) {
+    const cart = SP.getCart();
+    if (!cart[i]) return;
+    let v = parseInt(el.value, 10);
+    if (isNaN(v) || v < 1) v = 1;
+    if (v > 100000) v = 100000;
+    cart[i].qty = v;
     SP.saveCart(cart);
     SP.updateCartBadge();
     render();
@@ -112,5 +166,6 @@
   render();
 })();
 </script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>

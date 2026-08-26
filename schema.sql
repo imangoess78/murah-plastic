@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS orders (
   resi TEXT DEFAULT '',
   deadline TEXT DEFAULT '',
   complaint TEXT DEFAULT '',  -- JSON object
+  shipping TEXT DEFAULT '{}', -- JSON: {city, province, courier, cost, etd, weight}
+  shipping_cost INTEGER DEFAULT 0,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 CREATE INDEX IF NOT EXISTS idx_orders_date ON orders(date DESC);
@@ -61,6 +63,7 @@ CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 -- Products (admin CRUD + frontpage source)
 CREATE TABLE IF NOT EXISTS products (
   id TEXT PRIMARY KEY,
+  slug TEXT DEFAULT '',
   name TEXT NOT NULL,
   short_name TEXT DEFAULT '',
   desc TEXT DEFAULT '',
@@ -92,3 +95,58 @@ CREATE TABLE IF NOT EXISTS articles (
 );
 CREATE INDEX IF NOT EXISTS idx_articles_status ON articles(status);
 CREATE INDEX IF NOT EXISTS idx_articles_created ON articles(created_at DESC);
+
+-- Shipping: kota tujuan ongkir (seperti RajaOngkir)
+CREATE TABLE IF NOT EXISTS shipping_cities (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  city TEXT NOT NULL,
+  province TEXT NOT NULL,
+  zone INTEGER NOT NULL DEFAULT 1   -- zona tarif 1=Jabodetabek ... 7=Papua
+);
+CREATE INDEX IF NOT EXISTS idx_shipping_city ON shipping_cities(city);
+CREATE INDEX IF NOT EXISTS idx_shipping_province ON shipping_cities(province);
+
+-- Shipping: tarif per zona per kurir (per kg)
+CREATE TABLE IF NOT EXISTS shipping_rates (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  courier TEXT NOT NULL,       -- jne | jnt | sicepat | pos | idexpress
+  zone INTEGER NOT NULL,
+  cost_per_kg INTEGER NOT NULL,
+  etd TEXT DEFAULT ''          -- estimasi hari (contoh: '1-2')
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_shipping_rate ON shipping_rates(courier, zone);
+
+-- Categories: dinamis, bisa CRUD admin
+CREATE TABLE IF NOT EXISTS categories (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  slug TEXT UNIQUE NOT NULL,
+  name TEXT UNIQUE NOT NULL,
+  icon TEXT DEFAULT '📦',
+  featured_image TEXT DEFAULT '',
+  description TEXT DEFAULT '',
+  sort_order INTEGER DEFAULT 0,
+  active INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+INSERT OR IGNORE INTO categories (slug, name, icon, featured_image, description, sort_order) VALUES
+('opp-lem-tipis','OPP Lem Tipis','🫱','/img/products/img_042.jpeg','17-18 Mikron · Ekonomis',1),
+('opp-lem-tebal','OPP Lem Tebal','💪','/img/products/img_043.jpeg','29-32 Mikron · Bakery',2),
+('opp-lem-super-tebal','OPP Lem Super Tebal','🛡️','/img/products/img_044.jpeg','38 Mikron · Double Seal',3),
+('opp-tanpa-lem','OPP Tanpa Lem','🧩','/img/products/img_045.jpeg','Non Seal · Serba Guna',4),
+('plastik-gusset-roti','Plastik Gusset Roti','🥖','/img/products/img_046.jpeg','32 Mikron · Roti & Bakery',5),
+('plastik-ziplock-klip','Plastik Ziplock/Klip','🤐','/img/products/img_047.jpeg','30-50 Mikron · Kedap Udara',6);
+
+-- Notifications: push-in-app untuk admin & customer
+CREATE TABLE IF NOT EXISTS notifications (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT DEFAULT '',
+  role TEXT NOT NULL DEFAULT 'customer',
+  type TEXT NOT NULL DEFAULT '',
+  title TEXT NOT NULL DEFAULT '',
+  message TEXT DEFAULT '',
+  link TEXT DEFAULT '',
+  is_read INTEGER DEFAULT 0,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_notif_admin ON notifications(role, is_read);
+CREATE INDEX IF NOT EXISTS idx_notif_user ON notifications(user_id, is_read);

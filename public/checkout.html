@@ -4,13 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Checkout — Murah Plastic</title>
-<meta name="description" content="Selesaikan pesanan plastik OPP kamu. Pembayaran mudah via transfer, GoPay, OVO, atau QRIS.">
+<meta name="description" content="Selesaikan pesanan plastik OPP kamu. Hitung ongkir otomatis dengan berbagai ekspedisi, pembayaran mudah via transfer, GoPay, OVO, atau QRIS.">
 <meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://murah-plastic.imangoess78.workers.dev/checkout">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Murah Plastic">
+<meta property="og:title" content="Checkout — Murah Plastic">
+<meta property="og:description" content="Selesaikan pesanan plastik OPP kamu. Hitung ongkir otomatis dengan berbagai ekspedisi, pembayaran mudah via transfer, GoPay, OVO, atau QRIS.">
+<meta property="og:url" content="https://murah-plastic.imangoess78.workers.dev/checkout">
+<meta property="og:image" content="https://murah-plastic.imangoess78.workers.dev/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23C8191A'/><text x='50' y='68' font-size='50' font-weight='900' fill='white' text-anchor='middle'>M</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#C8191A">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Murah Plastic">
 </head>
 <body>
 <div id="site-nav"></div>
@@ -18,7 +34,7 @@
 <div class="wrap">
   <div class="page-head">
     <div class="page-title">✅ Checkout</div>
-    <div class="page-sub">Isi data pengiriman dan pilih metode pembayaran untuk menyelesaikan pesanan.</div>
+    <div class="page-sub">Isi data pengiriman, hitung ongkir otomatis, dan pilih metode pembayaran untuk menyelesaikan pesanan.</div>
   </div>
 
   <div class="co-wrap" id="coWrap">
@@ -31,29 +47,105 @@
 <script>
 (function () {
   const SP = MP;
-  const DISC_TIERS = [{min:100,pct:20},{min:50,pct:10},{min:10,pct:5},{min:5,pct:2}];
-  const MEMBER_DISCOUNT = 10;
+  // Nilai default; di-override oleh /api/settings saat load
+  let DISC_TIERS = [{min:100,pct:20},{min:50,pct:10},{min:10,pct:5},{min:5,pct:2}];
+  let MEMBER_DISCOUNT = 10;
   const WA = '628129153811';
-  const PAYMENTS = [
-    { id:'Transfer', icon:'🏦', name:'Transfer Bank', sub:'BCA / BRI / Mandiri / BNI' },
-    { id:'GoPay', icon:'📱', name:'GoPay', sub:'Dompet digital' },
-    { id:'OVO', icon:'💜', name:'OVO', sub:'Dompet digital' },
-    { id:'QRIS', icon:'🔳', name:'QRIS', sub:'Semua e-wallet & m-banking' }
-  ];
+  const WEIGHT_PER_PACK = 250; // gram per pack (estimasi)
+  let FREE_SHIP_MIN = 500000;
+  let PAYMENTS = [];   // dinamis dari /api/payment-methods
+  let SEL_PM = null;   // object payment method terpilih (bank/qris statis)
 
   let selPay = null;
+  let selProv = '';
+  let selCity = '';
+  let cityData = null;      // { provinces:[], cities:[] }
+  let courierCosts = [];    // hasil /api/shipping/cost
+  let selCourier = null;    // objek kurir terpilih {courier, courier_name, cost, etd, weight_kg}
+  let authSkipped = false;  // user memilih "Lanjut sebagai Tamu"
+
+  const isMember = () => !!SP.getUser();
+
+  // Saat login/logout terjadi di modal shared -> render ulang checkout (diskon member, prefill nama)
+  window.addEventListener('mp:auth', () => { authSkipped = false; render(); prefillProfile(); });
+
+  async function loadSettings() {
+    try {
+      const res = await fetch('/api/settings');
+      const s = await res.json();
+      if (s && s.discount_tiers) {
+        const t = JSON.parse(s.discount_tiers);
+        if (Array.isArray(t) && t.length) DISC_TIERS = t;
+      }
+      if (s && s.member_discount !== undefined) MEMBER_DISCOUNT = parseInt(s.member_discount, 10) || 0;
+      if (s && s.free_ship_min !== undefined) FREE_SHIP_MIN = parseInt(s.free_ship_min, 10) || 0;
+    } catch (e) { /* pakai default */ }
+  }
 
   function getDisc(qty) {
     for (const t of DISC_TIERS) if (qty >= t.min) return t.pct;
     return 0;
   }
 
+  function getTotal(cart, sub, discAmt, memberAmt) {
+    return sub - discAmt - memberAmt + getShippingCost(sub);
+  }
+
+  function getShippingCost(sub) {
+    if (sub >= FREE_SHIP_MIN) return 0;      // gratis ongkir
+    return selCourier ? selCourier.cost : 0; // ongkir kurir terpilih
+  }
+
+  function getWeight(cart) {
+    return cart.reduce((s, c) => s + (c.qty || 1) * WEIGHT_PER_PACK, 0);
+  }
+
+  async function loadCities() {
+    try {
+      const res = await fetch('/api/shipping/cities');
+      cityData = await res.json();
+    } catch (e) { cityData = { provinces: [], cities: [] }; }
+  }
+
+  async function loadPayments() {
+    try {
+      const res = await fetch('/api/payment-methods');
+      const list = await res.json();
+      PAYMENTS = (list || []).filter(m => m.is_active).map(m => ({
+        id: m.id, type: m.type, name: m.label,
+        icon: m.type === 'bank' ? '🏦' : '📱',
+        sub: m.type === 'bank' ? 'Transfer Bank' : (m.phone || 'QRIS statis'),
+        pm: m
+      }));
+      // Opsi QRIS Otomatis (Pakasir) — selalu tersedia
+      PAYMENTS.push({ id: 'QRIS', type: 'pakasir', name: 'QRIS Otomatis', icon: '🔳', sub: 'Scan QR langsung (GoPay/OVO/DANA/ShopeePay/m-banking)', pm: null });
+    } catch (e) { PAYMENTS = []; }
+  }
+
+  async function calcCost() {
+    if (!selCity) { courierCosts = []; selCourier = null; render(); return; }
+    const weight = getWeight(SP.getCart());
+    try {
+      const res = await fetch('/api/shipping/cost?city=' + encodeURIComponent(selCity) + '&weight=' + weight);
+      const data = await res.json();
+      courierCosts = (data && data.costs) || [];
+      selCourier = null;
+    } catch (e) { courierCosts = []; }
+    render();
+  }
+
   function render() {
     const cart = SP.getCart();
     const wrap = document.getElementById('coWrap');
+    // Simpan nilai input dulu (render menimpa innerHTML seluruhnya)
+    const saved = {};
+    ['coName','coPhone','coAddr','coNote'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) saved[id] = el.value;
+    });
 
     if (!cart.length) {
-      wrap.innerHTML = '<div class="cart-empty" style="background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)"><div class="cart-empty-icon">🛒</div><div class="cart-empty-title">Keranjang kosong</div><div class="cart-empty-sub">Tambahkan produk dulu sebelum checkout.</div><a class="btn-red" href="/#produkSection">🛍️ Mulai Belanja</a></div>';
+      wrap.innerHTML = '<div class="cart-empty" style="background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)"><div class="cart-empty-icon">🛒</div><div class="cart-empty-title">Keranjang kosong</div><div class="cart-empty-sub">Tambahkan produk dulu sebelum checkout.</div><a class="btn-red" href="/shop">🛍️ Mulai Belanja</a></div>';
       return;
     }
 
@@ -62,10 +154,11 @@
     const discPct = getDisc(tq);
     const discAmt = sub * discPct / 100;
     const afterDisc = sub - discAmt;
-    const memberDisc = MEMBER_DISCOUNT; // selamanya member 10%
+    const memberDisc = isMember() ? MEMBER_DISCOUNT : 0;
     const memberAmt = afterDisc * memberDisc / 100;
-    const total = afterDisc - memberAmt;
-    const freeShip = sub >= 500000;
+    const freeShip = sub >= FREE_SHIP_MIN;
+    const shipCost = getShippingCost(sub);
+    const total = sub - discAmt - memberAmt + shipCost;
 
     const itemsRows = cart.map(c => `
       <div class="order-row">
@@ -73,16 +166,38 @@
         <span style="font-weight:700">${SP.fmt(c.price * c.qty)}</span>
       </div>`).join('');
 
+    const provOptions = (cityData?.provinces || []).map(p =>
+      `<option value="${SP.esc(p)}"${p === selProv ? ' selected' : ''}>${SP.esc(p)}</option>`).join('');
+    const cityOptions = (cityData?.cities || []).filter(c => c.province === selProv).map(c =>
+      `<option value="${SP.esc(c.city)}"${c.city === selCity ? ' selected' : ''}>${SP.esc(c.city)}</option>`).join('');
+
+    const courierRows = freeShip ? '' : (courierCosts.length ? courierCosts.map(c => `
+      <label class="ship-opt${selCourier && selCourier.courier === c.courier ? ' sel' : ''}" style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:2px solid ${selCourier && selCourier.courier === c.courier ? 'var(--red)' : 'var(--border)'};border-radius:var(--radius-sm);cursor:pointer;margin-bottom:8px;background:${selCourier && selCourier.courier === c.courier ? '#FFF5F5' : '#fff'}">
+        <input type="radio" name="courier" value="${c.courier}" onclick="selCourierFn('${c.courier}')" ${selCourier && selCourier.courier === c.courier ? 'checked' : ''}>
+        <span style="flex:1">
+          <span style="display:block;font-weight:800;font-size:13px;color:var(--dark)">${SP.esc(c.courier_name)}</span>
+          <span style="display:block;font-size:11px;color:var(--muted)">Estimasi ${c.etd} hari · ${c.weight_kg} kg</span>
+        </span>
+        <span style="font-weight:800;font-size:13px;color:var(--red)">${SP.fmt(c.cost)}</span>
+      </label>`).join('') : '<p style="font-size:12px;color:var(--muted)">Pilih kota tujuan untuk melihat tarif ekspedisi.</p>');
+
     wrap.innerHTML = `
-      <div class="co-card">
-        <div class="co-card-title">📋 Ringkasan Pesanan</div>
-        ${itemsRows}
-        <div class="order-row" style="margin-top:8px"><span>Subtotal</span><span>${SP.fmt(sub)}</span></div>
-        ${discPct > 0 ? `<div class="order-row" style="color:#16A34A"><span>Diskon ${discPct}%</span><span>-${SP.fmt(discAmt)}</span></div>` : ''}
-        <div class="order-row" style="color:#16A34A"><span>Diskon Member ${memberDisc}%</span><span>-${SP.fmt(memberAmt)}</span></div>
-        <div class="order-row"><span>Ongkir</span><span>${freeShip ? '✅ Gratis' : 'Dihitung saat konfirmasi'}</span></div>
-        <div class="order-row" style="font-weight:900;font-size:15px;color:var(--dark);border-top:1px solid var(--border);margin-top:8px;padding-top:12px"><span>Total</span><span>${SP.fmt(total)}</span></div>
-      </div>
+      ${isMember() ? `
+      <div class="co-auth logged">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between">
+          <div>👤 Masuk sebagai <b>${SP.esc(SP.getUser().name)}</b> — <span style="color:#15803D;font-weight:700">Diskon member 10% aktif ✓</span></div>
+          <a class="btn-outline" href="/akun" style="font-size:12px;padding:8px 14px;text-decoration:none">📦 Pesanan Saya</a>
+        </div>
+      </div>` : (!authSkipped ? `
+      <div class="co-auth">
+        <div class="co-auth-title">✨ Daftar / Masuk Member (Gratis)</div>
+        <div class="co-auth-sub">Dapatkan <b>diskon member 10%</b> otomatis + riwayat & status pesanan di <b>dashboard akun</b> kamu. Tanpa daftar juga tetap bisa checkout.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn-red" type="button" onclick="MP.openAuth('login')">Masuk</button>
+          <button class="btn-outline" type="button" onclick="MP.openAuth('register')">Daftar</button>
+          <button class="btn-ghost" type="button" onclick="skipAuth()">Lanjut sebagai Tamu →</button>
+        </div>
+      </div>` : '')}
 
       <div class="co-card">
         <div class="co-card-title">📍 Data Penerima</div>
@@ -105,6 +220,27 @@
       </div>
 
       <div class="co-card">
+        <div class="co-card-title">🚚 Pengiriman & Ongkir</div>
+        ${freeShip ? '<div style="font-size:13px;color:#16A34A;padding:10px 0">🎉 Subtotal ≥ Rp500.000 — pengiriman GRATIS (ekspedisi pilihan kami).</div>' : `
+        <div class="fg">
+          <label class="fl">Provinsi *</label>
+          <select class="fi" id="coProv" onchange="provFn(this.value)">
+            <option value="">— Pilih Provinsi —</option>${provOptions}
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">Kota / Kabupaten *</label>
+          <select class="fi" id="coCity" onchange="cityFn(this.value)" ${selProv ? '' : 'disabled'}>
+            <option value="">${selProv ? '— Pilih Kota —' : 'Pilih provinsi dulu'}</option>${cityOptions}
+          </select>
+        </div>
+        <div class="fg" style="margin-top:4px">
+          <label class="fl">Pilih Ekspedisi *</label>
+          <div id="courierList" style="margin-top:4px">${courierRows}</div>
+        </div>`}
+      </div>
+
+      <div class="co-card">
         <div class="co-card-title">💳 Metode Pembayaran</div>
         <div class="pay-grid">
           ${PAYMENTS.map(p => `
@@ -115,12 +251,47 @@
         </div>
       </div>
 
+      <div class="co-card">
+        <div class="co-card-title">📋 Ringkasan Pesanan</div>
+        ${itemsRows}
+        <div class="order-row" style="margin-top:8px"><span>Subtotal</span><span>${SP.fmt(sub)}</span></div>
+        ${discPct > 0 ? `<div class="order-row" style="color:#16A34A"><span>Diskon ${discPct}%</span><span>-${SP.fmt(discAmt)}</span></div>` : ''}
+        ${isMember() ? `<div class="order-row" style="color:#16A34A"><span>Diskon Member ${memberDisc}%</span><span>-${SP.fmt(memberAmt)}</span></div>` : ''}
+        <div class="order-row"><span>Ongkir</span><span>${freeShip ? '✅ Gratis' : (selCourier ? SP.fmt(shipCost) : 'Belum dipilih')}</span></div>
+        <div class="order-row" style="font-weight:900;font-size:15px;color:var(--dark);border-top:1px solid var(--border);margin-top:8px;padding-top:12px"><span>Total</span><span>${SP.fmt(total)}</span></div>
+        ${freeShip ? '<div style="font-size:11px;color:#16A34A;margin-top:6px">🎉 Selamat! Subtotal ≥ Rp500.000 — ongkir GRATIS.</div>' : ''}
+      </div>
+
       <button class="place-btn" id="placeBtn" onclick="placeOrder()">🛒 Buat Pesanan — ${SP.fmt(total)}</button>
-      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">Pesanan akan dikonfirmasi via WhatsApp. Pembayaran menunggu konfirmasi admin.</p>
+      <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">${isMember() ? 'Pesanan akan otomatis muncul di dashboard akun kamu.' : 'Pesanan akan dikonfirmasi via WhatsApp. Pembayaran menunggu konfirmasi admin.'}</p>
     `;
+    // Restore nilai input yang sudah diisi user (render menimpa innerHTML)
+    Object.entries(saved).forEach(([id, v]) => {
+      const el = document.getElementById(id);
+      if (el) el.value = v;
+    });
+    // Prefill nama dari akun member jika field masih kosong
+    const u = SP.getUser();
+    if (u && !saved.coName) {
+      const el = document.getElementById('coName');
+      if (el) el.value = u.name;
+    }
   }
 
-  window.selPayFn = function(id) { selPay = id; render(); };
+  window.skipAuth = function() { authSkipped = true; render(); };
+
+  window.selPayFn = function(id) {
+    selPay = id;
+    const f = PAYMENTS.find(p => p.id === id);
+    SEL_PM = f ? f.pm : null;
+    render();
+  };
+  window.provFn = function(p) { selProv = p; selCity = ''; courierCosts = []; selCourier = null; render(); };
+  window.cityFn = function(c) { selCity = c; calcCost(); };
+  window.selCourierFn = function(code) {
+    selCourier = courierCosts.find(c => c.courier === code) || null;
+    render();
+  };
 
   window.placeOrder = async function() {
     const cart = SP.getCart();
@@ -133,77 +304,241 @@
     if (!selPay) { alert('Pilih metode pembayaran dulu ya!'); return; }
 
     const sub = cart.reduce((s, c) => s + c.price * c.qty, 0);
-    const tq = cart.reduce((s, c) => s + c.qty, 0);
-    const disc = getDisc(tq);
-    const discAmt = sub * disc / 100;
-    const afterDisc = sub - discAmt;
-    const memberDisc = MEMBER_DISCOUNT;
-    const memberAmt = afterDisc * memberDisc / 100;
-    const total = afterDisc - memberAmt;
-    const voucherAmt = 0;
+        const tq = cart.reduce((s, c) => s + c.qty, 0);
+        const disc = getDisc(tq);
+        const discAmt = sub * disc / 100;
+        const afterDisc = sub - discAmt;
+        const memberDisc = isMember() ? MEMBER_DISCOUNT : 0;
+        const memberAmt = afterDisc * memberDisc / 100;
+        const freeShip = sub >= FREE_SHIP_MIN;
+        const voucherAmt = 0;
 
-    const id = 'MP-' + Date.now().toString(36).toUpperCase();
-    const order = {
-      id,
-      date: new Date().toISOString(),
-      customer: { name, phone, address: addr, note },
-      items: cart.map(c => ({ productId: c.productId, productName: c.productName, variantName: c.variantName, price: c.price, qty: c.qty })),
-      sub, disc, discAmt, memberDisc, memberAmt, voucherAmt, total,
-      payment: selPay,
-      status: 'Menunggu Konfirmasi'
-    };
+        if (!freeShip && !selCourier) { alert('Pilih ekspedisi pengiriman dulu ya!'); return; }
 
-    const btn = document.getElementById('placeBtn');
-    btn.disabled = true; btn.textContent = 'Mengirim pesanan...';
-    try {
-      const res = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(order)
-      });
-      if (!res.ok) throw new Error(await res.text());
+        const shipCost = freeShip ? 0 : (selCourier ? selCourier.cost : 0);
+        const total = sub - discAmt - memberAmt + shipCost;
 
-      SP.saveCart([]);
-      SP.updateCartBadge();
+        const shipping = freeShip ? {
+          city: 'Gratis Ongkir', province: '', courier: 'gratis', courier_name: 'Gratis Ongkir',
+          cost: 0, etd: '1-3', weight_kg: Math.ceil(getWeight(cart) / 1000)
+        } : {
+          city: selCity, province: selProv, courier: selCourier.courier,
+          courier_name: selCourier.courier_name, cost: shipCost, etd: selCourier.etd, weight_kg: selCourier.weight_kg
+        };
 
-      const itemsText = cart.map(c => `- ${c.productName} (${c.variantName}) × ${c.qty} = ${SP.fmt(c.price * c.qty)}`).join('\n');
-      const waMsg = encodeURIComponent(
-        `Halo Admin Murah Plastic! Saya baru saja membuat pesanan:\n\n` +
-        `*No. Pesanan:* ${id}\n` +
-        `*Nama:* ${name}\n` +
-        `*No. HP:* ${phone}\n` +
-        `*Alamat:* ${addr}\n` +
-        `*Payment:* ${selPay}\n\n` +
-        `*Detail Pesanan:*\n${itemsText}\n\n` +
-        `*Total: ${SP.fmt(total)}*\n` +
-        `(catatan: ${note || '-'})`
-      );
+        const id = 'MP-' + Date.now().toString(36).toUpperCase();
+        const order = {
+          id,
+          date: new Date().toISOString(),
+          customer: { name, phone, address: addr, note },
+          items: cart.map(c => ({ productId: c.productId, slug: c.slug || '', productName: c.productName, variantName: c.variantName, price: c.price, qty: c.qty })),
+          sub, disc, discAmt, memberDisc, memberAmt, voucherAmt, total,
+          payment: selPay,
+          status: 'Menunggu Konfirmasi',
+          shipping,
+          user_id: (SP.getUser()||{}).id || ''
+        };
 
-      document.getElementById('coWrap').innerHTML = `
-        <div class="success-box" style="background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)">
-          <div class="success-icon">🎉</div>
-          <div class="success-title">Pesanan Berhasil Dibuat!</div>
-          <div class="order-id-badge">${id}</div>
-          <div class="success-sub">
-            Terima kasih, <strong>${SP.esc(name)}</strong>!<br>
-            Pesanan kamu sudah kami terima dan akan segera dikonfirmasi admin via WhatsApp.<br>
-            Silakan klik tombol di bawah untuk konfirmasi cepat ke admin.
-          </div>
-          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-            <a class="btn-red" href="https://wa.me/${WA}?text=${waMsg}" target="_blank" rel="noopener">💬 Konfirmasi via WhatsApp</a>
-            <a class="btn-outline" href="/">← Kembali ke Home</a>
-          </div>
-        </div>`;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (e) {
-      console.error('order failed', e);
-      btn.disabled = false; btn.textContent = '🛒 Buat Pesanan — ' + SP.fmt(total);
-      alert('Gagal mengirim pesanan. Coba lagi ya!');
-    }
+        const isPakasir = selPay === 'QRIS';
+        order.status = isPakasir ? 'Menunggu Pembayaran' : 'Menunggu Konfirmasi';
+
+        const btn = document.getElementById('placeBtn');
+        btn.disabled = true; btn.textContent = 'Mengirim pesanan...';
+        try {
+          const res = await fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(order)
+          });
+          if (!res.ok) throw new Error(await res.text());
+
+          // Simpan profil member (nama/HP/alamat) untuk checkout berikutnya
+          const mpU = SP.getUser();
+          if (mpU && SP.getToken()) {
+            fetch('/api/account/me', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + SP.getToken() },
+              body: JSON.stringify({ name, phone, address: addr, city: selCity })
+            }).catch(() => {});
+          }
+
+          const itemsText = cart.map(c => `- ${c.productName} (${c.variantName}) × ${c.qty} = ${SP.fmt(c.price * c.qty)}`).join('\\n');
+          const shipText = freeShip ? 'Gratis Ongkir (min. belanja Rp500.000)' : `${selCourier.courier_name} ke ${selCity}, ${selProv} (${selCourier.etd} hari) = ${SP.fmt(shipCost)}`;
+          const dashBtn = SP.getUser() ? '<a class="btn-red" href="/akun">📦 Lihat Pesanan Saya</a>' : '';
+
+          function showSuccess(extra) {
+            SP.saveCart([]);
+            SP.updateCartBadge();
+            document.getElementById('coWrap').innerHTML = `
+              <div class="success-box" style="background:white;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);text-align:center">
+                <div class="success-icon">🎉</div>
+                <div class="success-title">Pesanan Berhasil Dibuat!</div>
+                <div class="order-id-badge">${id}</div>
+                <div class="success-sub">
+                  Terima kasih, <strong>${SP.esc(name)}</strong>!<br>
+                  ${extra || ''}
+                  ${shipText}<br>
+                </div>
+                <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px">
+                  ${dashBtn}
+                  <a class="btn-outline" href="/">← Kembali ke Home</a>
+                </div>
+              </div>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+
+          if (isPakasir) {
+            // ── QRIS Otomatis: create QR via Pakasir, show payment page ──
+            let payData;
+            try {
+              const payRes = await fetch('/api/payment/create', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ order_id: id, amount: total })
+              });
+              payData = await payRes.json();
+              if (!payData.qr) throw new Error(payData.error || 'unknown');
+            } catch (payErr) {
+              console.error('QRIS create failed', payErr);
+              showSuccess('Pesanan sudah tercatat. Namun pembayaran QRIS gagal diproses. Silakan hubungi admin via WA untuk konfirmasi.<br>');
+              return;
+            }
+            showSuccess('Bayar via QRIS Otomatis<br>Scan QR berikut dengan GoPay, OVO, DANA, ShopeePay, atau Mobile Banking');
+                        const sq = document.querySelector('.success-box');
+                        sq.insertAdjacentHTML('beforeend', `
+                          <div style="background:white;border:2px dashed var(--gold);border-radius:10px;padding:16px;margin:12px 0;text-align:center">
+                            <div id="qrcode" style="display:flex;justify-content:center;min-height:200px;align-items:center;margin:8px 0"><span style="color:var(--muted);font-size:12px">⏳ Memuat QR...</span></div>
+                            <div style="font-size:14px;font-weight:800;color:var(--dark)">Total: ${SP.fmt(payData.total)}</div>
+                            <p style="color:var(--muted);font-size:13px;margin:8px 0 0">Scan QR dengan <b>GoPay, OVO, DANA, ShopeePay,</b> atau <b>Mobile Banking</b></p>
+                          </div>
+                          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px">
+                            <a class="btn-red" href="https://wa.me/${WA}?text=${encodeURIComponent('Halo Admin! Saya sudah bayar QRIS untuk pesanan ' + id)}">💬 Konfirmasi via WA</a>
+                          </div>
+                          <div style="font-size:11px;color:var(--muted);margin-top:10px">⏳ Halaman ini akan auto-refresh tiap 10 detik untuk cek status...</div>`);
+                        // Render QR Code dari string QRIS (pakai library qrcode npm)
+                        if (typeof QRCode !== 'undefined') {
+                          try {
+                            QRCode.toDataURL(payData.qr, { width: 200, margin: 2 }, function(err, url) {
+                              const qrEl = document.getElementById('qrcode');
+                              if (err || !qrEl) return;
+                              qrEl.innerHTML = '<img src="' + url + '" style="width:200px;height:200px;border:1px solid var(--border);border-radius:8px;background:white">';
+                            });
+                          } catch (e) { document.getElementById('qrcode').innerHTML = '<p style="font-size:12px;color:var(--red)">Gagal render QR. Scan kode berikut di aplikasi QRIS:<br><code style="word-break:break-all;font-size:10px">'+esc(payData.qr)+'</code></p>'; }
+                        }
+            // Polling check payment
+            let pollCount = 0;
+            const pi = setInterval(async () => {
+              pollCount++;
+              if (pollCount > 30) { clearInterval(pi); return; }
+              try {
+                const ck = await fetch('/api/payment/check?order_id=' + encodeURIComponent(id) + '&amount=' + total);
+                const d = await ck.json();
+                if (d.paid) {
+                  clearInterval(pi);
+                  sq.innerHTML = '<div style="text-align:center;padding:20px"><div style="font-size:48px">✅</div><div style="font-weight:800;font-size:18px;color:var(--dark);margin:8px 0">Pembayaran Diterima! 🎉</div><div style="font-size:13px;color:var(--muted);margin-bottom:16px">Pesanan ' + id + ' sedang diproses.</div><a class="btn-red" href="/akun">📦 Lihat Pesanan Saya</a></div>';
+                }
+              } catch (e) {}
+            }, 10000);
+          } else {
+            // ── Manual payment: tampilkan detail rekening/QRIS + form upload bukti ──
+            const pmDetail = SEL_PM ? (
+              SEL_PM.type === 'bank'
+                ? '<div style="background:var(--gold-light);border-radius:10px;padding:12px;margin:10px 0;text-align:center">'
+                  + '<div style="font-size:11px;color:var(--muted)">Transfer ke rekening berikut:</div>'
+                  + '<div style="font-size:18px;font-weight:900;color:var(--dark);margin:4px 0">' + SP.esc(SEL_PM.account_number || '-') + '</div>'
+                  + '<div style="font-size:13px;font-weight:700;color:var(--gold)">' + SP.esc(SEL_PM.label) + ' — a.n. ' + SP.esc(SEL_PM.account_name || '-') + '</div>'
+                  + '</div>'
+                : (SEL_PM.image_url
+                    ? '<div style="background:var(--gold-light);border-radius:10px;padding:12px;margin:10px 0;text-align:center">'
+                      + '<div style="font-size:11px;color:var(--muted)">Scan QRIS ' + SP.esc(SEL_PM.label) + ' berikut:</div>'
+                      + '<img src="' + SP.esc(SEL_PM.image_url) + '" style="max-width:180px;margin:8px auto;display:block;border:1px solid var(--border);border-radius:8px;background:white" onerror="this.style.display=\'none\'">'
+                      + (SEL_PM.phone ? '<div style="font-size:12px;color:var(--muted);margin-top:4px">Atau kirim ke ' + SP.esc(SEL_PM.phone) + '</div>' : '')
+                      + '</div>'
+                      : '')
+            ) : '<div style="background:var(--gold-light);border-radius:10px;padding:12px;margin:10px 0;text-align:center;font-size:13px;color:var(--muted)">Silakan transfer sesuai total pesanan</div>';
+            showSuccess('Pesanan kamu sudah kami terima!<br>Silakan lakukan pembayaran dan upload bukti transfer di bawah ini.');
+            const sq = document.querySelector('.success-box');
+            sq.insertAdjacentHTML('beforeend', pmDetail + `
+              <div style="margin:12px 0;padding:14px;background:var(--light);border-radius:10px;text-align:left">
+                <div style="font-size:12px;font-weight:800;color:var(--mid);margin-bottom:8px">📸 Upload Bukti Pembayaran</div>
+                <input type="file" id="proofFile" accept="image/*" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;background:white;font-size:12px;margin-bottom:8px;box-sizing:border-box">
+                <input type="text" id="proofNote" placeholder="Catatan (opsional)" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:12px;margin-bottom:8px;box-sizing:border-box">
+                <button class="btn-red" onclick="uploadProof('${id}')" style="width:100%;padding:12px;font-size:14px;border:none;border-radius:10px;font-weight:800;cursor:pointer">📤 Kirim Bukti Pembayaran</button>
+                <div id="proofStatus" style="margin-top:8px;font-size:12px;font-weight:700"></div>
+              </div>
+              <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px">
+                <a class="btn-outline" href="https://wa.me/${WA}?text=${encodeURIComponent('Halo Admin Murah Plastic! Saya sudah bayar untuk pesanan ' + id + ' (total: ' + SP.fmt(total) + '). Mohon segera diproses 🙏')}" style="text-decoration:none;padding:10px 16px;border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:800;color:var(--mid);display:inline-block">💬 Konfirmasi via WA</a>
+              </div>`);
+            window.uploadProof = async function(orderId) {
+              const fileEl = document.getElementById('proofFile');
+              const st = document.getElementById('proofStatus');
+              if (!fileEl.files || !fileEl.files[0]) { st.innerHTML = '<span style="color:var(--red)">Pilih file bukti (foto screenshoot transfer) dulu ya!</span>'; return; }
+              st.innerHTML = '<span>⏳ Mengirim bukti pembayaran...</span>';
+              const fd = new FormData();
+              fd.append('file', fileEl.files[0]);
+              fd.append('orderId', orderId);
+              fd.append('note', document.getElementById('proofNote').value || '');
+              fd.append('method', selPay);
+              try {
+                const res = await fetch('/api/upload/payment', { method: 'POST', body: fd });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Gagal upload');
+                document.getElementById('proofFile').disabled = true;
+                document.getElementById('proofNote').disabled = true;
+                document.querySelector('[onclick^="uploadProof"]').style.display = 'none';
+                st.innerHTML = '<span style="color:#16A34A;font-size:14px">✅ Bukti terkirim! Admin akan verifikasi pesanan kamu. <a href="/akun" style="color:var(--mid);font-weight:800">📦 Lihat di Akun</a></span>';
+              } catch (e) { st.innerHTML = '<span style="color:var(--red)">Gagal: ' + e.message + '</span>'; }
+            };
+          }
+
+        } catch (e) {
+          console.error('order failed', e);
+          btn.disabled = false; btn.textContent = '🛒 Buat Pesanan — ' + SP.fmt(total);
+          alert('Gagal mengirim pesanan. Coba lagi ya!');
+        }
   };
 
-  render();
+  // ── Prefill data penerima dari profil member ──
+  async function prefillProfile() {
+    const u = SP.getUser();
+    const tok = SP.getToken();
+    if (!u || !tok) return;
+    try {
+      const res = await fetch('/api/account/me', { headers: { 'Authorization': 'Bearer ' + tok } });
+      if (!res.ok) return;
+      const p = await res.json();
+      const nameEl = document.getElementById('coName');
+      const phoneEl = document.getElementById('coPhone');
+      const addrEl = document.getElementById('coAddr');
+      if (nameEl && !nameEl.value && p.name) nameEl.value = p.name;
+      if (phoneEl && !phoneEl.value && p.phone) phoneEl.value = p.phone;
+      if (addrEl && !addrEl.value && p.address) addrEl.value = p.address;
+
+      // ── Prefill provinsi + kota dari profil ──
+      if (p.city && !selCity) {
+        const match = (cityData && cityData.cities || []).find(c => c.city === p.city);
+        if (match) {
+          selProv = match.province;
+          selCity = match.city;
+          await calcCost();
+          // Pilih kurir termurah otomatis
+          if (courierCosts.length) {
+            selCourier = courierCosts.reduce((a, b) => (b.cost < a.cost ? b : a));
+          }
+          render();
+        }
+      }
+    } catch (e) {}
+  }
+
+  (async function init() {
+    await loadSettings();
+    await loadCities();
+    await loadPayments();
+    render();
+    prefillProfile();
+  })();
 })();
 </script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>
