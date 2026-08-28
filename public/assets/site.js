@@ -73,7 +73,7 @@
       </div>
       <div class="nav-right">
         <button class="notif-bell-btn" id="mpNotifBell" type="button" onclick="MP.toggleNotif(event)" title="Notifikasi">${IC("bell")}<span class="notif-badge" id="mpNotifBadge" style="display:none">0</span></button>
-        <button class="nav-auth" type="button" id="navAuthBtn" onclick="MP.authAction()">${IC("user")} Masuk</button>
+        <button class="nav-auth" type="button" id="navAuthBtn" onclick="MP.authAction()">${IC("user")}<span class="nav-auth-text">Masuk</span></button>
         <a class="cart-btn" href="/cart">${IC("shopping-cart")} <span class="cart-label">Keranjang</span> <span class="cart-count" data-cart-count>0</span></a>
       </div>
     </div>
@@ -525,10 +525,10 @@
     const btn = document.getElementById('navAuthBtn');
     if (btn) {
       if (u) {
-        btn.innerHTML = '' + IC("user") + ' ' + u.name.split(' ')[0];
+        btn.innerHTML = '' + IC("user") + '<span class="nav-auth-text">' + u.name.split(' ')[0] + '</span>';
         btn.title = 'Akun Saya';
       } else {
-        btn.innerHTML = '' + IC("user") + ' Masuk';
+        btn.innerHTML = '' + IC("user") + '<span class="nav-auth-text">Masuk</span>';
         btn.title = 'Masuk / Daftar';
       }
     }
