@@ -36,6 +36,15 @@ function slugify(s) {
 }
 
 // ── Layout shell ──
+const IC_HELPER = `// Icon helper: returns inline SVG referencing the sprite
+window.IC = function(n){return '<svg class="ic" aria-hidden="true"><use href="#i-'+n+'"/></svg>'};
+var IC = window.IC;
+// Fetch sprite async - SVG use > resolves dynamically once symbols are in DOM
+fetch('/icon-sprite.html').then(function(r){return r.text()}).then(function(t){
+  var d=document.createElement('div'); d.innerHTML=t; document.body.prepend(d.firstChild);
+}).catch(function(){});`;
+const IC_CSS = '.ic{width:1.1em;height:1.1em;vertical-align:-0.15em;display:inline-block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.wish-btn .ic,.icon .ic{width:18px;height:18px;vertical-align:middle}';
+
 function layout({ title, desc, canonical, ogImage, jsonLd, body, bodyClass = '', script = '' }) {
   const descText = truncate(desc || TAGLINE, 158);
   const jsonLdHtml = jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : '';
@@ -65,11 +74,13 @@ ${ogImage ? `<meta name="twitter:image" content="${esc(ogImage)}">` : ''}
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 ${jsonLdHtml}
+<style>${IC_CSS}</style>
 </head>
 <body class="${bodyClass}">
 <div id="site-nav"></div>
 <main>${body}</main>
 <footer class="footer" id="site-footer"></footer>
+<script>${IC_HELPER}</script>
 <script src="/assets/site.js"></script>
 ${script ? `<script>${script}</script>` : ''}
 </body>

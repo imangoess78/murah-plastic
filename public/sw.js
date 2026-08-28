@@ -1,5 +1,5 @@
 /* Murah Plastic — Service Worker (PWA) v1.0.0 */
-const VERSION = 'murah-plastic-v1.0.0';
+const VERSION = 'murah-plastic-v1.0.2';
 const CORE_CACHE = VERSION + '-core';
 const ASSET_CACHE = VERSION + '-assets';
 const PAGE_CACHE = VERSION + '-pages';

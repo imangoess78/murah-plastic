@@ -36,14 +36,14 @@
   const NAVBAR = `
   <div class="topbar">
     <div class="topbar-links">
-      <a href="/admin.html" style="color:var(--gold-bright);font-weight:700">⚡ Admin</a>
+      <a href="/admin.html" style="color:var(--gold-bright);font-weight:700">${IC("zap")} Admin</a>
       <a href="/tentang-kami">Tentang Kami</a>
-      <a href="/artikel">📝 Artikel</a>
+      <a href="/artikel">${IC("file-text")} Artikel</a>
       <a href="/faq">FAQ</a>
       <a href="https://shopee.co.id/murahplastic" target="_blank" rel="noopener">Toko Shopee</a>
     </div>
     <div class="topbar-right">
-      <span>💬 WA Partai:</span>
+      <span>${IC("message-circle")} WA Partai:</span>
       <a href="https://wa.me/628129153811" target="_blank" rel="noopener" class="wa-link">0812-915-3811</a>
       <span>|</span>
       <a href="https://wa.me/6285104778700" target="_blank" rel="noopener" class="wa-link">0851-0477-8700</a>
@@ -60,21 +60,21 @@
         <div><div class="brand-name">Murah Plastic</div><div class="brand-sub">by MUPA Group</div></div>
       </a>
       <div class="search-wrap">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon">${IC("search")}</span>
         <input class="search-input" type="text" id="globalSearch" placeholder="Cari plastik OPP, ukuran, jenis..." onkeydown="if(event.key==='Enter'){MP.goSearch(this.value)}">
         <button class="search-btn" type="button" onclick="MP.goSearch(document.getElementById('globalSearch').value)">Cari</button>
       </div>
       <div class="nav-links">
-        <a class="nav-link" href="/">🏠 Home</a>
-        <a class="nav-link" href="/shop">🛍️ Shop</a>
-        <a class="nav-link" href="/artikel">📝 Artikel</a>
+        <a class="nav-link" href="/">${IC("home")} Home</a>
+        <a class="nav-link" href="/shop">${IC("shopping-bag")} Shop</a>
+        <a class="nav-link" href="/artikel">${IC("file-text")} Artikel</a>
         <a class="nav-link" href="/tentang-kami">Tentang Kami</a>
         <a class="nav-link" href="/faq">FAQ</a>
       </div>
       <div class="nav-right">
-        <button class="notif-bell-btn" id="mpNotifBell" type="button" onclick="MP.toggleNotif(event)" title="Notifikasi">🔔<span class="notif-badge" id="mpNotifBadge" style="display:none">0</span></button>
-        <button class="nav-auth" type="button" id="navAuthBtn" onclick="MP.authAction()">👤 Masuk</button>
-        <a class="cart-btn" href="/cart">🛒 <span class="cart-label">Keranjang</span> <span class="cart-count" data-cart-count>0</span></a>
+        <button class="notif-bell-btn" id="mpNotifBell" type="button" onclick="MP.toggleNotif(event)" title="Notifikasi">${IC("bell")}<span class="notif-badge" id="mpNotifBadge" style="display:none">0</span></button>
+        <button class="nav-auth" type="button" id="navAuthBtn" onclick="MP.authAction()">${IC("user")} Masuk</button>
+        <a class="cart-btn" href="/cart">${IC("shopping-cart")} <span class="cart-label">Keranjang</span> <span class="cart-count" data-cart-count>0</span></a>
       </div>
     </div>
   </nav>
@@ -85,31 +85,31 @@
           <div class="brand-logo">M</div>
           <div><div class="brand-name">Murah Plastic</div><div class="brand-sub">by MUPA Group</div></div>
         </a>
-        <button class="sb-close" type="button" onclick="MP.closeMenu()" aria-label="Tutup menu">✕</button>
+        <button class="sb-close" type="button" onclick="MP.closeMenu()" aria-label="Tutup menu">${IC("x")}</button>
       </div>
       <div class="sb-body">
         <div class="sb-auth" id="sbAuth">
-          <a class="sb-link" href="javascript:void(0)" onclick="MP.authAction()"><span class="sb-ic">👤</span> <span id="sbAuthText">Masuk / Daftar</span></a>
-          <a class="sb-link" href="/akun" style="display:none" id="sbAccountLink"><span class="sb-ic">📦</span> Pesanan Saya</a>
-          <a class="sb-link" href="javascript:void(0)" onclick="MP.logout()" style="display:none" id="sbLogoutLink"><span class="sb-ic">🚪</span> Keluar</a>
+          <a class="sb-link" href="javascript:void(0)" onclick="MP.authAction()"><span class="sb-ic">${IC("user")}</span> <span id="sbAuthText">Masuk / Daftar</span></a>
+          <a class="sb-link" href="/akun" style="display:none" id="sbAccountLink"><span class="sb-ic">${IC("package")}</span> Pesanan Saya</a>
+          <a class="sb-link" href="javascript:void(0)" onclick="MP.logout()" style="display:none" id="sbLogoutLink"><span class="sb-ic">${IC("log-out")}</span> Keluar</a>
         </div>
         <div class="sb-label">Menu Utama</div>
-        <a class="sb-link" href="/"><span class="sb-ic">🏠</span> Home</a>
-        <a class="sb-link" href="/shop"><span class="sb-ic">🛍️</span> Shop</a>
-        <a class="sb-link" href="/artikel"><span class="sb-ic">📝</span> Artikel</a>
-        <a class="sb-link" href="/tentang-kami"><span class="sb-ic">ℹ️</span> Tentang Kami</a>
-        <a class="sb-link" href="/faq"><span class="sb-ic">❓</span> FAQ</a>
+        <a class="sb-link" href="/"><span class="sb-ic">${IC("home")}</span> Home</a>
+        <a class="sb-link" href="/shop"><span class="sb-ic">${IC("shopping-bag")}</span> Shop</a>
+        <a class="sb-link" href="/artikel"><span class="sb-ic">${IC("file-text")}</span> Artikel</a>
+        <a class="sb-link" href="/tentang-kami"><span class="sb-ic">${IC("info")}</span> Tentang Kami</a>
+        <a class="sb-link" href="/faq"><span class="sb-ic">${IC("help-circle")}</span> FAQ</a>
         <div class="sb-label" style="margin-top: 6px">Kategori Produk</div>
-        <a class="sb-link" href="/shop"><span class="sb-ic">📦</span> Semua Produk</a>
-        <a class="sb-link" href="/kategori/opp-lem-tipis"><span class="sb-ic">📋</span> OPP Lem Tipis</a>
-        <a class="sb-link" href="/kategori/opp-lem-tebal"><span class="sb-ic">📋</span> OPP Lem Tebal</a>
-        <a class="sb-link" href="/kategori/opp-lem-super-tebal"><span class="sb-ic">📋</span> Super Tebal</a>
-        <a class="sb-link" href="/kategori/plastik-ziplock-klip"><span class="sb-ic">🔒</span> Ziplock / Klip</a>
-        <a class="sb-link" href="/kategori/opp-tanpa-lem"><span class="sb-ic">📋</span> Tanpa Lem</a>
-        <a class="sb-link" href="/kategori/plastik-gusset-roti"><span class="sb-ic">🍞</span> Gusset Roti</a>
+        <a class="sb-link" href="/shop"><span class="sb-ic">${IC("package")}</span> Semua Produk</a>
+        <a class="sb-link" href="/kategori/opp-lem-tipis"><span class="sb-ic">${IC("clipboard-list")}</span> OPP Lem Tipis</a>
+        <a class="sb-link" href="/kategori/opp-lem-tebal"><span class="sb-ic">${IC("clipboard-list")}</span> OPP Lem Tebal</a>
+        <a class="sb-link" href="/kategori/opp-lem-super-tebal"><span class="sb-ic">${IC("clipboard-list")}</span> Super Tebal</a>
+        <a class="sb-link" href="/kategori/plastik-ziplock-klip"><span class="sb-ic">${IC("lock")}</span> Ziplock / Klip</a>
+        <a class="sb-link" href="/kategori/opp-tanpa-lem"><span class="sb-ic">${IC("clipboard-list")}</span> Tanpa Lem</a>
+        <a class="sb-link" href="/kategori/plastik-gusset-roti"><span class="sb-ic">${IC("wheat")}</span> Gusset Roti</a>
       </div>
       <div class="sb-foot">
-        <a class="sb-wa-btn" href="https://wa.me/628129153811" target="_blank" rel="noopener">💬 Chat WhatsApp</a>
+        <a class="sb-wa-btn" href="https://wa.me/628129153811" target="_blank" rel="noopener">${IC("message-circle")} Chat WhatsApp</a>
         <div class="sb-contact">0812-915-3811 · 0851-0477-8700</div>
       </div>
     </div>
@@ -139,16 +139,16 @@
         <div class="f-col-title">Grup Toko Online</div>
         <div class="f-brands"><div class="f-brand-item">Murah Plastic</div><div class="f-brand-item">Dongbo Store</div><div class="f-brand-item">Maju Plastic</div><div class="f-brand-item">Plastikin.aja</div></div>
         <div class="f-socials">
-          <a class="f-social" href="https://shopee.co.id/murahplastic" target="_blank" rel="noopener">🛒</a>
-          <a class="f-social" href="https://tiktok.com/@mupaplastic" target="_blank" rel="noopener">🎵</a>
-          <a class="f-social" href="https://www.instagram.com/murahplastic" target="_blank" rel="noopener">📸</a>
+          <a class="f-social" href="https://shopee.co.id/murahplastic" target="_blank" rel="noopener">${IC("shopping-cart")}</a>
+          <a class="f-social" href="https://tiktok.com/@mupaplastic" target="_blank" rel="noopener">${IC("music")}</a>
+          <a class="f-social" href="https://www.instagram.com/murahplastic" target="_blank" rel="noopener">${IC("camera")}</a>
         </div>
       </div>
       <div>
         <div class="f-col-title">Kategori</div>
         <ul class="f-links">
-          <li><a href="/shop">🛍️ Shop Semua Produk</a></li>
-          <li><a href="/produk">📦 Arsip Produk</a></li>
+          <li><a href="/shop">${IC("shopping-bag")} Shop Semua Produk</a></li>
+          <li><a href="/produk">${IC("package")} Arsip Produk</a></li>
           <li><a href="/kategori/opp-lem-tipis">OPP Lem Tipis</a></li>
           <li><a href="/kategori/opp-lem-tebal">OPP Lem Tebal</a></li>
           <li><a href="/kategori/opp-lem-super-tebal">Super Tebal</a></li>
@@ -158,12 +158,12 @@
       <div>
         <div class="f-col-title">Informasi</div>
         <ul class="f-links">
-          <li><a href="/shop">🛍️ Shop</a></li>
-          <li><a href="/produk">📦 Semua Produk</a></li>
-          <li><a href="/artikel">📝 Artikel & Tips</a></li>
+          <li><a href="/shop">${IC("shopping-bag")} Shop</a></li>
+          <li><a href="/produk">${IC("package")} Semua Produk</a></li>
+          <li><a href="/artikel">${IC("file-text")} Artikel & Tips</a></li>
           <li><a href="/tentang-kami">Tentang Kami</a></li>
           <li><a href="/faq">FAQ</a></li>
-          <li><a href="/cart">🛒 Keranjang</a></li>
+          <li><a href="/cart">${IC("shopping-cart")} Keranjang</a></li>
           <li><a href="/checkout">Checkout</a></li>
           <li><a href="https://shopee.co.id/murahplastic" target="_blank" rel="noopener">Toko Shopee</a></li>
         </ul>
@@ -171,10 +171,10 @@
       <div>
         <div class="f-col-title">Hubungi Kami</div>
         <div class="f-contact">
-          <div class="f-contact-item">💬 <a href="https://wa.me/628129153811" target="_blank" rel="noopener">0812-915-3811</a> <span style="color:var(--gold);font-size:11px">(No Call)</span></div>
-          <div class="f-contact-item">💬 <a href="https://wa.me/6285104778700" target="_blank" rel="noopener">0851-0477-8700</a> <span style="color:var(--gold);font-size:11px">(No Call)</span></div>
-          <div class="f-contact-item">✉️ <a href="mailto:murahplastic@gmail.com">murahplastic@gmail.com</a></div>
-          <div class="f-contact-item">📍 Nerogtog, Tangerang 15145</div>
+          <div class="f-contact-item">${IC("message-circle")} <a href="https://wa.me/628129153811" target="_blank" rel="noopener">0812-915-3811</a> <span style="color:var(--gold);font-size:11px">(No Call)</span></div>
+          <div class="f-contact-item">${IC("message-circle")} <a href="https://wa.me/6285104778700" target="_blank" rel="noopener">0851-0477-8700</a> <span style="color:var(--gold);font-size:11px">(No Call)</span></div>
+          <div class="f-contact-item">${IC("mail")} <a href="mailto:murahplastic@gmail.com">murahplastic@gmail.com</a></div>
+          <div class="f-contact-item">${IC("map-pin")} Nerogtog, Tangerang 15145</div>
         </div>
         <div class="f-col-title" style="margin-top:16px">Pembayaran</div>
         <div class="f-pay"><span class="f-badge">Transfer</span><span class="f-badge">GoPay</span><span class="f-badge">OVO</span><span class="f-badge">QRIS</span></div>
@@ -190,10 +190,10 @@
   const FLOATING_WIDGETS = `
   <div class="wa-float">
     <div class="wa-popup" id="waPopup">
-      <div class="wa-popup-title">💬 Hubungi Kami</div>
+      <div class="wa-popup-title">${IC("message-circle")} Hubungi Kami</div>
       <div class="wa-popup-sub">Chat langsung, kami siap bantu!</div>
-      <a href="https://wa.me/628129153811" target="_blank" class="wa-popup-btn"><div>💬</div><div><div class="wa-popup-label">WA Utama (No Call)</div><div class="wa-popup-num">0812-915-3811</div></div></a>
-      <a href="https://wa.me/6285104778700" target="_blank" class="wa-popup-btn"><div>💬</div><div><div class="wa-popup-label">WA Alternatif (No Call)</div><div class="wa-popup-num">0851-0477-8700</div></div></a>
+      <a href="https://wa.me/628129153811" target="_blank" class="wa-popup-btn"><div>${IC("message-circle")}</div><div><div class="wa-popup-label">WA Utama (No Call)</div><div class="wa-popup-num">0812-915-3811</div></div></a>
+      <a href="https://wa.me/6285104778700" target="_blank" class="wa-popup-btn"><div>${IC("message-circle")}</div><div><div class="wa-popup-label">WA Alternatif (No Call)</div><div class="wa-popup-num">0851-0477-8700</div></div></a>
     </div>
     <div style="position:relative" onclick="toggleWA()">
       <a class="wa-float-btn">
@@ -203,7 +203,7 @@
     </div>
   </div>
   <div class="livechat-btn">
-    <div class="livechat-trigger" onclick="toggleLiveChat()" title="Live Chat">💬</div>
+    <div class="livechat-trigger" onclick="toggleLiveChat()" title="Live Chat">${IC("message-circle")}</div>
   </div>
   <div class="livechat-overlay" id="livechatOverlay">
     <div class="livechat-head">
@@ -212,7 +212,7 @@
         <div class="livechat-name">Murah Plastic Support</div>
         <div class="livechat-status"><span class="livechat-online-dot"></span>Online sekarang</div>
       </div>
-      <button class="livechat-close" onclick="toggleLiveChat()">✕</button>
+      <button class="livechat-close" onclick="toggleLiveChat()">${IC("x")}</button>
     </div>
     <div class="livechat-messages" id="chatMessages"></div>
     <div class="chat-quick-replies" id="chatQuickReplies"></div>
@@ -228,27 +228,27 @@
   let chatInitialized = false;
 
   const CHAT_RESPONSES = {
-    'harga': 'Harga produk kami mulai dari Rp3.500/pack (isi 100 pcs). Cek semua harga di halaman produk ya! 😊',
-    'ongkir': 'Gratis ongkir untuk pembelian min. Rp500.000! Untuk estimasi ongkir, cek di halaman produk → Cek Ongkir.',
+    'harga': 'Harga produk kami mulai dari Rp3.500/pack (isi 100 pcs). Cek semua harga di halaman produk ya! ' + IC("smile") + '',
+    'ongkir': 'Gratis ongkir untuk pembelian min. Rp500.000! Untuk estimasi ongkir, cek di halaman produk ' + IC("arrow-right") + ' Cek Ongkir.',
     'diskon': 'Ada diskon otomatis: beli 5 pack -2%, 10 pack -5%, 50 pack -10%, 100 pack -20%. Plus diskon member 10% kalau login!',
     'minimal': 'Minimal pembelian 5 pack per produk. Bisa mix ukuran ya!',
     'pembayaran': 'Kami terima Transfer Bank (BCA/Mandiri/BRI), GoPay, OVO, dan QRIS.',
     'retur': 'Retur bisa dilakukan dalam 3 hari setelah produk diterima. Klik menu Retur di topbar untuk info lengkap.',
     'ukuran': 'Tersedia banyak ukuran! Mulai dari 6x10 sampai 35x45 cm. Cek di halaman produk untuk pilihan lengkap.',
     'tebal': 'Kami punya 4 ketebalan: Tipis (17-18 mic), Tebal (26-32 mic), Super Tebal (38 mic), dan Double Seal.',
-    'food grade': 'Ya, semua produk OPP kami food grade dan aman untuk kemasan makanan! ✅',
+    'food grade': 'Ya, semua produk OPP kami food grade dan aman untuk kemasan makanan! ' + IC("check-circle-2") + '',
     'grosir': 'Untuk pembelian partai besar/grosir, hubungi WA 0812-915-3811. Ada harga spesial!',
     'pengiriman': 'Kami kirim via JNE, J&T, SiCepat, dan Anteraja ke seluruh Indonesia. International shipping juga tersedia!',
     'stok': 'Stok selalu tersedia! Kalau ada ukuran yang kosong, silakan hubungi WA kami.',
   };
 
   const QUICK_REPLIES = [
-    {label:'💰 Harga produk', key:'harga'},
-    {label:'🚚 Info ongkir', key:'ongkir'},
-    {label:'🏷️ Diskon', key:'diskon'},
-    {label:'📦 Minimal order', key:'minimal'},
-    {label:'💳 Pembayaran', key:'pembayaran'},
-    {label:'✅ Food grade?', key:'food grade'},
+    {label:'' + IC("dollar-sign") + ' Harga produk', key:'harga'},
+    {label:'' + IC("truck") + ' Info ongkir', key:'ongkir'},
+    {label:'' + IC("tag") + ' Diskon', key:'diskon'},
+    {label:'' + IC("package") + ' Minimal order', key:'minimal'},
+    {label:'' + IC("credit-card") + ' Pembayaran', key:'pembayaran'},
+    {label:'' + IC("check-circle-2") + ' Food grade?', key:'food grade'},
   ];
 
   function renderQuickReplies(){
@@ -273,7 +273,7 @@
   function initChat(){
     chatInitialized = true;
     const msgs = document.getElementById('chatMessages');
-    if(msgs) msgs.innerHTML = `<div class="chat-msg bot">Halo! 👋 Selamat datang di <strong>Murah Plastic</strong>!<br>Ada yang bisa kami bantu?<div class="chat-msg-time">${new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})}</div></div>`;
+    if(msgs) msgs.innerHTML = `<div class="chat-msg bot">Halo! ${IC("hand")} Selamat datang di <strong>Murah Plastic</strong>!<br>Ada yang bisa kami bantu?<div class="chat-msg-time">${new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})}</div></div>`;
     renderQuickReplies();
   }
 
@@ -289,10 +289,10 @@
     const el = document.getElementById('chatQuickReplies');
     if(el) el.innerHTML = '';
     setTimeout(()=>{
-      const response = CHAT_RESPONSES[key] || 'Terima kasih pertanyaannya! Untuk info lebih lanjut, hubungi WA kami ya 😊';
+      const response = CHAT_RESPONSES[key] || 'Terima kasih pertanyaannya! Untuk info lebih lanjut, hubungi WA kami ya ' + IC("smile") + '';
       addChatMsg(response, false);
       setTimeout(()=>{
-        addChatMsg('Ada pertanyaan lain? Atau mau langsung chat dengan tim kami via WhatsApp?<br><a href="https://wa.me/628129153811" target="_blank" style="color:#25D366;font-weight:700">💬 Lanjut di WhatsApp →</a>', false);
+        addChatMsg('Ada pertanyaan lain? Atau mau langsung chat dengan tim kami via WhatsApp?<br><a href="https://wa.me/628129153811" target="_blank" style="color:#25D366;font-weight:700">' + IC("message-circle") + ' Lanjut di WhatsApp ' + IC("arrow-right") + '</a>', false);
         renderQuickReplies();
       }, 800);
     }, 600);
@@ -377,14 +377,14 @@
   const AUTH_MODAL = `
   <div class="mp-auth-overlay" id="mpAuthOverlay" onclick="if(event.target===this)MP.closeAuth()">
     <div class="mp-auth-modal">
-      <button class="mp-auth-x" type="button" onclick="MP.closeAuth()" aria-label="Tutup">✕</button>
+      <button class="mp-auth-x" type="button" onclick="MP.closeAuth()" aria-label="Tutup">${IC("x")}</button>
       <div class="mp-auth-head">
         <div class="brand-logo">M</div>
         <div class="mp-auth-title">Murah Plastic Member</div>
-        <div class="mp-auth-sub">Login & dapatkan diskon member 10% 🎉</div>
+        <div class="mp-auth-sub">Login & dapatkan diskon member 10% ${IC("gift")}</div>
       </div>
       <div class="mp-auth-body">
-        <div class="mp-member-badge">🏷️ Member mendapat diskon tambahan <strong>10%</strong> + riwayat pesanan di dashboard!</div>
+        <div class="mp-member-badge">${IC("tag")} Member mendapat diskon tambahan <strong>10%</strong> + riwayat pesanan di dashboard!</div>
         <div class="mp-auth-tabs">
           <button class="mp-auth-tab active" data-tab="login" onclick="MP.switchAuthTab('login')">Masuk</button>
           <button class="mp-auth-tab" data-tab="register" onclick="MP.switchAuthTab('register')">Daftar</button>
@@ -393,7 +393,7 @@
           <form onsubmit="MP.submitLogin();return false">
           <div class="fg"><label class="fl">Email</label><input class="fi" type="email" id="mpLoginEmail" placeholder="email@kamu.com" autocomplete="email"></div>
           <div class="fg"><label class="fl">Password</label><input class="fi" type="password" id="mpLoginPass" placeholder="••••••••" autocomplete="current-password"></div>
-          <button class="mp-auth-btn" type="submit">Masuk →</button>
+          <button class="mp-auth-btn" type="submit">Masuk ${IC("arrow-right")}</button>
           </form>
         </div>
         <div class="mp-auth-pane" id="mpPaneRegister">
@@ -401,7 +401,7 @@
           <div class="fg"><label class="fl">Nama Lengkap</label><input class="fi" type="text" id="mpRegName" placeholder="Nama kamu" autocomplete="name"></div>
           <div class="fg"><label class="fl">Email</label><input class="fi" type="email" id="mpRegEmail" placeholder="email@kamu.com" autocomplete="email"></div>
           <div class="fg"><label class="fl">Password</label><input class="fi" type="password" id="mpRegPass" placeholder="Min. 6 karakter" autocomplete="new-password"></div>
-          <button class="mp-auth-btn" type="submit">Daftar & Dapatkan Diskon →</button>
+          <button class="mp-auth-btn" type="submit">Daftar & Dapatkan Diskon ${IC("arrow-right")}</button>
           </form>
         </div>
         <div class="mp-auth-msg" id="mpAuthMsg"></div>
@@ -450,7 +450,7 @@
     const email = (document.getElementById('mpLoginEmail') || {}).value || '';
     const pass = (document.getElementById('mpLoginPass') || {}).value || '';
     if (!email || !pass) { setAuthMsg('Email dan password wajib diisi!', true); return; }
-    setAuthMsg('⏳ Memproses...');
+    setAuthMsg('' + IC("clock") + ' Memproses...');
     try {
       const res = await fetch('/api/users/login', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -473,7 +473,7 @@
     if (!name.trim()) { setAuthMsg('Nama wajib diisi!', true); return; }
     if (!email || !email.includes('@')) { setAuthMsg('Email tidak valid!', true); return; }
     if (pass.length < 6) { setAuthMsg('Password minimal 6 karakter!', true); return; }
-    setAuthMsg('⏳ Memproses...');
+    setAuthMsg('' + IC("clock") + ' Memproses...');
     try {
       const res = await fetch('/api/users/register', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -499,7 +499,7 @@
     // Toast
     const t = document.createElement('div');
     t.style.cssText = 'position:fixed;top:76px;right:20px;background:#16A34A;color:white;padding:14px 20px;border-radius:12px;font-weight:700;font-size:14px;z-index:3000;box-shadow:0 4px 20px rgba(0,0,0,.2)';
-    t.innerHTML = `🎉 Halo, ${u.name.split(' ')[0]}!<br><span style="font-size:12px;font-weight:500;opacity:.9">Diskon member 10% aktif!</span>`;
+    t.innerHTML = `${IC("gift")} Halo, ${u.name.split(' ')[0]}!<br><span style="font-size:12px;font-weight:500;opacity:.9">Diskon member 10% aktif!</span>`;
     document.body.appendChild(t);
     setTimeout(() => t.remove(), 4000);
   }
@@ -525,10 +525,10 @@
     const btn = document.getElementById('navAuthBtn');
     if (btn) {
       if (u) {
-        btn.innerHTML = '👤 ' + u.name.split(' ')[0];
+        btn.innerHTML = '' + IC("user") + ' ' + u.name.split(' ')[0];
         btn.title = 'Akun Saya';
       } else {
-        btn.innerHTML = '👤 Masuk';
+        btn.innerHTML = '' + IC("user") + ' Masuk';
         btn.title = 'Masuk / Daftar';
       }
     }
@@ -570,7 +570,7 @@
     document.head.appendChild(st);
   }
 
-  const NOTIF_ICONS = { order: '🛒', order_status: '📦', komplain: '🛠️', qna_answer: '❓', question: '❓', review: '⭐' };
+  const NOTIF_ICONS = { order: '' + IC("shopping-cart") + '', order_status: '' + IC("package") + '', komplain: '' + IC("wrench") + '', qna_answer: '' + IC("help-circle") + '', question: '' + IC("help-circle") + '', review: '' + IC("star") + '' };
   let MP_NOTIFS = [];
   let mpNotifInit = false;
 
@@ -578,8 +578,8 @@
 
   function notifPanelHTML() {
     return `<div class="mp-notif-panel" id="mpNotifPanel">
-      <div class="mp-notif-head"><span>🔔 Notifikasi</span><button type="button" onclick="MP.toggleNotif(event)">✕</button></div>
-      <div class="mp-notif-list" id="mpNotifList"><div style="text-align:center;padding:30px;color:var(--muted,#8a7f6f)">⏳ Memuat...</div></div>
+      <div class="mp-notif-head"><span>${IC("bell")} Notifikasi</span><button type="button" onclick="MP.toggleNotif(event)">${IC("x")}</button></div>
+      <div class="mp-notif-list" id="mpNotifList"><div style="text-align:center;padding:30px;color:var(--muted,#8a7f6f)">${IC("clock")} Memuat...</div></div>
     </div>`;
   }
 
@@ -628,9 +628,9 @@
         if (!r.ok) continue;
         const o = await r.json();
         const st = o.status || '';
-        if (st === 'Menunggu Pembayaran') notifs.push({ key: 'order_' + id, icon: '💳', title: 'Menunggu Pembayaran', desc: 'Order ' + id + ' — selesaikan pembayaran sebelum batas waktu.', date: o.date || new Date().toISOString(), action: () => { location.href = '/'; setTimeout(() => { try { openTracking(); trackOrder(id); } catch (e) { location.href = '/'; } }, 400); } });
-        else if (st === 'Dikirim') notifs.push({ key: 'order_' + id, icon: '🚚', title: 'Pesanan Dikirim', desc: 'Order ' + id + ' sedang dalam perjalanan. Pantau terus ya!', date: o.date || new Date().toISOString(), action: () => { location.href = '/'; setTimeout(() => { try { openTracking(); trackOrder(id); } catch (e) { location.href = '/'; } }, 400); } });
-        else if (st === 'Selesai') notifs.push({ key: 'order_' + id, icon: '✅', title: 'Pesanan Selesai', desc: 'Order ' + id + ' telah selesai. Terima kasih sudah belanja! 🎉', date: o.date || new Date().toISOString(), action: () => { location.href = '/'; setTimeout(() => { try { openTracking(); trackOrder(id); } catch (e) { location.href = '/'; } }, 400); } });
+        if (st === 'Menunggu Pembayaran') notifs.push({ key: 'order_' + id, icon: '' + IC("credit-card") + '', title: 'Menunggu Pembayaran', desc: 'Order ' + id + ' — selesaikan pembayaran sebelum batas waktu.', date: o.date || new Date().toISOString(), action: () => { location.href = '/'; setTimeout(() => { try { openTracking(); trackOrder(id); } catch (e) { location.href = '/'; } }, 400); } });
+        else if (st === 'Dikirim') notifs.push({ key: 'order_' + id, icon: '' + IC("truck") + '', title: 'Pesanan Dikirim', desc: 'Order ' + id + ' sedang dalam perjalanan. Pantau terus ya!', date: o.date || new Date().toISOString(), action: () => { location.href = '/'; setTimeout(() => { try { openTracking(); trackOrder(id); } catch (e) { location.href = '/'; } }, 400); } });
+        else if (st === 'Selesai') notifs.push({ key: 'order_' + id, icon: '' + IC("check-circle-2") + '', title: 'Pesanan Selesai', desc: 'Order ' + id + ' telah selesai. Terima kasih sudah belanja! ' + IC("gift") + '', date: o.date || new Date().toISOString(), action: () => { location.href = '/'; setTimeout(() => { try { openTracking(); trackOrder(id); } catch (e) { location.href = '/'; } }, 400); } });
       } catch (e) { continue; }
     }
     const myQIds = JSON.parse(localStorage.getItem('mp_my_question_ids') || '[]').slice(0, 20);
@@ -639,7 +639,7 @@
         const r = await fetch('/api/questions/' + qid);
         if (!r.ok) continue;
         const q = await r.json();
-        if (q && q.answer) notifs.push({ key: 'qna_' + qid, icon: '💬', title: 'Pertanyaan Dijawab', desc: 'Jawaban untuk pertanyaanmu di produk "' + (q.product_name || '') + '" sudah tersedia.', date: q.answered_at || q.date || new Date().toISOString(), action: () => { location.href = '/'; setTimeout(() => { try { openProduct(q.product_id); } catch (e) { location.href = '/'; } }, 400); } });
+        if (q && q.answer) notifs.push({ key: 'qna_' + qid, icon: '' + IC("message-circle") + '', title: 'Pertanyaan Dijawab', desc: 'Jawaban untuk pertanyaanmu di produk "' + (q.product_name || '') + '" sudah tersedia.', date: q.answered_at || q.date || new Date().toISOString(), action: () => { location.href = '/'; setTimeout(() => { try { openProduct(q.product_id); } catch (e) { location.href = '/'; } }, 400); } });
       } catch (e) { continue; }
     }
     return { list: notifs, unread: notifs.length };
@@ -668,17 +668,17 @@
   async function loadNotifs() {
     const el = document.getElementById('mpNotifList');
     if (!el) return;
-    el.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted,#8a7f6f)">⏳ Memuat...</div>';
+    el.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted,#8a7f6f)">' + IC("clock") + ' Memuat...</div>';
     const notifs = await getNotifs();
     MP_NOTIFS = notifs;
     if (!notifs.length) {
-      el.innerHTML = `<div class="mp-notif-empty"><div>🔔</div><div style="font-size:13px;font-weight:700">Belum ada notifikasi</div><div style="font-size:12px;margin-top:4px">Update pesanan & jawaban bakal muncul di sini.</div></div>`;
+      el.innerHTML = `<div class="mp-notif-empty"><div>${IC("bell")}</div><div style="font-size:13px;font-weight:700">Belum ada notifikasi</div><div style="font-size:12px;margin-top:4px">Update pesanan & jawaban bakal muncul di sini.</div></div>`;
     } else {
       el.innerHTML = notifs.map((n, i) => {
         const d = new Date(n.date);
         const ds = isNaN(d) ? '' : d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) + ' · ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
         return `<div class="mp-notif-item ${n.unread ? 'unread' : ''}" onclick="MP.openNotif(${i})">
-          <div class="mp-notif-ico">${n.icon || '🔔'}</div>
+          <div class="mp-notif-ico">${n.icon || '' + IC("bell") + ''}</div>
           <div style="flex:1;min-width:0">
             <div class="mp-notif-t">${escN(n.title)}</div>
             <div class="mp-notif-d">${escN(n.desc || n.message || '')}</div>

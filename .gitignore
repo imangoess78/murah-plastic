@@ -4,3 +4,8 @@ dist/
 .dev.vars
 *.env
 .env*
+*.bak2
+*.bak3
+*.orig
+__pycache__/
+
