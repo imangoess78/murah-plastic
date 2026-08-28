@@ -848,6 +848,11 @@ a{text-decoration:none;color:inherit}
 .livechat-input:focus{border-color:#E86510;box-shadow:0 0 0 3px rgba(232,101,16,.15)}
 .livechat-send{background:linear-gradient(135deg,#C8191A,#E86510);color:white;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 12px rgba(200,25,26,.3)}
 .livechat-send:hover{transform:scale(1.08)}
+.back-to-top{position:fixed;bottom:24px;left:24px;z-index:798;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.92);border:1px solid var(--border);box-shadow:0 4px 16px rgba(0,0,0,0.10);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity 0.25s ease,transform 0.25s ease,visibility 0.25s,box-shadow 0.25s;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.back-to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:hover{background:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.16);transform:translateY(-2px)}
+.back-to-top svg.ic{width:18px;height:18px;color:var(--mid);stroke-width:2.5}
+.back-to-top:hover svg.ic{color:var(--red)}
 .livechat-btn{position:fixed;bottom:96px;right:28px;z-index:799}
 .livechat-trigger{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;background:linear-gradient(135deg,#C8191A 0%,#E86510 100%);box-shadow:0 10px 28px rgba(200,25,26,.35),inset 0 1px 0 rgba(255,255,255,.25);border:none;color:#fff;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;overflow:visible}
 .livechat-trigger svg.ic{width:26px;height:26px;position:relative;z-index:2}
@@ -5305,6 +5310,7 @@ async function submitKomplain(){
 <div class="livechat-btn">
   <div class="livechat-trigger" onclick="toggleLiveChat()" title="Butuh bantuan? Chat kami"><svg class="ic" aria-hidden="true"><use href="#i-message-circle"/></svg><span class="lc-ring"></span><span class="lc-tooltip">Butuh bantuan? Chat kami</span></div>
 </div>
+<div class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke atas"><svg class="ic" aria-hidden="true"><use href="#i-arrow-up"/></svg></div>
 <div class="livechat-overlay" id="livechatOverlay">
   <div class="livechat-head">
     <div class="livechat-avatar">M</div>

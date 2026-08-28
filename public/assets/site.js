@@ -205,6 +205,7 @@
   <div class="livechat-btn">
     <div class="livechat-trigger" onclick="toggleLiveChat()" title="Butuh bantuan? Chat kami">${IC("message-circle")}<span class="lc-ring"></span><span class="lc-tooltip">Butuh bantuan? Chat kami</span></div>
   </div>
+  <div class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke atas">${IC("arrow-up")}</div>
   <div class="livechat-overlay" id="livechatOverlay">
     <div class="livechat-head">
       <div class="livechat-avatar">M</div>
@@ -542,8 +543,16 @@
     if (lg) lg.style.display = u ? 'flex' : 'none';
   }
 
-  document.addEventListener('DOMContentLoaded', () => { injectLayout(); updateAuthUI(); initNotif(); });
+  document.addEventListener('DOMContentLoaded', () => { injectLayout(); updateAuthUI(); initNotif(); initBackToTop(); });
   window.addEventListener('storage', e => { if (e.key === CART_KEY) updateCartBadge(); });
+
+  function initBackToTop() {
+    const btn = document.querySelector('.back-to-top');
+    if (!btn) return;
+    const toggle = () => btn.classList.toggle('show', window.scrollY > 300);
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+  }
 
   // ═══════════════ NOTIFIKASI CUSTOMER (semua halaman) ═══════════════
   const NOTIF_STYLE = `
