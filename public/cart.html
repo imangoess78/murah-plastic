@@ -50,13 +50,14 @@
 </div>
 
 <footer class="footer" id="site-footer"></footer>
-<script src="/assets/site.js"></script>
 <script>
 
 // ── Icon helper: returns inline SVG <use> referencing the sprite ──
 window.IC = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 var IC = window.IC;
-
+</script>
+<script src="/assets/site.js"></script>
+<script>
 (function () {
   const DISC_TIERS = [{min:100,pct:20},{min:50,pct:10},{min:10,pct:5},{min:5,pct:2}];
   const SP = MP;

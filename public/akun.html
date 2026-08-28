@@ -239,11 +239,6 @@ html{overflow-x:hidden}
   </div>
 </div>
 <script>
-
-// ── Icon helper: returns inline SVG <use> referencing the sprite ──
-window.IC = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
-var IC = window.IC;
-
 /* Anti-flash: langsung tampilkan layar login bila belum ada token */
 (function(){
   try {
@@ -299,6 +294,12 @@ var IC = window.IC;
   <div class="content" id="mainContent"></div>
 </div>
 
+<script>
+
+// ── Icon helper: returns inline SVG <use> referencing the sprite ──
+window.IC = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+var IC = window.IC;
+</script>
 <script src="/assets/site.js"></script>
 <script>
 (function () {

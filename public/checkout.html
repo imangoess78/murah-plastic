@@ -43,13 +43,14 @@
 </div>
 
 <footer class="footer" id="site-footer"></footer>
-<script src="/assets/site.js"></script>
 <script>
 
 // ── Icon helper: returns inline SVG <use> referencing the sprite ──
 window.IC = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 var IC = window.IC;
-
+</script>
+<script src="/assets/site.js"></script>
+<script>
 (function () {
   const SP = MP;
   // Nilai default; di-override oleh /api/settings saat load

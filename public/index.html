@@ -1526,11 +1526,6 @@ a{text-decoration:none;color:inherit}
 
 
 <script>
-
-// ── Icon helper: returns inline SVG <use> referencing the sprite ──
-window.IC = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
-var IC = window.IC;
-
 // ── API helper (menggantikan Firebase) ──
 let adminToken = localStorage.getItem('mp_admin_token') || null;
 // db dan auth tidak dipakai (Firebase dihapus)
@@ -5312,6 +5307,12 @@ async function submitKomplain(){
   </div>
 </div>
 
+<script>
+
+// ── Icon helper: returns inline SVG <use> referencing the sprite ──
+window.IC = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+var IC = window.IC;
+</script>
 <script src="/assets/site.js"></script>
 <script>
 // Load promo settings from API — override hardcoded discount text
