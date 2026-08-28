@@ -612,7 +612,7 @@
       const h = { 'Content-Type': 'application/json' };
       if (token) h['Authorization'] = 'Bearer ' + token;
       const [list, ur] = await Promise.all([
-        fetch('/api/notifications', { headers: h }).then(r => r.ok ? r.json() : []),
+        fetch('/api/notifications?unread=1', { headers: h }).then(r => r.ok ? r.json() : []),
         fetch('/api/notifications/unread-count', { headers: h }).then(r => r.ok ? r.json() : { count: 0 })
       ]);
       return { list: Array.isArray(list) ? list : [], unread: (ur && ur.count) || 0 };

@@ -297,7 +297,7 @@ tr:hover td{background:rgba(201,137,10,.04)}
     </div>
   </div>
   <div class="notif-dropdown" id="adminNotifPanel">
-    <div class="notif-dropdown-head"><span>🔔 Notifikasi</span><button onclick="toggleAdminNotif(event)">✕</button></div>
+    <div class="notif-dropdown-head"><span>🔔 Notifikasi</span><div style="display:flex;align-items:center;gap:8px"><button onclick="readAllAdminNotif()" style="background:linear-gradient(135deg,#f5b301,#e09b00);color:#fff;border:none;border-radius:14px;padding:4px 12px;font-size:11px;font-weight:800;cursor:pointer" title="Tandai semua dibaca">✓ Tandai semua dibaca</button><button onclick="toggleAdminNotif(event)">✕</button></div></div>
     <div class="notif-dropdown-list" id="adminNotifList"><div class="loading" style="padding:30px">⏳ Memuat...</div></div>
   </div>
   <div class="content" id="mainContent">
@@ -2415,7 +2415,7 @@ async function loadAdminNotifs() {
   if (!listEl) return;
   listEl.innerHTML = '<div class="loading" style="padding:30px">⏳ Memuat...</div>';
   try {
-    ADMIN_NOTIFS = await api('GET', '/api/notifications');
+    ADMIN_NOTIFS = await api('GET', '/api/notifications?unread=1');
     if (!ADMIN_NOTIFS.length) {
       listEl.innerHTML = '<div class="empty" style="padding:34px 20px"><div class="empty-icon">🔔</div><div class="empty-text">Belum ada notifikasi</div></div>';
       return;
@@ -2436,6 +2436,15 @@ async function loadAdminNotifs() {
   } catch (e) {
     listEl.innerHTML = '<div class="empty" style="padding:30px"><div class="empty-text">Gagal memuat notifikasi</div></div>';
   }
+}
+async function readAllAdminNotif() {
+  try {
+    await api('PUT', '/api/notifications/read-all');
+    ADMIN_NOTIFS = [];
+    const listEl = document.getElementById('adminNotifList');
+    if (listEl) listEl.innerHTML = '<div class="empty" style="padding:34px 20px"><div class="empty-icon">🔔</div><div class="empty-text">Semua notifikasi sudah dibaca</div></div>';
+    updateAdminNotifBadge();
+  } catch (e) {}
 }
 function openAdminNotif(i) {
   const n = ADMIN_NOTIFS[i];

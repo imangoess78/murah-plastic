@@ -2512,17 +2512,46 @@ function showQAToast(msg){
 // ── WISHLIST ──
 function isWished(id){return wishlist.includes(id);}
 function toggleWish(id,e){
-  e.stopPropagation();
+  if(e&&e.stopPropagation)e.stopPropagation();
+  const tok=localStorage.getItem('mp_token');
   const idx=wishlist.indexOf(id);
-  if(idx>-1)wishlist.splice(idx,1);else wishlist.push(id);
+  const had=idx>-1;
+  if(had){wishlist.splice(idx,1);}else{wishlist.push(id);}
   localStorage.setItem('mp_wish',JSON.stringify(wishlist));
   const btn=document.querySelector(`.wish-btn[data-id="${id}"]`);
   if(btn){btn.textContent=isWished(id)?'❤️':'🤍';btn.classList.toggle('active',isWished(id));}
   updateWishCount();
+  if(tok){
+    // member → sync ke server (akun tab Wishlist)
+    const h={'Authorization':'Bearer '+tok};
+    if(had){
+      fetch('/api/account/wishlist?product_id='+encodeURIComponent(id),{method:'DELETE',headers:h}).catch(function(){});
+    }else{
+      fetch('/api/account/wishlist',{method:'POST',headers:Object.assign({'Content-Type':'application/json'},h),body:JSON.stringify({product_id:id})}).catch(function(){});
+    }
+  }
 }
 function updateWishCount(){
   const b=document.getElementById('wishBadge');
   if(b){b.textContent=wishlist.length;b.style.display=wishlist.length>0?'block':'none';}
+}
+// sync wishlist server → icon hati saat page load (untuk member yang login)
+function initServerWish(){
+  const tok=localStorage.getItem('mp_token');
+  if(!tok)return;
+  fetch('/api/account/wishlist/ids',{headers:{'Authorization':'Bearer '+tok}})
+    .then(function(r){return r.ok?r.json():Promise.reject();})
+    .then(function(ids){
+      if(!Array.isArray(ids))return;
+      wishlist=ids.slice();
+      localStorage.setItem('mp_wish',JSON.stringify(wishlist));
+      document.querySelectorAll('.wish-btn').forEach(function(b){
+        const bid=b.getAttribute('data-id');
+        if(wishlist.includes(bid)){b.textContent='❤️';b.classList.add('active');}
+        else{b.textContent='🤍';b.classList.remove('active');}
+      });
+      updateWishCount();
+    }).catch(function(){});
 }
 
 // ── CART ──
@@ -3212,7 +3241,7 @@ window.addEventListener('load',()=>{
   renderCatGrid();
   renderProducts();
   updateAuthBtn();
-  updateWishCount();
+  updateWishCount();initServerWish();
 });
 
 // ── LOCAL CITY SEARCH (no internet needed) ──

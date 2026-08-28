@@ -1750,12 +1750,13 @@ async function notifRoutes(request, env, url, path, json) {
   const sess = isAdm ? null : await getUserByToken(env, request);
   if (!isAdm && !sess) return json({ error: 'Unauthorized' }, 401);
 
-  // GET /api/notifications — list (admin: role=admin; customer: by user_id)
+  // GET /api/notifications — list (admin: role=admin; customer: by user_id). ?unread=1 → hanya yang belum dibaca
   if (path === '/api/notifications' && request.method === 'GET') {
+    const isUnread = url.searchParams.get('unread') === '1';
     const { results } = await env.DB.prepare(
       isAdm
-        ? "SELECT * FROM notifications WHERE role='admin' ORDER BY created_at DESC, id DESC LIMIT 50"
-        : "SELECT * FROM notifications WHERE user_id=? ORDER BY created_at DESC, id DESC LIMIT 50"
+        ? (isUnread ? "SELECT * FROM notifications WHERE role='admin' AND is_read=0 ORDER BY created_at DESC, id DESC LIMIT 50" : "SELECT * FROM notifications WHERE role='admin' ORDER BY created_at DESC, id DESC LIMIT 50")
+        : (isUnread ? "SELECT * FROM notifications WHERE user_id=? AND is_read=0 ORDER BY created_at DESC, id DESC LIMIT 50" : "SELECT * FROM notifications WHERE user_id=? ORDER BY created_at DESC, id DESC LIMIT 50")
     ).bind(...(isAdm ? [] : [sess.user_id])).all();
     return json(results);
   }

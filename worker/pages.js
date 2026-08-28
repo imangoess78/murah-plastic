@@ -668,10 +668,11 @@ function maskName(n){
 // ── Kartu produk (sama persis dengan card di home — index.html renderProducts) ──
 const BESTSELLER_IDS = ['29463366459','19626400134'];
 // Script wishlist untuk halaman SSR (shop/archive/kategori/produk)
-const WISH_SCRIPT = `function toggleWish(id,e){if(e&&e.preventDefault)e.preventDefault();if(e&&e.stopPropagation)e.stopPropagation();let w=JSON.parse(localStorage.getItem('mp_wish')||'[]');const i=w.indexOf(id);if(i>-1)w.splice(i,1);else w.push(id);localStorage.setItem('mp_wish',JSON.stringify(w));const b=e&&e.currentTarget;if(b){b.classList.toggle('active',i>-1);b.textContent=i>-1?'🤍':'❤️';}}
+const WISH_SCRIPT = `function cardWish(id,e){if(e&&e.preventDefault)e.preventDefault();if(e&&e.stopPropagation)e.stopPropagation();let w=JSON.parse(localStorage.getItem('mp_wish')||'[]');const i=w.indexOf(id);const had=i>-1;if(had)w.splice(i,1);else w.push(id);localStorage.setItem('mp_wish',JSON.stringify(w));const b=e&&e.currentTarget;if(b){b.classList.toggle('active',!had);b.textContent=had?'🤍':'❤️';}const tok=localStorage.getItem('mp_token');if(tok){const h={'Authorization':'Bearer '+tok};if(had){fetch('/api/account/wishlist?product_id='+encodeURIComponent(id),{method:'DELETE',headers:h}).catch(function(){});}else{fetch('/api/account/wishlist',{method:'POST',headers:Object.assign({'Content-Type':'application/json'},h),body:JSON.stringify({product_id:id})}).catch(function(){});}}}
 function quickAdd(btn,e){if(e){e.preventDefault();e.stopPropagation();}const d=btn.dataset;try{let c=JSON.parse(localStorage.getItem('mp_cart')||'[]');const k=d.id+'|'+d.variant;const ex=c.find(x=>x.key===k);if(ex){ex.qty+=Number(d.minpack||5);}else{c.push({key:k,productId:d.id,slug:d.slug,productName:d.name,variantName:d.variant,price:Number(d.price),qty:Number(d.minpack||5),img:d.img});}localStorage.setItem('mp_cart',JSON.stringify(c));if(window.MP&&MP.updateCartBadge)MP.updateCartBadge();showToast('✓ Ditambahkan ke keranjang');}catch(err){alert('Gagal menambahkan ke keranjang');}}
 function showToast(msg){var t=document.createElement('div');t.textContent=msg;Object.assign(t.style,{position:'fixed',bottom:'20px',left:'50%',transform:'translateX(-50%)',background:'#16A34A',color:'white',padding:'10px 24px',borderRadius:'30px',fontSize:'14px',fontWeight:'700',zIndex:9999,boxShadow:'0 4px 16px rgba(0,0,0,0.2)',transition:'opacity 0.3s'});document.body.appendChild(t);setTimeout(function(){t.style.opacity='0';setTimeout(function(){t.remove()},300)},2000);}
-document.querySelectorAll('.wish-btn').forEach(function(b){if(JSON.parse(localStorage.getItem('mp_wish')||'[]').includes(b.getAttribute('data-id'))){b.classList.add('active');b.textContent='❤️';}});`;
+document.querySelectorAll('.wish-btn').forEach(function(b){if(JSON.parse(localStorage.getItem('mp_wish')||'[]').includes(b.getAttribute('data-id'))){b.classList.add('active');b.textContent='❤️';}});
+(function(){const tok=localStorage.getItem('mp_token');if(!tok)return;fetch('/api/account/wishlist/ids',{headers:{'Authorization':'Bearer '+tok}}).then(function(r){return r.ok?r.json():Promise.reject();}).then(function(ids){if(!Array.isArray(ids))return;document.querySelectorAll('.wish-btn').forEach(function(b){if(ids.indexOf(b.getAttribute('data-id'))>-1){b.classList.add('active');b.textContent='❤️';}});}).catch(function(){});})();`;
 // Script pemilih varian untuk kartu produk di halaman SSR (override quickAdd lama:
 // klik "+ Keranjang" → pilih varian + qty dulu, TIDAK langsung masuk keranjang)
 const QUICKMODAL_SCRIPT = `
@@ -783,7 +784,7 @@ function homeCard(p) {
       ${imgHtml}
       ${tag ? `<span class="p-pill">${tag}</span>` : ''}
       ${best}
-      <button class="wish-btn" data-id="${esc(p.id)}" onclick="toggleWish('${esc(p.id)}',event)">🤍</button>
+      <button class="wish-btn" data-id="${esc(p.id)}" onclick="cardWish('${esc(p.id)}',event)">🤍</button>
     </div>
     <div class="p-body">
       <div class="p-name">${name}</div>
@@ -890,12 +891,12 @@ export async function renderShop(env, searchQuery) {
         '<div class="p-img" style="position:relative">' + img +
         (tag ? '<span class="p-pill">' + tag.replace(/</g,'&lt;') + '</span>' : '') +
         best +
-        '<button class="wish-btn" data-id="' + p.id + '" onclick="toggleWish(' + q + p.id + q + ',event)">' + (isWished(p.id) ? '❤️' : '🤍') + '</button></div>' +
+        '<button class="wish-btn" data-id="' + p.id + '" onclick="cardWish(' + q + p.id + q + ',event)">' + (isWished(p.id) ? '❤️' : '🤍') + '</button></div>' +
         '<div class="p-body"><div class="p-name">' + p.name.replace(/</g,'&lt;') + '</div><div class="p-price">' + price + '</div><div class="p-sub">per pack isi 100 pcs</div>' +
         (vcount ? '<div class="p-vars">' + vcount + ' pilihan ukuran</div>' : '') +
         '<button class="p-btn" ' + d + ' onclick="quickAdd(this,event)">+ Keranjang</button></div></a>';
     }
-    function toggleWish(id,e){if(e&&e.preventDefault)e.preventDefault();if(e&&e.stopPropagation)e.stopPropagation();let w=JSON.parse(localStorage.getItem('mp_wish')||'[]');const i=w.indexOf(id);if(i>-1)w.splice(i,1);else w.push(id);localStorage.setItem('mp_wish',JSON.stringify(w));const b=e&&e.currentTarget;if(b){b.classList.toggle('active',i>-1);b.textContent=i>-1?'🤍':'❤️';}}
+    function cardWish(id,e){if(e&&e.preventDefault)e.preventDefault();if(e&&e.stopPropagation)e.stopPropagation();let w=JSON.parse(localStorage.getItem('mp_wish')||'[]');const i=w.indexOf(id);const had=i>-1;if(had)w.splice(i,1);else w.push(id);localStorage.setItem('mp_wish',JSON.stringify(w));const b=e&&e.currentTarget;if(b){b.classList.toggle('active',!had);b.textContent=had?'🤍':'❤️';}const tok=localStorage.getItem('mp_token');if(tok){const h={'Authorization':'Bearer '+tok};if(had){fetch('/api/account/wishlist?product_id='+encodeURIComponent(id),{method:'DELETE',headers:h}).catch(function(){});}else{fetch('/api/account/wishlist',{method:'POST',headers:Object.assign({'Content-Type':'application/json'},h),body:JSON.stringify({product_id:id})}).catch(function(){});}}}
     function isWished(id){try{return JSON.parse(localStorage.getItem('mp_wish')||'[]').includes(id);}catch(err){return false;}}
     function quickAdd(btn,e){if(e){e.preventDefault();e.stopPropagation();}try{var c=JSON.parse(localStorage.getItem('mp_cart')||'[]');var d=btn.dataset;var k=d.id+'|'+d.variant;var ex=c.find(function(x){return x.key===k});if(ex){ex.qty+=Number(d.minpack||5);}else{c.push({key:k,productId:d.id,slug:d.slug,productName:d.name,variantName:d.variant,price:Number(d.price),qty:Number(d.minpack||5),img:d.img});}localStorage.setItem('mp_cart',JSON.stringify(c));if(window.MP&&MP.updateCartBadge)MP.updateCartBadge();showToast('✓ Ditambahkan ke keranjang');}catch(err){alert('Gagal menambahkan ke keranjang');}}
     function showToast(msg){var t=document.createElement('div');t.textContent=msg;Object.assign(t.style,{position:'fixed',bottom:'20px',left:'50%',transform:'translateX(-50%)',background:'#16A34A',color:'white',padding:'10px 24px',borderRadius:'30px',fontSize:'14px',fontWeight:'700',zIndex:9999,boxShadow:'0 4px 16px rgba(0,0,0,0.2)',transition:'opacity 0.3s'});document.body.appendChild(t);setTimeout(function(){t.style.opacity='0';setTimeout(function(){t.remove()},300)},2000);}
@@ -930,7 +931,9 @@ export async function renderShop(env, searchQuery) {
   if (window.innerWidth <= 1024) document.querySelector('.shop-filter-toggle').style.display = 'inline-flex';
   // Terapkan query search dari header (?q=...)
   const headerQ = ${JSON.stringify(searchQuery || '')};
-  if (headerQ) { document.getElementById('shopSearch').value = headerQ; applyShop(); }`;
+  if (headerQ) { document.getElementById('shopSearch').value = headerQ; applyShop(); }
+  // Init wishlist server→lokal untuk member
+  (function(){var tok=localStorage.getItem('mp_token');if(!tok)return;fetch('/api/account/wishlist/ids',{headers:{'Authorization':'Bearer '+tok}}).then(function(r){return r.ok?r.json():Promise.reject();}).then(function(ids){if(!Array.isArray(ids))return;document.querySelectorAll('.wish-btn').forEach(function(b){if(ids.indexOf(b.getAttribute('data-id'))>-1){b.classList.add('active');b.textContent='❤️';}});}).catch(function(){});})();`;
 
   return { html: layout({ title: `Shop Produk Plastik OPP Grosir — ${SITE_NAME}`, desc: 'Katalog lengkap produk plastik OPP, plastik klip ziplock, dan kemasan grosir Murah Plastic. Harga pabrik, food grade, kirim seluruh Indonesia.', canonical: ORIGIN + '/shop', body, bodyClass: 'page-shop', script: script + QUICKMODAL_SCRIPT }), script };
 }
