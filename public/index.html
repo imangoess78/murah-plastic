@@ -823,9 +823,9 @@ a{text-decoration:none;color:inherit}
 }
 
 /* ── LIVE CHAT ── */
-.livechat-overlay{display:none;position:fixed;bottom:96px;right:24px;z-index:800;width:350px;max-height:520px;background:white;border-radius:24px;box-shadow:0 24px 64px rgba(0,0,0,.22);flex-direction:column;overflow:hidden;animation:lcIn .28s cubic-bezier(.34,1.56,.64,1)}
+.livechat-overlay{display:none;position:fixed;bottom:96px;right:24px;z-index:800;width:350px;max-height:min(520px,calc(100vh - 110px));background:white;border-radius:24px;box-shadow:0 24px 64px rgba(0,0,0,.22);flex-direction:column;overflow:hidden;animation:lcIn .28s cubic-bezier(.34,1.56,.64,1)}
 .livechat-overlay.open{display:flex}
-.livechat-head{background:linear-gradient(135deg,#6B0000 0%,#C8191A 45%,#E86510 100%);padding:18px 18px 16px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
+.livechat-head{background:linear-gradient(135deg,#6B0000 0%,#C8191A 45%,#E86510 100%);padding:18px 18px 16px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;flex-shrink:0}
 .livechat-head::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
 .livechat-avatar{width:42px;height:42px;background:linear-gradient(135deg,#FFD700,#C9890A);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;color:var(--dark);flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.25)}
 .livechat-info{flex:1;position:relative;z-index:1}
@@ -835,15 +835,15 @@ a{text-decoration:none;color:inherit}
 .livechat-online-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:rgba(37,211,102,.4);animation:dotBlink 2s infinite}
 .livechat-close{background:rgba(255,255,255,.14);border:none;color:white;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .15s;flex-shrink:0;position:relative;z-index:1}
 .livechat-close:hover{background:rgba(255,255,255,.28);transform:rotate(90deg)}
-.livechat-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;min-height:220px;max-height:280px;background:#FDFBF7}
+.livechat-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;min-height:140px;max-height:280px;background:#FDFBF7}
 .chat-msg{max-width:82%;font-size:13px;line-height:1.55;padding:10px 14px;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .chat-msg.bot{background:white;color:var(--dark);align-self:flex-start;border-radius:4px 16px 16px 16px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .chat-msg.user{background:linear-gradient(135deg,#C8191A,#E86510);color:white;align-self:flex-end;border-radius:16px 4px 16px 16px;box-shadow:0 4px 14px rgba(200,25,26,.25)}
 .chat-msg-time{font-size:10px;opacity:0.6;margin-top:3px}
-.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px;background:#FDFBF7}
+.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px;background:#FDFBF7;flex-shrink:0;max-height:96px;overflow-y:auto}
 .chat-quick-btn{border:1.5px solid var(--border);background:white;border-radius:18px;padding:7px 14px;font-size:12px;cursor:pointer;font-weight:700;color:var(--mid);font-family:var(--font);transition:all .18s;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.03)}
 .chat-quick-btn:hover{border-color:#E86510;color:#C8191A;background:#FFF7F2;transform:translateY(-1px)}
-.livechat-input-row{padding:12px 14px 14px;border-top:1px solid var(--border);display:flex;gap:8px;background:#FDFBF7}
+.livechat-input-row{padding:12px 14px 14px;border-top:1px solid var(--border);display:flex;gap:8px;background:#FDFBF7;flex-shrink:0}
 .livechat-input{flex:1;border:1.5px solid var(--border);border-radius:22px;padding:10px 16px;font-size:13px;font-family:var(--font);outline:none;transition:border-color .2s,box-shadow .2s;background:white}
 .livechat-input:focus{border-color:#E86510;box-shadow:0 0 0 3px rgba(232,101,16,.15)}
 .livechat-send{background:linear-gradient(135deg,#C8191A,#E86510);color:white;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 12px rgba(200,25,26,.3)}
@@ -4496,7 +4496,7 @@ function renderQuickReplies(){
   const el = document.getElementById('chatQuickReplies');
   if(!el) return;
   el.innerHTML = QUICK_REPLIES.map(q =>
-    `<button class="chat-quick-btn" onclick="sendQuickReply('${q.key}','${q.label}')">${q.label}</button>`
+    `<button class="chat-quick-btn" onclick="sendQuickReply('${q.key}')">${q.label}</button>`
   ).join('');
 }
 
@@ -4511,7 +4511,9 @@ function addChatMsg(text, isUser){
   msgs.scrollTop = msgs.scrollHeight;
 }
 
-function sendQuickReply(key, label){
+function sendQuickReply(key){
+  const q = QUICK_REPLIES.find(x => x.key === key);
+  const label = q ? q.label : key;
   addChatMsg(label, true);
   document.getElementById('chatQuickReplies').innerHTML = '';
   

@@ -255,7 +255,7 @@
     const el = document.getElementById('chatQuickReplies');
     if(!el) return;
     el.innerHTML = QUICK_REPLIES.map(q =>
-      `<button class="chat-quick-btn" onclick="sendQuickReply('${q.key}','${q.label}')">${q.label}</button>`
+      `<button class="chat-quick-btn" onclick="sendQuickReply('${q.key}')">${q.label}</button>`
     ).join('');
   }
 
@@ -284,7 +284,9 @@
     if(chatOpen && !chatInitialized) initChat();
   };
 
-  window.sendQuickReply = function(key, label){
+  window.sendQuickReply = function(key){
+    const q = QUICK_REPLIES.find(x => x.key === key);
+    const label = q ? q.label : key;
     addChatMsg(label, true);
     const el = document.getElementById('chatQuickReplies');
     if(el) el.innerHTML = '';
