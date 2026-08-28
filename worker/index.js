@@ -560,6 +560,34 @@ export default {
       return json({ id: adm.user_id, role: adm.role, name: adm.user_id ? (await env.DB.prepare('SELECT name FROM admin_users WHERE id=?').bind(adm.user_id).first())?.name || '' : 'Super Admin' });
     }
 
+    // ── POST /api/admin/change-password ── (ganti password admin sendiri)
+    if (path === '/api/admin/change-password' && request.method === 'POST') {
+      const adm = await getAdminByToken(env, request);
+      if (!adm) return json({ error: 'Unauthorized' }, 401);
+      const { old_password, new_password } = await request.json();
+      if (!old_password || !new_password) return json({ error: 'Isi password lama dan baru' }, 400);
+      if (new_password.length < 8) return json({ error: 'Password baru minimal 8 karakter' }, 400);
+      let row;
+      if (adm.user_id) {
+        row = await env.DB.prepare('SELECT password FROM admin_users WHERE id=?').bind(adm.user_id).first();
+      } else {
+        row = await env.DB.prepare('SELECT password FROM admin_users WHERE id="super"').first();
+        if (!row) {
+          const { results } = await env.DB.prepare('SELECT id, password FROM admin_users ORDER BY created_at ASC LIMIT 1').all();
+          row = results[0] || null;
+        }
+      }
+      if (!row) return json({ error: 'Admin tidak ditemukan' }, 404);
+      if (row.password !== old_password) return json({ error: 'Password lama salah' }, 401);
+      if (adm.user_id) {
+        await env.DB.prepare('UPDATE admin_users SET password=? WHERE id=?').bind(new_password, adm.user_id).run();
+      } else {
+        const target = await env.DB.prepare('SELECT id FROM admin_users WHERE id="super"').first() || { id: (await env.DB.prepare('SELECT id FROM admin_users ORDER BY created_at ASC LIMIT 1').all()).results[0]?.id };
+        if (target?.id) await env.DB.prepare('UPDATE admin_users SET password=? WHERE id=?').bind(new_password, target.id).run();
+      }
+      return json({ ok: true });
+    }
+
     // ── Admin users CRUD (super_admin only) ──
     if (path === '/api/admin/users' && request.method === 'GET') {
       if (!await isAdminRole(request, env, ['super_admin'])) return json({ error: 'Forbidden' }, 403);
