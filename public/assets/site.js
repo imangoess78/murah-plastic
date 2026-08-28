@@ -203,7 +203,7 @@
     </div>
   </div>
   <div class="livechat-btn">
-    <div class="livechat-trigger" onclick="toggleLiveChat()" title="Live Chat">${IC("message-circle")}</div>
+    <div class="livechat-trigger" onclick="toggleLiveChat()" title="Butuh bantuan? Chat kami">${IC("message-circle")}<span class="lc-ring"></span><span class="lc-tooltip">Butuh bantuan? Chat kami</span></div>
   </div>
   <div class="livechat-overlay" id="livechatOverlay">
     <div class="livechat-head">

@@ -452,41 +452,60 @@ button{font-family:var(--font)}
 .wa-popup-num{font-size:13px;font-weight:800;color:#25D366}
 .wa-pulse{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite}
 
-.livechat-btn{position:fixed;bottom:90px;right:28px;z-index:999}
-.livechat-trigger{width:48px;height:48px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow-lg);font-size:22px;border:2px solid var(--gold);transition:transform 0.2s}
-.livechat-trigger:hover{transform:scale(1.1)}
-.livechat-overlay{display:none;position:fixed;bottom:90px;right:24px;z-index:1000;width:340px;max-height:500px;background:white;border-radius:20px;box-shadow:0 8px 48px rgba(0,0,0,0.2);flex-direction:column;animation:slideUp 0.25s ease}
+.livechat-btn{position:fixed;bottom:96px;right:28px;z-index:999}
+.livechat-trigger{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;background:linear-gradient(135deg,#C8191A 0%,#E86510 100%);box-shadow:0 10px 28px rgba(200,25,26,.35),inset 0 1px 0 rgba(255,255,255,.25);border:none;color:#fff;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s;overflow:visible}
+.livechat-trigger svg.ic{width:26px;height:26px;position:relative;z-index:2}
+.livechat-trigger:hover{transform:scale(1.1) rotate(-6deg);box-shadow:0 14px 34px rgba(200,25,26,.45),inset 0 1px 0 rgba(255,255,255,.25)}
+.livechat-trigger:active{transform:scale(.94)}
+.lc-ring{position:absolute;inset:0;border-radius:50%;z-index:0;animation:lcPing 2.2s cubic-bezier(0,0,.2,1) infinite;pointer-events:none}
+.lc-ring::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(232,101,16,.55);animation:lcPing 2.2s cubic-bezier(0,0,.2,1) infinite}
+.lc-tooltip{position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%) translateX(4px);background:var(--dark,#1a1005);color:#fff;font-size:12px;font-weight:700;padding:8px 14px;border-radius:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 4px 16px rgba(0,0,0,.18);z-index:3}
+.lc-tooltip::after{content:"";position:absolute;left:100%;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left-color:var(--dark,#1a1005)}
+.livechat-trigger:hover .lc-tooltip{opacity:1;transform:translateY(-50%) translateX(0)}
+.livechat-overlay{display:none;position:fixed;bottom:96px;right:24px;z-index:1000;width:350px;max-height:520px;background:white;border-radius:24px;box-shadow:0 24px 64px rgba(0,0,0,.22);flex-direction:column;overflow:hidden;animation:lcIn .28s cubic-bezier(.34,1.56,.64,1)}
 .livechat-overlay.open{display:flex}
-.livechat-head{background:var(--dark);padding:16px 18px;border-radius:20px 20px 0 0;display:flex;align-items:center;gap:10px}
-.livechat-avatar{width:38px;height:38px;background:var(--grad-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--dark);flex-shrink:0}
-.livechat-info{flex:1}
-.livechat-name{font-size:14px;font-weight:800;color:white}
-.livechat-status{font-size:11px;color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:4px}
-.livechat-online-dot{width:7px;height:7px;border-radius:50%;background:#25D366;flex-shrink:0}
-.livechat-close{background:rgba(255,255,255,0.1);border:none;color:white;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
-.livechat-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;min-height:220px;max-height:280px}
-.chat-msg{max-width:80%;font-size:13px;line-height:1.5;padding:9px 12px;border-radius:12px}
-.chat-msg.bot{background:var(--light);color:var(--dark);align-self:flex-start;border-radius:4px 12px 12px 12px}
-.chat-msg.user{background:var(--grad-btn);color:white;align-self:flex-end;border-radius:12px 4px 12px 12px}
+.livechat-head{background:linear-gradient(135deg,#6B0000 0%,#C8191A 45%,#E86510 100%);padding:18px 18px 16px;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden}
+.livechat-head::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
+.livechat-avatar{width:42px;height:42px;background:linear-gradient(135deg,#FFD700,#C9890A);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;color:var(--dark);flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.livechat-info{flex:1;position:relative;z-index:1}
+.livechat-name{font-size:14.5px;font-weight:800;color:white}
+.livechat-status{font-size:11px;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:5px}
+.livechat-online-dot{width:8px;height:8px;border-radius:50%;background:#25D366;position:relative;animation:dotBlink 2s infinite;flex-shrink:0}
+.livechat-online-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:rgba(37,211,102,.4);animation:dotBlink 2s infinite}
+.livechat-close{background:rgba(255,255,255,.14);border:none;color:white;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .15s;flex-shrink:0;position:relative;z-index:1}
+.livechat-close:hover{background:rgba(255,255,255,.28);transform:rotate(90deg)}
+.livechat-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;min-height:220px;max-height:280px;background:#FDFBF7}
+.chat-msg{max-width:82%;font-size:13px;line-height:1.55;padding:10px 14px;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.chat-msg.bot{background:white;color:var(--dark);align-self:flex-start;border-radius:4px 16px 16px 16px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.chat-msg.user{background:linear-gradient(135deg,#C8191A,#E86510);color:white;align-self:flex-end;border-radius:16px 4px 16px 16px;box-shadow:0 4px 14px rgba(200,25,26,.25)}
 .chat-msg-time{font-size:10px;opacity:0.6;margin-top:3px}
-.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
-.chat-quick-btn{border:1.5px solid var(--border);background:white;border-radius:16px;padding:6px 12px;font-size:12px;cursor:pointer;font-weight:600;color:var(--mid);font-family:var(--font);transition:all 0.15s;white-space:nowrap}
-.chat-quick-btn:hover{border-color:var(--gold);color:var(--gold)}
-.livechat-input-row{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px}
-.livechat-input{flex:1;border:1.5px solid var(--border);border-radius:20px;padding:9px 14px;font-size:13px;font-family:var(--font);outline:none;transition:border-color 0.2s}
-.livechat-input:focus{border-color:var(--gold)}
-.livechat-send{background:var(--grad-btn);color:white;border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-quick-replies{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px;background:#FDFBF7}
+.chat-quick-btn{border:1.5px solid var(--border);background:white;border-radius:18px;padding:7px 14px;font-size:12px;cursor:pointer;font-weight:700;color:var(--mid);font-family:var(--font);transition:all .18s;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.03)}
+.chat-quick-btn:hover{border-color:#E86510;color:#C8191A;background:#FFF7F2;transform:translateY(-1px)}
+.livechat-input-row{padding:12px 14px 14px;border-top:1px solid var(--border);display:flex;gap:8px;background:#FDFBF7}
+.livechat-input{flex:1;border:1.5px solid var(--border);border-radius:22px;padding:10px 16px;font-size:13px;font-family:var(--font);outline:none;transition:border-color .2s,box-shadow .2s;background:white}
+.livechat-input:focus{border-color:#E86510;box-shadow:0 0 0 3px rgba(232,101,16,.15)}
+.livechat-send{background:linear-gradient(135deg,#C8191A,#E86510);color:white;border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 12px rgba(200,25,26,.3)}
+.livechat-send:hover{transform:scale(1.08)}
 
 @keyframes popIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:0.7}}
+@keyframes lcPing{0%{transform:scale(1);opacity:.6}80%,100%{transform:scale(1.55);opacity:0}}
+@keyframes dotBlink{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes lcIn{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+@media(max-width:768px){
+  .lc-tooltip{display:none}
+}
 
 @media(max-width:480px){
   .wa-float-btn{width:50px;height:50px}
   .wa-float-btn svg{width:26px;height:26px}
-  .livechat-trigger{width:44px;height:44px;font-size:20px}
+  .livechat-trigger{width:52px;height:52px}
+  .livechat-trigger svg.ic{width:22px;height:22px}
   .livechat-btn{bottom:84px;right:27px}
-  .livechat-overlay{width:calc(100vw - 32px);right:16px;bottom:84px}
+  .livechat-overlay{width:calc(100vw - 32px);right:16px;bottom:84px;border-radius:20px}
 }
 
 /* ── MEMBER AUTH (shared modal) ── */
