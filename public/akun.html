@@ -198,6 +198,19 @@ html{overflow-x:hidden}
 .settings-form input:focus,.settings-form textarea:focus{outline:none;border-color:var(--gold)}
 .settings-form .save-btn{background:var(--grad-btn);color:white;border:none;padding:11px 22px;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;width:100%;font-family:var(--font)}
 .settings-form .save-status{font-size:12px;font-weight:700;margin-top:8px;text-align:center}
+/* Full-screen login gate (sama seperti /admin) */
+.akun-login-page{display:none;align-items:center;justify-content:center;min-height:100vh;background:var(--grad-hero);position:fixed;inset:0;z-index:1000;padding:20px;box-sizing:border-box}
+.akun-login-card{background:white;border-radius:var(--radius);padding:40px 32px;width:100%;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.akun-login-logo{width:64px;height:64px;background:var(--grad-hero);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:white;margin:0 auto 16px}
+.akun-login-title{font-size:22px;font-weight:900;color:var(--dark);margin-bottom:4px}
+.akun-login-title span{color:var(--gold)}
+.akun-login-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.akun-login-actions{display:flex;flex-direction:column;gap:10px}
+.akun-login-btn{background:var(--grad-btn);color:white;border:none;border-radius:24px;padding:13px;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font);transition:opacity .15s;width:100%}
+.akun-login-btn:hover{opacity:.9}
+.akun-login-btn.outline{background:transparent;color:var(--red);border:2px solid var(--border)}
+.akun-login-home{display:block;margin-top:14px;font-size:13px;font-weight:700;color:var(--muted);text-decoration:none}
+.akun-login-home:hover{text-decoration:underline}
 /* Mobile responsive */
 @media(max-width:768px){
   .stats-grid{grid-template-columns:1fr 1fr}
@@ -213,6 +226,34 @@ html{overflow-x:hidden}
 <meta name="apple-mobile-web-app-title" content="Murah Plastic">
 </head>
 <body>
+<div class="akun-login-page" id="akunLoginPage">
+  <div class="akun-login-card">
+    <div class="akun-login-logo">M</div>
+    <div class="akun-login-title">Murah <span>Plastic</span></div>
+    <div class="akun-login-sub">Masuk dengan akun member untuk melihat pesanan, wishlist, dan review kamu.</div>
+    <div class="akun-login-actions">
+      <button class="akun-login-btn" type="button" onclick="MP.openAuth('login')">Masuk</button>
+      <button class="akun-login-btn outline" type="button" onclick="MP.openAuth('register')">Daftar Gratis</button>
+    </div>
+    <a class="akun-login-home" href="/">&#8592; Kembali ke Home</a>
+  </div>
+</div>
+<script>
+
+// ── Icon helper: returns inline SVG <use> referencing the sprite ──
+window.IC = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+var IC = window.IC;
+
+/* Anti-flash: langsung tampilkan layar login bila belum ada token */
+(function(){
+  try {
+    if (!localStorage.getItem('mp_token') || !localStorage.getItem('mp_user')) {
+      var lp = document.getElementById('akunLoginPage');
+      if (lp) lp.style.display = 'flex';
+    }
+  } catch (e) {}
+})();
+</script>
 <div class="overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 <!-- Sidebar -->
@@ -223,22 +264,22 @@ html{overflow-x:hidden}
   </div>
   <div class="sidebar-nav">
     <div class="nav-section">Menu</div>
-    <button class="nav-item active" onclick="Akun.tab('dashboard')" id="nav-dashboard"><span class="icon">📊</span>Dashboard</button>
-    <button class="nav-item" onclick="Akun.tab('pesanan')" id="nav-pesanan"><span class="icon">📦</span>Pesanan</button>
-    <button class="nav-item" onclick="Akun.tab('komplain')" id="nav-komplain"><span class="icon">🛠️</span>Komplain</button>
-    <button class="nav-item" onclick="Akun.tab('wishlist')" id="nav-wishlist"><span class="icon">❤️</span>Wishlist</button>
-    <button class="nav-item" onclick="Akun.tab('review')" id="nav-review"><span class="icon">⭐</span>Review</button>
-    <button class="nav-item" onclick="Akun.tab('pengaturan')" id="nav-pengaturan"><span class="icon">⚙️</span>Pengaturan</button>
+    <button class="nav-item active" onclick="Akun.tab('dashboard')" id="nav-dashboard"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-layout-dashboard"/></svg></span>Dashboard</button>
+    <button class="nav-item" onclick="Akun.tab('pesanan')" id="nav-pesanan"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-package"/></svg></span>Pesanan</button>
+    <button class="nav-item" onclick="Akun.tab('komplain')" id="nav-komplain"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg></span>Komplain</button>
+    <button class="nav-item" onclick="Akun.tab('wishlist')" id="nav-wishlist"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span>Wishlist</button>
+    <button class="nav-item" onclick="Akun.tab('review')" id="nav-review"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg></span>Review</button>
+    <button class="nav-item" onclick="Akun.tab('pengaturan')" id="nav-pengaturan"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg></span>Pengaturan</button>
   </div>
   <div class="sidebar-footer">
-    <a href="/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:8px 6px;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--border);margin-bottom:10px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Beranda <span style="margin-left:auto">↗</span></a>
+    <a href="/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:8px 6px;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--border);margin-bottom:10px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Beranda <span style="margin-left:auto"><svg class="ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a>
     <div class="admin-user">
       <div class="admin-avatar" id="sidebarAvatar">M</div>
       <div class="admin-info">
         <div class="admin-name" id="sidebarName">-</div>
         <div class="admin-role">Customer</div>
       </div>
-      <button class="logout-btn" onclick="MP.logout()" title="Keluar">🚪</button>
+      <button class="logout-btn" onclick="MP.logout()" title="Keluar"><svg class="ic" aria-hidden="true"><use href="#i-log-out"/></svg></button>
     </div>
   </div>
 </div>
@@ -247,12 +288,12 @@ html{overflow-x:hidden}
 <div class="main">
   <div class="topbar">
     <div class="topbar-left">
-      <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
-      <div class="topbar-title" id="topbarTitle">📊 Dashboard</div>
+      <button class="mobile-menu-btn" onclick="toggleSidebar()"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      <div class="topbar-title" id="topbarTitle"><svg class="ic" aria-hidden="true"><use href="#i-layout-dashboard"/></svg> Dashboard</div>
     </div>
     <div class="topbar-right">
-      <button class="notif-bell-btn" id="mpNotifBell" type="button" onclick="MP.toggleNotif(event)" title="Notifikasi">🔔<span class="notif-badge" id="mpNotifBadge" style="display:none">0</span></button>
-      <a href="/" class="toko-link">🌐 Toko ↗</a>
+      <button class="notif-bell-btn" id="mpNotifBell" type="button" onclick="MP.toggleNotif(event)" title="Notifikasi"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="notif-badge" id="mpNotifBadge" style="display:none">0</span></button>
+      <a href="/" class="toko-link"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg> Toko <svg class="ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
     </div>
   </div>
   <div class="content" id="mainContent"></div>
@@ -302,7 +343,14 @@ html{overflow-x:hidden}
     const token = SP.getToken();
     const h = { 'Authorization': 'Bearer ' + (token || '') };
     if (opts && opts.body && !(opts.body instanceof FormData)) h['Content-Type'] = 'application/json';
-    return fetch(url, { ...opts, headers: { ...h, ...((opts && opts.headers) || {}) } });
+    return fetch(url, { ...opts, headers: { ...h, ...((opts && opts.headers) || {}) } }).then(function(res) {
+      // Sesi kedaluwarsa / token tidak valid → buang token & tampilkan layar login
+      if (res.status === 401 && token) {
+        try { localStorage.removeItem('mp_token'); localStorage.removeItem('mp_user'); } catch (e) {}
+        window.dispatchEvent(new CustomEvent('mp:auth', { detail: null }));
+      }
+      return res;
+    });
   }
 
   function setTitle(title) {
@@ -327,6 +375,8 @@ html{overflow-x:hidden}
   window.closeSidebar = closeSidebar;
 
   // ── Render utama ──
+  function showLoginGate() { var lp = document.getElementById('akunLoginPage'); if (lp) lp.style.display = 'flex'; }
+  function hideLoginGate() { var lp = document.getElementById('akunLoginPage'); if (lp) lp.style.display = 'none'; }
   async function render() {
     const wrap = document.getElementById('mainContent');
     const u = SP.getUser();
@@ -339,19 +389,22 @@ html{overflow-x:hidden}
     if (sa) sa.textContent = (u && u.name) ? u.name[0].toUpperCase() : 'M';
 
     if (!u || !token) {
+      showLoginGate();
       wrap.innerHTML = '<div class="akun-login-cta">'
-        + '<div class="mp-auth-title">🔐 Masuk / Daftar Member</div>'
+        + '<div class="mp-auth-title">' + IC("lock") + ' Masuk / Daftar Member</div>'
         + '<div class="mp-auth-sub" style="margin:8px 0 16px">Dapatkan diskon member 10% + lacak pesanan, wishlist, dan review produk di dashboard.</div>'
         + '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'
         + '<button class="btn-red" style="border:none;padding:12px 24px;font-size:14px;font-weight:800;border-radius:12px;cursor:pointer;font-family:var(--font)" onclick="MP.openAuth(\'login\')">Masuk</button>'
         + '<button class="btn-outline" style="padding:12px 24px;font-size:14px;font-weight:800;border-radius:12px;cursor:pointer;font-family:var(--font)" onclick="MP.openAuth(\'register\')">Daftar Gratis</button>'
         + '</div>'
-        + '<div style="margin-top:14px"><a class="btn-ghost" href="/" style="color:white;border-color:rgba(255,255,255,.3);padding:10px 20px;font-size:13px;font-weight:700;border-radius:12px;text-decoration:none;display:inline-block">← Kembali ke Home</a></div>'
+        + '<div style="margin-top:14px"><a class="btn-ghost" href="/" style="color:white;border-color:rgba(255,255,255,.3);padding:10px 20px;font-size:13px;font-weight:700;border-radius:12px;text-decoration:none;display:inline-block">' + IC("arrow-left") + ' Kembali ke Home</a></div>'
         + '</div>';
       return;
     }
 
-    wrap.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">⏳ Memuat data...</div>';
+    hideLoginGate();
+
+    wrap.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">' + IC("clock") + ' Memuat data...</div>';
 
     // Load data paralel
     try {
@@ -405,7 +458,7 @@ html{overflow-x:hidden}
     var reviewCount = state.reviewable ? state.reviewable.length : 0;
     var recentOrders = state.orders.slice(0, 5);
 
-    setTitle('📊 Dashboard');
+    setTitle(' Dashboard');
     setSidebarActive('dashboard');
     c.innerHTML = '<div class="stats-grid">'
       + '<div class="stat-card gold"><div class="stat-label">Total Pesanan</div><div class="stat-value">' + totalOrders + '</div><div class="stat-sub">' + pendingOrders + ' pending</div></div>'
@@ -416,26 +469,26 @@ html{overflow-x:hidden}
       + '<div style="background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)">'
       + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">'
       + '<div style="width:44px;height:44px;border-radius:50%;background:var(--grad-hero);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:white;flex-shrink:0">' + SP.esc((u.name || '?')[0].toUpperCase()) + '</div>'
-      + '<div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:900;color:var(--dark)">' + SP.esc(u.name || '-') + '</div><div style="font-size:11px;color:var(--muted)">Member sejak ' + joinDate + (u.city ? ' • 📍 ' + SP.esc(u.city) : '') + '</div></div>'
+      + '<div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:900;color:var(--dark)">' + SP.esc(u.name || '-') + '</div><div style="font-size:11px;color:var(--muted)">Member sejak ' + joinDate + (u.city ? ' • ' + IC("map-pin") + ' ' + SP.esc(u.city) : '') + '</div></div>'
       + '</div>'
       + '</div>'
       + '<div style="background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)">'
-      + '<div style="font-size:13px;font-weight:800;color:var(--dark);margin-bottom:10px">📦 Pesanan Terbaru</div>'
+      + '<div style="font-size:13px;font-weight:800;color:var(--dark);margin-bottom:10px">' + IC("package") + ' Pesanan Terbaru</div>'
       + (recentOrders.length ? recentOrders.map(function(o) {
           var itemsText = (o.items || []).map(function(i) { return (i.productName || i.product_name || 'Produk') + (i.variantName ? ' (' + i.variantName + ')' : ''); }).join(', ');
           return '<div class="order-card"><div class="order-summary" style="cursor:pointer" onclick="Akun.tab(\'pesanan\')">'
-            + '<div class="order-head"><div class="order-id">🛒 ' + SP.esc(o.id) + '</div>' + statusBadge(o.status) + '</div>'
+            + '<div class="order-head"><div class="order-id">' + IC("shopping-cart") + ' ' + SP.esc(o.id) + '</div>' + statusBadge(o.status) + '</div>'
             + '<div class="order-date">' + fmtDate(o.date || o.created_at) + '</div>'
             + '<div class="order-items">' + SP.esc(itemsText.substring(0, 60)) + '</div>'
             + '<div class="order-meta"><span>' + SP.esc(o.payment || o.payment_method || '—') + '</span><span class="order-total">' + SP.fmt(o.total || 0) + '</span></div>'
             + '</div></div>';
-        }).join('') : '<div style="font-size:12px;color:var(--muted);padding:20px;text-align:center">Belum ada pesanan. Mulai belanja yuk! 🛍️</div>')
+        }).join('') : '<div style="font-size:12px;color:var(--muted);padding:20px;text-align:center">Belum ada pesanan. Mulai belanja yuk! ' + IC("shopping-bag") + '</div>')
       + '</div>';
   }
 
   // ── Tab Pesanan ──
   function renderPesanan(c) {
-    setTitle('📦 Pesanan Saya');
+    setTitle(' Pesanan Saya');
     setSidebarActive('pesanan');
     var orders = state.orders;
     var activeOrders = orders.filter(function(o) { return o.status !== 'Batal'; });
@@ -447,18 +500,18 @@ html{overflow-x:hidden}
       var items = o.items || [];
       var itemsText = items.map(function(i) { return (i.productName || i.product_name || 'Produk') + (i.variantName ? ' (' + i.variantName + ')' : ''); }).join(', ');
       var more = items.length > 2 ? ' (+' + (items.length - 2) + ')' : '';
-      var shipText = o.shipping === 'gratis' ? '🚚 Gratis Ongkir' : (o.shipping_cost ? SP.fmt(o.shipping_cost) : '—');
+      var shipText = o.shipping === 'gratis' ? '' + IC("truck") + ' Gratis Ongkir' : (o.shipping_cost ? SP.fmt(o.shipping_cost) : '—');
       var canReorder = items.length > 0 && o.status !== 'Batal';
       var canReview = o.status === 'Selesai' || o.status === 'Dikirim' || o.status === 'Lunas';
       return '<div class="order-card">'
         + '<div class="order-summary" onclick="Akun.toggleOrder(this)">'
-        + '<div class="order-head"><div class="order-id">🛒 ' + SP.esc(o.id) + '</div>' + statusBadge(o.status) + '</div>'
+        + '<div class="order-head"><div class="order-id">' + IC("shopping-cart") + ' ' + SP.esc(o.id) + '</div>' + statusBadge(o.status) + '</div>'
         + '<div class="order-date">' + fmtDate(o.date || o.created_at) + '</div>'
         + '<div class="order-items">' + SP.esc(itemsText) + (more ? '<span style="color:var(--muted)">' + more + '</span>' : '') + '</div>'
         + '<div class="order-meta"><span>' + SP.esc(o.payment || o.payment_method || '—') + '</span><span class="order-total">' + SP.fmt(o.total || 0) + '</span></div>'
         + '</div>'
         + '<div class="order-detail">'
-        + '<div style="font-size:13px;font-weight:900;color:var(--dark);margin-top:12px">📦 Detail Pesanan</div>'
+        + '<div style="font-size:13px;font-weight:900;color:var(--dark);margin-top:12px">' + IC("package") + ' Detail Pesanan</div>'
         + '<ul class="od-items">' + items.map(function(i) {
           return '<li><span class="od-item-name">' + SP.esc((i.productName || i.product_name || 'Produk') + (i.variantName ? ' (' + i.variantName + ')' : '')) + '</span>'
             + '<span class="od-item-qty">× ' + (i.qty || 1) + '</span>'
@@ -476,11 +529,11 @@ html{overflow-x:hidden}
         + '<div class="od-info-row"><span class="od-info-label">Alamat</span><span class="od-info-value" style="max-width:55%">' + SP.esc(o.customer_address || '') + '</span></div>'
         + (o.customer_note ? '<div class="od-info-row"><span class="od-info-label">Catatan</span><span class="od-info-value" style="max-width:55%">' + SP.esc(o.customer_note) + '</span></div>' : '')
         + '</div>'
-        + (o.status !== 'Batal' ? '<div style="font-size:13px;font-weight:900;color:var(--dark)">🚚 Lacak Pengiriman</div>' + timelineHtml(o) : '')
+        + (o.status !== 'Batal' ? '<div style="font-size:13px;font-weight:900;color:var(--dark)">' + IC("truck") + ' Lacak Pengiriman</div>' + timelineHtml(o) : '')
         + '<div class="od-actions">'
-        + (canReorder ? '<button class="btn" onclick="Akun.reorder(\'' + o.id + '\')">🔄 Order Ulang</button>' : '')
-        + (o.resi ? '<a class="btn-sm" href="https://cekresi.com/?noresi=' + encodeURIComponent(o.resi) + '" target="_blank" rel="noopener">📮 Lacak Resi</a>' : '')
-        + '<a class="btn-sm" href="https://wa.me/628129153811?text=' + encodeURIComponent('Halo Admin! Saya mau tanya tentang pesanan ' + o.id) + '" target="_blank" rel="noopener">💬 Tanya via WA</a>'
+        + (canReorder ? '<button class="btn" onclick="Akun.reorder(\'' + o.id + '\')">' + IC("refresh-cw") + ' Order Ulang</button>' : '')
+        + (o.resi ? '<a class="btn-sm" href="https://cekresi.com/?noresi=' + encodeURIComponent(o.resi) + '" target="_blank" rel="noopener">' + IC("mail") + ' Lacak Resi</a>' : '')
+        + '<a class="btn-sm" href="https://wa.me/628129153811?text=' + encodeURIComponent('Halo Admin! Saya mau tanya tentang pesanan ' + o.id) + '" target="_blank" rel="noopener">' + IC("message-circle") + ' Tanya via WA</a>'
         + '</div></div></div>';
     }).join('');
   }
@@ -521,15 +574,15 @@ html{overflow-x:hidden}
     return d > 0 ? d + ' hari ' + h + ' jam lagi' : h + ' jam lagi';
   }
   function renderKomplain(c) {
-    setTitle('🛠️ Komplain');
+    setTitle(' Komplain');
     setSidebarActive('komplain');
     var komplain = state.orders.filter(function(o) { return o.complaint; }).sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
     var canAjukan = state.orders.filter(function(o) { return canKomplainAkun(o); });
     var html = '';
     if (canAjukan.length) {
-      html += '<div class="komplain-ajukan"><div class="title">🛠️ Ajukan Komplain</div><div class="order-list">'
+      html += '<div class="komplain-ajukan"><div class="title">' + IC("wrench") + ' Ajukan Komplain</div><div class="order-list">'
         + canAjukan.map(function(o) {
-          return '<div class="order-item"><div class="oi-info"><div class="oi-id">' + SP.esc(o.id) + '</div><div class="oi-sisa">⏳ ' + sisaWaktu(o) + '</div></div><button onclick="Akun.openKomplainForm(\'' + o.id + '\')">Ajukan</button></div>';
+          return '<div class="order-item"><div class="oi-info"><div class="oi-id">' + SP.esc(o.id) + '</div><div class="oi-sisa">' + IC("clock") + ' ' + sisaWaktu(o) + '</div></div><button onclick="Akun.openKomplainForm(\'' + o.id + '\')">Ajukan</button></div>';
         }).join('') + '</div></div>';
     }
     if (komplain.length === 0) {
@@ -544,24 +597,24 @@ html{overflow-x:hidden}
         var photoList = Object.entries(photos).filter(function(kv) { return kv[1]; });
         return '<div class="order-card" style="border-left:4px solid var(--red)">'
           + '<div class="order-summary" onclick="Akun.toggleOrder(this)">'
-          + '<div class="order-head"><div class="order-id">🛠️ ' + SP.esc(o.id) + '</div><span class="status-badge ' + stCls + '">' + SP.esc(st) + '</span></div>'
+          + '<div class="order-head"><div class="order-id">' + IC("wrench") + ' ' + SP.esc(o.id) + '</div><span class="status-badge ' + stCls + '">' + SP.esc(st) + '</span></div>'
           + '<div class="order-date">Diajukan ' + fmtDate(c.date || o.date) + '</div>'
           + '<div class="order-items">' + SP.esc(c.type || c.reason || 'Komplain') + '</div>'
           + '<div class="order-meta"><span>' + (c.refundAmount ? 'Refund ' + SP.fmt(c.refundAmount) : '—') + '</span></div>'
           + '</div>'
           + '<div class="order-detail">'
-          + '<div style="font-size:13px;font-weight:900;color:var(--dark);margin-top:12px">📋 Detail Komplain</div>'
+          + '<div style="font-size:13px;font-weight:900;color:var(--dark);margin-top:12px">' + IC("clipboard-list") + ' Detail Komplain</div>'
           + '<div class="od-info">'
           + '<div class="od-info-row"><span class="od-info-label">Jenis</span><span class="od-info-value">' + SP.esc(c.type || c.reason || '-') + '</span></div>'
           + (c.itemsDesc ? '<div class="od-info-row"><span class="od-info-label">Produk</span><span class="od-info-value">' + SP.esc(c.itemsDesc) + '</span></div>' : '')
           + '<div class="od-info-row"><span class="od-info-label">Deskripsi</span><span class="od-info-value">' + SP.esc(c.desc || c.description || '-') + '</span></div>'
           + (c.refundAmount ? '<div class="od-info-row"><span class="od-info-label">Pengembalian</span><span class="od-info-value" style="color:var(--red);font-weight:800">' + SP.fmt(c.refundAmount) + '</span></div>' : '')
           + '</div>'
-          + (photoList.length ? '<div style="font-size:13px;font-weight:900;color:var(--dark);margin:10px 0 6px">📷 Bukti Foto</div><div style="display:flex;gap:6px;flex-wrap:wrap">' + photoList.map(function(kv) { return '<a href="' + SP.esc(kv[1]) + '" target="_blank"><img src="' + SP.esc(kv[1]) + '" alt="bukti" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--border)"></a>'; }).join('') + '</div>' : '')
-          + (c.reply ? '<div style="margin-top:12px;padding:10px 12px;background:#F0FDF4;border-left:3px solid #16A34A;border-radius:8px;font-size:13px"><b style="color:#16A34A">💬 Balasan Admin</b><div style="margin-top:4px">' + SP.esc(c.reply) + '</div></div>'
-            : '<div style="margin-top:12px;padding:10px 12px;background:#FFFBEB;border-left:3px solid var(--gold);border-radius:8px;font-size:12px;color:var(--muted)">⏳ Menunggu balasan admin. Kami akan merespon maksimal 1×24 jam.</div>')
-          + (hist.length ? '<div style="margin-top:10px;font-size:12px;color:var(--muted)"><b>Riwayat status:</b> ' + hist.map(function(h) { return (h.from || 'Diajukan') + ' → ' + h.to + ' (' + fmtDate(h.at) + ')'; }).join(' · ') + '</div>' : '')
-          + '<div class="od-actions"><a class="btn btn-wa" style="text-decoration:none;text-align:center" href="https://wa.me/628129153811?text=' + encodeURIComponent('Halo Admin! Saya mau tanya perkembangan komplain order ' + o.id + ' (jenis: ' + (c.type || 'Komplain') + ')') + '" target="_blank" rel="noopener">💬 Tanya Perkembangan</a></div>'
+          + (photoList.length ? '<div style="font-size:13px;font-weight:900;color:var(--dark);margin:10px 0 6px">' + IC("camera") + ' Bukti Foto</div><div style="display:flex;gap:6px;flex-wrap:wrap">' + photoList.map(function(kv) { return '<a href="' + SP.esc(kv[1]) + '" target="_blank"><img src="' + SP.esc(kv[1]) + '" alt="bukti" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--border)"></a>'; }).join('') + '</div>' : '')
+          + (c.reply ? '<div style="margin-top:12px;padding:10px 12px;background:#F0FDF4;border-left:3px solid #16A34A;border-radius:8px;font-size:13px"><b style="color:#16A34A">' + IC("message-circle") + ' Balasan Admin</b><div style="margin-top:4px">' + SP.esc(c.reply) + '</div></div>'
+            : '<div style="margin-top:12px;padding:10px 12px;background:#FFFBEB;border-left:3px solid var(--gold);border-radius:8px;font-size:12px;color:var(--muted)">' + IC("clock") + ' Menunggu balasan admin. Kami akan merespon maksimal 1×24 jam.</div>')
+          + (hist.length ? '<div style="margin-top:10px;font-size:12px;color:var(--muted)"><b>Riwayat status:</b> ' + hist.map(function(h) { return (h.from || 'Diajukan') + ' ' + IC("arrow-right") + ' ' + h.to + ' (' + fmtDate(h.at) + ')'; }).join(' · ') + '</div>' : '')
+          + '<div class="od-actions"><a class="btn btn-wa" style="text-decoration:none;text-align:center" href="https://wa.me/628129153811?text=' + encodeURIComponent('Halo Admin! Saya mau tanya perkembangan komplain order ' + o.id + ' (jenis: ' + (c.type || 'Komplain') + ')') + '" target="_blank" rel="noopener">' + IC("message-circle") + ' Tanya Perkembangan</a></div>'
           + '</div></div>';
       }).join('');
     }
@@ -570,10 +623,10 @@ html{overflow-x:hidden}
 
   // ── Tab Wishlist ──
   function renderWishlist(c) {
-    setTitle('❤️ Wishlist');
+    setTitle(' Wishlist');
     setSidebarActive('wishlist');
     if (state.wishlist.length === 0) {
-      c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">Wishlist masih kosong. 🛍️</div>';
+      c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">Wishlist masih kosong. ' + IC("shopping-bag") + '</div>';
       return;
     }
     c.innerHTML = '<div class="wl-grid">' + state.wishlist.map(function(w) {
@@ -582,30 +635,30 @@ html{overflow-x:hidden}
       var slug = w.slug || '';
       var href = slug ? '/produk/' + slug : '#';
       return '<a href="' + href + '" class="wl-item" style="text-decoration:none;color:inherit;display:block">'
-        + (img ? '<img src="' + SP.esc(img) + '" alt="' + SP.esc(w.name || '') + '" loading="lazy">' : '<div style="height:100px;display:flex;align-items:center;justify-content:center;background:var(--gold-light);border-radius:8px;font-size:28px;margin-bottom:8px">🛍️</div>')
+        + (img ? '<img src="' + SP.esc(img) + '" alt="' + SP.esc(w.name || '') + '" loading="lazy">' : '<div style="height:100px;display:flex;align-items:center;justify-content:center;background:var(--gold-light);border-radius:8px;font-size:28px;margin-bottom:8px">' + IC("shopping-bag") + '</div>')
         + '<div class="wl-name">' + SP.esc(w.name || 'Produk') + '</div>'
         + '<div class="wl-price">' + price + '</div>'
-        + '<button class="wl-rm" onclick="event.preventDefault();Akun.wlRemove(\'' + SP.esc(w.product_id) + '\')" title="Hapus">✕</button>'
+        + '<button class="wl-rm" onclick="event.preventDefault();Akun.wlRemove(\'' + SP.esc(w.product_id) + '\')" title="Hapus">' + IC("x") + '</button>'
         + '</a>';
     }).join('') + '</div>';
   }
 
   // ── Tab Review ──
   function renderReview(c) {
-    setTitle('⭐ Review Produk');
+    setTitle(' Review Produk');
     setSidebarActive('review');
     var list = state.reviewable || [];
     if (list.length === 0) {
-      c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">Belum ada produk yang bisa direview. Belanja dulu yuk! 🛍️</div>';
+      c.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">Belum ada produk yang bisa direview. Belanja dulu yuk! ' + IC("shopping-bag") + '</div>';
       return;
     }
     c.innerHTML = list.map(function(p) {
       return '<div class="rv-product">'
-        + '<div class="rv-head"><span class="rv-name">' + SP.esc(p.name) + '</span><button onclick="Akun.toggleReviewForm(this,\'' + SP.esc(p.id) + '\',\'' + SP.esc(p.name.replace(/'/g, "\\'")) + '\')">⭐ Tulis Review</button></div>'
+        + '<div class="rv-head"><span class="rv-name">' + SP.esc(p.name) + '</span><button onclick="Akun.toggleReviewForm(this,\'' + SP.esc(p.id) + '\',\'' + SP.esc(p.name.replace(/'/g, "\\'")) + '\')">' + IC("star") + ' Tulis Review</button></div>'
         + '<div class="rv-form">'
         + '<div class="rv-stars" data-stars="0">' + [1,2,3,4,5].map(function(n) { return '<span class="rv-star" data-n="' + n + '" onclick="Akun.pickStar(this,' + n + ')">★</span>'; }).join('') + '</div>'
         + '<textarea class="rv-textarea" placeholder="Tulis komentar review kamu..."></textarea>'
-        + '<button class="rv-submit" onclick="Akun.submitReview(this,\'' + SP.esc(p.id) + '\')">📨 Kirim Review</button>'
+        + '<button class="rv-submit" onclick="Akun.submitReview(this,\'' + SP.esc(p.id) + '\')">' + IC("mail") + ' Kirim Review</button>'
         + '<div class="rv-status"></div>'
         + '</div></div>';
     }).join('');
@@ -613,7 +666,7 @@ html{overflow-x:hidden}
 
   // ── Tab Pengaturan ──
   function renderPengaturan(c) {
-    setTitle('⚙️ Pengaturan');
+    setTitle(' Pengaturan');
     setSidebarActive('pengaturan');
     var p = state.profile || SP.getUser() || {};
     c.innerHTML = '<div class="settings-form">'
@@ -622,7 +675,7 @@ html{overflow-x:hidden}
       + '<div class="sf-group"><div class="sf-label">Alamat</div><textarea id="setAddress" rows="2">' + SP.esc(p.address || '') + '</textarea></div>'
       + '<div class="sf-group"><div class="sf-label">Kota</div><input type="text" id="setCity" value="' + SP.esc(p.city || '') + '"></div>'
       + '<div class="sf-group"><div class="sf-label">Password Baru (kosongkan jika tidak ingin ganti)</div><input type="password" id="setPass" placeholder="Password baru"></div>'
-      + '<button class="save-btn" onclick="Akun.saveProfile()">💾 Simpan Perubahan</button>'
+      + '<button class="save-btn" onclick="Akun.saveProfile()">' + IC("save") + ' Simpan Perubahan</button>'
       + '<div class="save-status" id="saveStatus"></div>'
       + '</div>';
   }
@@ -649,12 +702,12 @@ html{overflow-x:hidden}
   Akun.reorder = reorder;
   Akun.tab = function(id) {
     state.tab = id;
-    if (id === 'dashboard') setTitle('📊 Dashboard');
-    else if (id === 'pesanan') setTitle('📦 Pesanan');
-    else if (id === 'komplain') setTitle('🛠️ Komplain');
-    else if (id === 'wishlist') setTitle('❤️ Wishlist');
-    else if (id === 'review') setTitle('⭐ Review');
-    else if (id === 'pengaturan') setTitle('⚙️ Pengaturan');
+    if (id === 'dashboard') setTitle(' Dashboard');
+    else if (id === 'pesanan') setTitle(' Pesanan');
+    else if (id === 'komplain') setTitle(' Komplain');
+    else if (id === 'wishlist') setTitle(' Wishlist');
+    else if (id === 'review') setTitle(' Review');
+    else if (id === 'pengaturan') setTitle(' Pengaturan');
     setSidebarActive(id);
     closeSidebar();
     renderTab();
@@ -668,7 +721,7 @@ html{overflow-x:hidden}
     var wrap = btn.parentElement.parentElement;
     var form = wrap.querySelector('.rv-form');
     var open = form.classList.toggle('open');
-    btn.textContent = open ? '✕ Tutup' : '⭐ Tulis Review';
+    btn.textContent = open ? ' Tutup' : ' Tulis Review';
   };
   Akun.pickStar = function(el, n) {
     var cont = el.parentElement;
@@ -680,22 +733,22 @@ html{overflow-x:hidden}
     var stars = Number(wrap.querySelector('.rv-stars').dataset.stars) || 0;
     var comment = wrap.querySelector('.rv-textarea').value.trim();
     var status = wrap.querySelector('.rv-status');
-    if (!stars) { status.textContent = '⚠️ Pilih rating dulu (1-5 bintang)'; return; }
-    if (!comment) { status.textContent = '⚠️ Tulis komentar review dulu'; return; }
+    if (!stars) { status.textContent = ' Pilih rating dulu (1-5 bintang)'; return; }
+    if (!comment) { status.textContent = ' Tulis komentar review dulu'; return; }
     btn.disabled = true; status.textContent = 'Mengirim...';
     var res = await api('/api/reviews', { method: 'POST', body: JSON.stringify({ product_id: pid, rating: stars, comment: comment }) });
     if (res.ok) {
-      status.style.color = '#16A34A'; status.textContent = '✔ Review terkirim! Terima kasih.';
+      status.style.color = '#16A34A'; status.textContent = ' Review terkirim! Terima kasih.';
       wrap.querySelector('.rv-textarea').value = '';
       wrap.querySelector('.rv-stars').dataset.stars = 0;
       wrap.querySelectorAll('.rv-star').forEach(function(s) { s.classList.remove('sel'); });
       var t = await res.json();
-      if (t.verified) status.textContent = '✔ Review terkirim! (Pembelian terverifikasi)';
+      if (t.verified) status.textContent = ' Review terkirim! (Pembelian terverifikasi)';
       // Hapus dari reviewable dan re-render
       state.reviewable = state.reviewable.filter(function(p) { return p.id !== pid; });
       if (state.tab === 'review') renderTab();
       setTimeout(function() { btn.disabled = false; status.textContent = ''; status.style.color = ''; }, 2500);
-    } else { status.textContent = '❌ Gagal mengirim. Coba lagi.'; btn.disabled = false; }
+    } else { status.textContent = ' Gagal mengirim. Coba lagi.'; btn.disabled = false; }
   };
   Akun.saveProfile = async function() {
     var btn = document.getElementById('saveBtn');
@@ -707,8 +760,8 @@ html{overflow-x:hidden}
       city: document.getElementById('setCity').value.trim()
     };
     var pass = document.getElementById('setPass').value;
-    if (pass) body.password = pass;
-    if (!body.name) { st.textContent = '⚠️ Nama wajib diisi'; return; }
+    if (pass) body.password = btoa(pass);
+    if (!body.name) { st.textContent = ' Nama wajib diisi'; return; }
     btn = document.querySelector('.save-btn');
     btn.disabled = true; st.textContent = 'Menyimpan...';
     var res = await api('/api/account/me', { method: 'PUT', body: JSON.stringify(body) });
@@ -722,12 +775,12 @@ html{overflow-x:hidden}
       if (sn) sn.textContent = u.name || '-';
       var sa = document.getElementById('sidebarAvatar');
       if (sa) sa.textContent = u.name ? u.name[0].toUpperCase() : 'M';
-      st.style.color = '#16A34A'; st.textContent = '✔ Tersimpan!';
+      st.style.color = '#16A34A'; st.textContent = ' Tersimpan!';
       document.getElementById('setPass').value = '';
       setTimeout(function() { btn.disabled = false; }, 1500);
     } else {
       var e = await res.json().catch(function() { return {}; });
-      st.textContent = '❌ ' + (e.error || 'Gagal menyimpan');
+      st.textContent = ' ' + (e.error || 'Gagal menyimpan');
       btn.disabled = false;
     }
   };
@@ -748,26 +801,26 @@ html{overflow-x:hidden}
     modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
     modal.innerHTML = '<div style="background:#fff;border-radius:18px;max-width:520px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.35)">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid #f0ebe2;position:sticky;top:0;background:#fff;border-radius:18px 18px 0 0;z-index:2">'
-      + '<div style="font-size:15px;font-weight:900;color:var(--dark)">🛠️ Ajukan Komplain</div>'
-      + '<button onclick="Akun.closeKmpModal()" style="background:#f5f0ea;border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;color:#6b6152">✕</button></div>'
+      + '<div style="font-size:15px;font-weight:900;color:var(--dark)">' + IC("wrench") + ' Ajukan Komplain</div>'
+      + '<button onclick="Akun.closeKmpModal()" style="background:#f5f0ea;border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;color:#6b6152">' + IC("x") + '</button></div>'
       + '<div style="padding:18px">'
       + '<div style="background:var(--light,#f5f0ea);border:1px solid var(--border,#e5ddd2);border-radius:12px;padding:12px 14px;margin-bottom:16px">'
-      + '<div style="font-size:12px;color:var(--muted)">No. Pesanan</div><div style="font-size:14px;font-weight:800;color:var(--dark)">📦 ' + o.id + '</div>'
+      + '<div style="font-size:12px;color:var(--muted)">No. Pesanan</div><div style="font-size:14px;font-weight:800;color:var(--dark)">' + IC("package") + ' ' + o.id + '</div>'
       + '<div style="font-size:11px;color:var(--muted);margin-top:2px">' + fmtDate(o.date) + ' · ' + SP.fmt(o.total) + '</div></div>'
       + '<div style="font-size:12px;font-weight:800;color:var(--dark);margin-bottom:8px">Alasan Komplain</div>'
       + '<div style="display:grid;gap:8px;margin-bottom:14px">'
-      + '<div class="kmp-reason" data-r="barang_dana" onclick="Akun.selectKmpReason(\'barang_dana\',this)" style="border:1.5px solid var(--border);border-radius:12px;padding:11px 13px;cursor:pointer;font-size:12.5px;color:var(--dark);background:#fff;transition:all .15s">📦 <b>Pengembalian Barang & Dana</b><div style="font-size:11px;color:var(--muted);margin-top:2px">Barang dikirim balik ke toko, dana dikembalikan penuh</div></div>'
-      + '<div class="kmp-reason" data-r="dana" onclick="Akun.selectKmpReason(\'dana\',this)" style="border:1.5px solid var(--border);border-radius:12px;padding:11px 13px;cursor:pointer;font-size:12.5px;color:var(--dark);background:#fff;transition:all .15s">💰 <b>Pengembalian Dana</b><div style="font-size:11px;color:var(--muted);margin-top:2px">Barang tetap di kamu, dana dikembalikan (sebagian/penuh)</div></div></div>'
+      + '<div class="kmp-reason" data-r="barang_dana" onclick="Akun.selectKmpReason(\'barang_dana\',this)" style="border:1.5px solid var(--border);border-radius:12px;padding:11px 13px;cursor:pointer;font-size:12.5px;color:var(--dark);background:#fff;transition:all .15s">' + IC("package") + ' <b>Pengembalian Barang & Dana</b><div style="font-size:11px;color:var(--muted);margin-top:2px">Barang dikirim balik ke toko, dana dikembalikan penuh</div></div>'
+      + '<div class="kmp-reason" data-r="dana" onclick="Akun.selectKmpReason(\'dana\',this)" style="border:1.5px solid var(--border);border-radius:12px;padding:11px 13px;cursor:pointer;font-size:12.5px;color:var(--dark);background:#fff;transition:all .15s">' + IC("dollar-sign") + ' <b>Pengembalian Dana</b><div style="font-size:11px;color:var(--muted);margin-top:2px">Barang tetap di kamu, dana dikembalikan (sebagian/penuh)</div></div></div>'
       + '<div id="kmpRefundWrap" style="display:none;margin-bottom:14px">'
       + '<div style="font-size:12px;font-weight:800;color:var(--dark);margin-bottom:8px">Jenis Pengembalian Dana</div>'
       + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">'
       + '<div class="kmp-refund" data-t="sebagian" onclick="Akun.setKmpRefundType(\'sebagian\',this)" style="border:1.5px solid var(--border);border-radius:12px;padding:10px;cursor:pointer;font-size:12px;color:var(--dark);text-align:center;background:#fff;transition:all .15s">🩹 Sebagian</div>'
-      + '<div class="kmp-refund" data-t="penuh" onclick="Akun.setKmpRefundType(\'penuh\',this)" style="border:1.5px solid var(--border);border-radius:12px;padding:10px;cursor:pointer;font-size:12px;color:var(--dark);text-align:center;background:#fff;transition:all .15s">💯 Penuh</div></div>'
+      + '<div class="kmp-refund" data-t="penuh" onclick="Akun.setKmpRefundType(\'penuh\',this)" style="border:1.5px solid var(--border);border-radius:12px;padding:10px;cursor:pointer;font-size:12px;color:var(--dark);text-align:center;background:#fff;transition:all .15s">' + IC("award") + ' Penuh</div></div>'
       + '<div id="kmpItemsWrap" style="display:none"><div style="font-size:12px;font-weight:800;color:var(--dark);margin-bottom:8px">Pilih Produk Bermasalah (klik untuk pilih & atur qty)</div>' + itemsOpt + '</div></div>'
       + '<div style="font-size:12px;font-weight:800;color:var(--dark);margin-bottom:8px">Deskripsi Masalah</div>'
       + '<textarea id="kmpDesc" rows="3" placeholder="Contoh: plastik sobek di bagian bawah, ukuran tidak sesuai pesanan..." style="width:100%;border:1.5px solid var(--border);border-radius:12px;padding:11px 13px;font-size:13px;font-family:inherit;resize:vertical;box-sizing:border-box;color:var(--dark)"></textarea>'
-      + '<div style="display:flex;gap:8px;margin-top:12px;background:#FFF8E6;border:1px solid rgba(201,137,10,.35);border-radius:12px;padding:11px 13px;font-size:12px;color:#7a5a10;line-height:1.6"><span>📸</span><span>Setelah mengajukan, kamu akan diarahkan ke <b>WhatsApp</b> untuk mengirim <b>foto produk</b> & <b>video unboxing</b> sebagai bukti. Hemat kuota, proses lebih cepat.</span></div>'
-      + '<button onclick="Akun.submitKmp()" style="width:100%;background:linear-gradient(135deg,#C8191A,#A31213);color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:900;cursor:pointer;margin-top:14px;font-family:inherit">Kirim Pengajuan Komplain →</button>'
+      + '<div style="display:flex;gap:8px;margin-top:12px;background:#FFF8E6;border:1px solid rgba(201,137,10,.35);border-radius:12px;padding:11px 13px;font-size:12px;color:#7a5a10;line-height:1.6"><span>' + IC("camera") + '</span><span>Setelah mengajukan, kamu akan diarahkan ke <b>WhatsApp</b> untuk mengirim <b>foto produk</b> & <b>video unboxing</b> sebagai bukti. Hemat kuota, proses lebih cepat.</span></div>'
+      + '<button onclick="Akun.submitKmp()" style="width:100%;background:linear-gradient(135deg,#C8191A,#A31213);color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:900;cursor:pointer;margin-top:14px;font-family:inherit">Kirim Pengajuan Komplain ' + IC("arrow-right") + '</button>'
       + '</div></div>';
     document.body.appendChild(modal);
   };
@@ -826,7 +879,7 @@ html{overflow-x:hidden}
       }
     }
     var btn = document.querySelector('#kmpModal button:last-of-type');
-    if (btn) { btn.disabled = true; btn.textContent = '⏳ Mengirim...'; }
+    if (btn) { btn.disabled = true; btn.textContent = ' Mengirim...'; }
     try {
       var res = await api('/api/orders/' + komplainOrder.id, { method: 'PUT', body: JSON.stringify({ complaint: { ...payload, status: 'Menunggu Diproses' } }) });
       if (!res.ok) throw new Error('gagal');
@@ -835,31 +888,31 @@ html{overflow-x:hidden}
       var m = document.getElementById('kmpModal');
       if (m) {
         var waMsg = encodeURIComponent(
-          '🛠️ *PENGAJUAN KOMPLAIN* — Murah Plastic%0A%0A'
-          + '📋 No. Pesanan: *' + komplainOrder.id + '*%0A'
-          + '❗ *Jenis:* ' + payload.type + '%0A'
-          + (payload.itemsDesc ? '📦 *Produk Bermasalah:* ' + payload.itemsDesc + '%0A' : '')
-          + '📝 *Deskripsi:* ' + payload.desc + '%0A'
-          + '💰 *Estimasi Dana:* ' + SP.fmt(payload.refundAmount) + '%0A%0A'
+          '' + IC("wrench") + ' *PENGAJUAN KOMPLAIN* — Murah Plastic%0A%0A'
+          + '' + IC("clipboard-list") + ' No. Pesanan: *' + komplainOrder.id + '*%0A'
+          + '' + IC("alert-circle") + ' *Jenis:* ' + payload.type + '%0A'
+          + (payload.itemsDesc ? '' + IC("package") + ' *Produk Bermasalah:* ' + payload.itemsDesc + '%0A' : '')
+          + '' + IC("file-text") + ' *Deskripsi:* ' + payload.desc + '%0A'
+          + '' + IC("dollar-sign") + ' *Estimasi Dana:* ' + SP.fmt(payload.refundAmount) + '%0A%0A'
           + 'Mohon kirimkan bukti via chat ini:%0A'
-          + '📷 *Foto* produk yang bermasalah%0A'
-          + '🎥 *Video unboxing* (singkat)%0A%0A'
-          + 'Terima kasih 🙏'
+          + '' + IC("camera") + ' *Foto* produk yang bermasalah%0A'
+          + '' + IC("video") + ' *Video unboxing* (singkat)%0A%0A'
+          + 'Terima kasih ' + IC("hand") + ''
         );
         m.innerHTML = '<div style="background:#fff;border-radius:18px;max-width:480px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.35);padding:28px 22px;text-align:center">'
-          + '<div style="font-size:52px">✅</div>'
+          + '<div style="font-size:52px">' + IC("check-circle-2") + '</div>'
           + '<div style="font-size:17px;font-weight:900;color:var(--dark);margin-top:10px">Pengajuan Komplain Terkirim!</div>'
           + '<div style="font-size:13px;color:var(--muted);margin-top:6px;line-height:1.6">Komplain order <b>' + komplainOrder.id + '</b> berhasil diajukan dan sudah masuk ke tim kami.</div>'
           + '<div style="font-size:13px;color:var(--muted);margin-top:4px;line-height:1.6">Sekarang kirim <b>foto & video unboxing</b> sebagai bukti via WhatsApp:</div>'
-          + '<a href="https://wa.me/628129153811?text=' + waMsg + '" target="_blank" rel="noopener" style="display:block;background:#25D366;color:#fff;text-decoration:none;border-radius:14px;padding:14px;font-size:14px;font-weight:900;margin-top:16px">📲 Kirim Foto & Video Bukti via WhatsApp</a>'
+          + '<a href="https://wa.me/628129153811?text=' + waMsg + '" target="_blank" rel="noopener" style="display:block;background:#25D366;color:#fff;text-decoration:none;border-radius:14px;padding:14px;font-size:14px;font-weight:900;margin-top:16px">' + IC("smartphone") + ' Kirim Foto & Video Bukti via WhatsApp</a>'
           + '<div style="font-size:11px;color:var(--muted);margin-top:10px">WhatsApp akan terbuka dengan detail komplain sudah terisi. Cukup lampirkan foto & video lalu kirim.</div>'
-          + '<button onclick="Akun.closeKmpModal()" style="width:100%;background:var(--light,#f5f0ea);border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:800;color:var(--dark);cursor:pointer;margin-top:10px;font-family:inherit">✔ Selesai, Lihat Status Komplain</button>'
+          + '<button onclick="Akun.closeKmpModal()" style="width:100%;background:var(--light,#f5f0ea);border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:800;color:var(--dark);cursor:pointer;margin-top:10px;font-family:inherit">' + IC("check") + ' Selesai, Lihat Status Komplain</button>'
           + '</div>';
       }
       renderTab();
     } catch (e) {
-      alert('⚠️ Gagal mengirim pengajuan komplain. Cek koneksi internet lalu coba lagi.');
-      if (btn) { btn.disabled = false; btn.textContent = 'Kirim Pengajuan Komplain →'; }
+      alert(' Gagal mengirim pengajuan komplain. Cek koneksi internet lalu coba lagi.');
+      if (btn) { btn.disabled = false; btn.textContent = 'Kirim Pengajuan Komplain '; }
     }
   };
 
@@ -868,5 +921,359 @@ html{overflow-x:hidden}
 })();
 </script>
 <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
+
+<!-- ===== Lucide SVG Icon Sprite ===== -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-alert-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" /></symbol>
+<symbol id="i-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" /></symbol>
+<symbol id="i-antenna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 7 2" />
+  <path d="m7 12 5-10" />
+  <path d="m12 12 5-10" />
+  <path d="m17 12 5-10" />
+  <path d="M4.5 7h15" />
+  <path d="M12 16v6" /></symbol>
+<symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1" />
+  <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+  <path d="M10 12h4" /></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14" />
+  <path d="m19 12-7 7-7-7" /></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" /></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" /></symbol>
+<symbol id="i-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" />
+  <path d="M7 17 17 7" /></symbol>
+<symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+  <circle cx="12" cy="8" r="6" /></symbol>
+<symbol id="i-badge-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+  <path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M4.929 4.929 19.07 19.071" /></symbol>
+<symbol id="i-bandage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10.01h.01" />
+  <path d="M10 14.01h.01" />
+  <path d="M14 10.01h.01" />
+  <path d="M14 14.01h.01" />
+  <path d="M18 6v12" />
+  <path d="M6 6v12" />
+  <rect x="2" y="6" width="20" height="12" rx="2" /></symbol>
+<symbol id="i-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 22 14 L 22 10" />
+  <rect x="2" y="6" width="16" height="12" rx="2" /></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0" />
+  <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></symbol>
+<symbol id="i-bell-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0" />
+  <path d="M17 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 .258-1.742" />
+  <path d="m2 2 20 20" />
+  <path d="M8.668 3.01A6 6 0 0 1 18 8c0 2.687.77 4.653 1.707 6.05" /></symbol>
+<symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" /></symbol>
+<symbol id="i-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z" /></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  <rect width="20" height="14" x="2" y="6" rx="2" /></symbol>
+<symbol id="i-broom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 10.5 22 2" />
+  <path d="M14.734 13.841a2 2 0 00-.314-2.42L12.58 9.58a2 2 0 00-2.421-.314l-7.657 4.461A1 1 0 002.3 15.3l6.403 6.403a1 1 0 001.571-.204z" />
+  <path d="m5 18 2-2" />
+  <path d="m7.699 10.7 5.602 5.601" /></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3" />
+  <path d="M16 2v3" />
+  <rect x="3" y="3" width="18" height="18" rx="2" />
+  <path d="M3 9h18" /></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z" />
+  <circle cx="12" cy="13" r="3" /></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></symbol>
+<symbol id="i-check-circle-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-check-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" />
+  <path d="m9 11 3 3L22 4" /></symbol>
+<symbol id="i-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /></symbol>
+<symbol id="i-clipboard-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="M12 11h4" />
+  <path d="M12 16h4" />
+  <path d="M8 11h.01" />
+  <path d="M8 16h.01" /></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6l4 2" /></symbol>
+<symbol id="i-clock-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6h4" /></symbol>
+<symbol id="i-credit-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2" />
+  <line x1="2" x2="22" y1="10" y2="10" /></symbol>
+<symbol id="i-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" />
+  <path d="M5 21h14" /></symbol>
+<symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3" />
+  <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+  <path d="M3 12A9 3 0 0 0 21 12" /></symbol>
+<symbol id="i-divide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="1" />
+  <line x1="5" x2="19" y1="12" y2="12" />
+  <circle cx="12" cy="18" r="1" /></symbol>
+<symbol id="i-dollar-sign" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22" />
+  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></symbol>
+<symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3" />
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+  <path d="m7 10 5 5 5-5" /></symbol>
+<symbol id="i-edit-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8" />
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /></symbol>
+<symbol id="i-external-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6" />
+  <path d="M10 14 21 3" />
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+  <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+  <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+  <path d="m2 2 20 20" /></symbol>
+<symbol id="i-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" /></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></symbol>
+<symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14" />
+  <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+  <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+  <rect x="3" y="7" width="18" height="4" rx="1" /></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+  <path d="M2 12h20" /></symbol>
+<symbol id="i-hammer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
+  <path d="m18 15 4-4" />
+  <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" /></symbol>
+<symbol id="i-hand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2" />
+  <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2" />
+  <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8" />
+  <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" /></symbol>
+<symbol id="i-headphones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></symbol>
+<symbol id="i-help-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+  <path d="M12 17h.01" /></symbol>
+<symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+  <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol>
+<symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+  <circle cx="9" cy="9" r="2" />
+  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></symbol>
+<symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+  <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" /></symbol>
+<symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" />
+  <path d="m21 2-9.6 9.6" />
+  <circle cx="7.5" cy="15.5" r="5.5" /></symbol>
+<symbol id="i-landmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7" />
+  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
+  <path d="M14 18v-7" />
+  <path d="M18 18v-7" />
+  <path d="M3 22h18" />
+  <path d="M6 18v-7" /></symbol>
+<symbol id="i-layout-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" /></symbol>
+<symbol id="i-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 4 14" />
+  <path d="M12 6v14" />
+  <path d="M8 8v12" />
+  <path d="M4 4v16" /></symbol>
+<symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+  <path d="M9 18h6" />
+  <path d="M10 22h4" /></symbol>
+<symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol>
+<symbol id="i-log-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 17 5-5-5-5" />
+  <path d="M21 12H9" />
+  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+  <rect x="2" y="4" width="20" height="16" rx="2" /></symbol>
+<symbol id="i-mailbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5C2 7 4 5 6.5 5H18c2.2 0 4 1.8 4 4v8Z" />
+  <polyline points="15,9 18,9 18,11" />
+  <path d="M6.5 5C9 5 11 7 11 9.5V17a2 2 0 0 1-2 2" />
+  <line x1="6" x2="7" y1="10" y2="10" /></symbol>
+<symbol id="i-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+  <circle cx="12" cy="10" r="3" /></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" /></symbol>
+<symbol id="i-message-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></symbol>
+<symbol id="i-message-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" /></symbol>
+<symbol id="i-message-square-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14a2 2 0 0 0 2-2V8h-2" />
+  <path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" />
+  <path d="M8 14a2 2 0 0 0 2-2V8H8" /></symbol>
+<symbol id="i-microscope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8" />
+  <path d="M3 22h18" />
+  <path d="M14 22a7 7 0 1 0 0-14h-1" />
+  <path d="M9 14h2" />
+  <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" />
+  <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" /></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2" />
+  <line x1="8" x2="16" y1="21" y2="21" />
+  <line x1="12" x2="12" y1="17" y2="21" /></symbol>
+<symbol id="i-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+  <path d="M12 22V12" />
+  <polyline points="3.29 7 12 12 20.71 7" />
+  <path d="m7.5 4.27 9 5.15" /></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" />
+  <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+  <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+  <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+  <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /></symbol>
+<symbol id="i-paperclip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" /></symbol>
+<symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" /></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5" />
+  <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" /></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" />
+  <path d="M12 5v14" /></symbol>
+<symbol id="i-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+  <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
+  <rect x="6" y="14" width="12" height="8" rx="1" /></symbol>
+<symbol id="i-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+  <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></symbol>
+<symbol id="i-refresh-cw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+  <path d="M21 3v5h-5" />
+  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+  <path d="M8 16H3v5" /></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" />
+  <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" />
+  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" /></symbol>
+<symbol id="i-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" />
+  <path d="m14.5 12.5 2-2" />
+  <path d="m11.5 9.5 2-2" />
+  <path d="m8.5 6.5 2-2" />
+  <path d="m17.5 15.5 2-2" /></symbol>
+<symbol id="i-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+  <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
+  <path d="M7 3v4a1 1 0 0 0 1 1h7" /></symbol>
+<symbol id="i-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3" />
+  <path d="M8.12 8.12 12 12" />
+  <path d="M20 4 8.12 15.88" />
+  <circle cx="6" cy="18" r="3" />
+  <path d="M14.8 14.8 20 20" /></symbol>
+<symbol id="i-scroll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17V5a2 2 0 0 0-2-2H4" />
+  <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" /></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" /></symbol>
+<symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+  <path d="m21.854 2.147-10.94 10.939" /></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+  <circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-settings-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17H5" />
+  <path d="M19 7h-9" />
+  <circle cx="17" cy="17" r="3" />
+  <circle cx="7" cy="7" r="3" /></symbol>
+<symbol id="i-shopping-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a4 4 0 0 1-8 0" />
+  <path d="M3.103 6.034h17.794" />
+  <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" /></symbol>
+<symbol id="i-shopping-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></symbol>
+<symbol id="i-smartphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+  <path d="M12 18h.01" /></symbol>
+<symbol id="i-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10V9" />
+  <path d="M16.472 15a6 6 0 01-8.943 0" />
+  <path d="M9 10V9" />
+  <circle cx="12" cy="12" r="10" /></symbol>
+<symbol id="i-snowflake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 20-1.25-2.5L6 18" />
+  <path d="M10 4 8.75 6.5 6 6" />
+  <path d="m14 20 1.25-2.5L18 18" />
+  <path d="m14 4 1.25 2.5L18 6" />
+  <path d="m17 21-3-6h-4" />
+  <path d="m17 3-3 6 1.5 3" />
+  <path d="M2 12h6.5L10 9" />
+  <path d="m20 10-1.5 2 1.5 2" />
+  <path d="M22 12h-6.5L14 15" />
+  <path d="m4 10 1.5 2L4 14" />
+  <path d="m7 21 3-6-1.5-3" />
+  <path d="m7 3 3 6h4" /></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+  <path d="M20 2v4" />
+  <path d="M22 4h-4" />
+  <circle cx="4" cy="20" r="2" /></symbol>
+<symbol id="i-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" />
+  <path d="M12 6h.01" />
+  <circle cx="12" cy="14" r="4" />
+  <path d="M12 14h.01" /></symbol>
+<symbol id="i-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" /></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol>
+<symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" />
+  <path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244" />
+  <path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" /></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+  <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></symbol>
+<symbol id="i-telescope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44" />
+  <path d="m13.56 11.747 4.332-.924" />
+  <path d="m16 21-3.105-6.21" />
+  <path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z" />
+  <path d="m6.158 8.633 1.114 4.456" />
+  <path d="m8 21 3.105-6.21" />
+  <circle cx="12" cy="13" r="2" /></symbol>
+<symbol id="i-thumbs-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
+  <path d="M7 10v12" /></symbol>
+<symbol id="i-trash-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol>
+<symbol id="i-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6" />
+  <path d="m22 7-8.5 8.5-5-5L2 17" /></symbol>
+<symbol id="i-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2" />
+  <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2" />
+  <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3" />
+  <path d="M4 22h16" />
+  <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" />
+  <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3" /></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+  <path d="M15 18H9" />
+  <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+  <circle cx="17" cy="18" r="2" />
+  <circle cx="7" cy="18" r="2" /></symbol>
+<symbol id="i-unlock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 9.9-1" /></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12" />
+  <path d="m17 8-5-5-5 5" />
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" /></symbol>
+<symbol id="i-user-cog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15H6a4 4 0 0 0-4 4v2" />
+  <path d="m14.305 16.53.923-.382" />
+  <path d="m15.228 13.852-.923-.383" />
+  <path d="m16.852 12.228-.383-.923" />
+  <path d="m16.852 17.772-.383.924" />
+  <path d="m19.148 12.228.383-.923" />
+  <path d="m19.53 18.696-.382-.924" />
+  <path d="m20.772 13.852.924-.383" />
+  <path d="m20.772 16.148.924.383" />
+  <circle cx="18" cy="15" r="3" />
+  <circle cx="9" cy="7" r="4" /></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+  <circle cx="9" cy="7" r="4" /></symbol>
+<symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+  <rect x="2" y="6" width="14" height="12" rx="2" /></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+  <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></symbol>
+<symbol id="i-x-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="m15 9-6 6" />
+  <path d="m9 9 6 6" /></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /></symbol></svg>
+<style>
+.ic{width:1.1em;height:1.1em;vertical-align:-0.18em;display:inline-block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.nav-item .icon .ic{width:18px;height:18px;vertical-align:middle}
+.stat-label .ic{width:14px;height:14px;vertical-align:-2px}
+.empty-icon .ic{width:40px;height:40px;vertical-align:middle}
+.toast .ic{width:15px;height:15px;vertical-align:-2px}
+</style>
 </body>
 </html>

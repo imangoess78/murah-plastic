@@ -253,32 +253,32 @@ tr:hover td{background:rgba(201,137,10,.04)}
   </div>
   <nav class="sidebar-nav">
     <div class="nav-section">Overview</div>
-    <button class="nav-item active" onclick="setTab('dashboard')" id="nav-dashboard"><span class="icon">📊</span>Dashboard</button>
+    <button class="nav-item active" onclick="setTab('dashboard')" id="nav-dashboard"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-layout-dashboard"/></svg></span>Dashboard</button>
     <div class="nav-section">Toko</div>
-    <button class="nav-item" onclick="setTab('orders')" id="nav-orders"><span class="icon">📦</span>Pesanan<span class="nav-badge" id="badge-orders" style="display:none">0</span></button>
-    <button class="nav-item" onclick="setTab('products')" id="nav-products"><span class="icon">🛍️</span>Produk</button>
-    <button class="nav-item" onclick="setTab('categories')" id="nav-categories"><span class="icon">📂</span>Kategori</button>
-    <button class="nav-item" onclick="setTab('customers')" id="nav-customers"><span class="icon">👥</span>Pelanggan</button>
-    <button class="nav-item" onclick="setTab('komplain')" id="nav-komplain"><span class="icon">🛠️</span>Komplain<span class="nav-badge" id="badge-komplain" style="display:none">0</span></button>
-    <button class="nav-item" onclick="setTab('qna')" id="nav-qna"><span class="icon">💬</span>Tanya Jawab<span class="nav-badge" id="badge-qna" style="display:none">0</span></button>
+    <button class="nav-item" onclick="setTab('orders')" id="nav-orders"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-package"/></svg></span>Pesanan<span class="nav-badge" id="badge-orders" style="display:none">0</span></button>
+    <button class="nav-item" onclick="setTab('products')" id="nav-products"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-shopping-bag"/></svg></span>Produk</button>
+    <button class="nav-item" onclick="setTab('categories')" id="nav-categories"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-folder"/></svg></span>Kategori</button>
+    <button class="nav-item" onclick="setTab('customers')" id="nav-customers"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg></span>Pelanggan</button>
+    <button class="nav-item" onclick="setTab('komplain')" id="nav-komplain"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg></span>Komplain<span class="nav-badge" id="badge-komplain" style="display:none">0</span></button>
+    <button class="nav-item" onclick="setTab('qna')" id="nav-qna"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-message-circle"/></svg></span>Tanya Jawab<span class="nav-badge" id="badge-qna" style="display:none">0</span></button>
     <div class="nav-section">Konten</div>
-    <button class="nav-item" onclick="setTab('articles')" id="nav-articles"><span class="icon">📝</span>Blog/Artikel</button>
+    <button class="nav-item" onclick="setTab('articles')" id="nav-articles"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-file-text"/></svg></span>Blog/Artikel</button>
     <div class="nav-section">Laporan</div>
-    <button class="nav-item" onclick="setTab('reports')" id="nav-reports"><span class="icon">📈</span>Laporan</button>
+    <button class="nav-item" onclick="setTab('reports')" id="nav-reports"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg></span>Laporan</button>
     <div class="nav-section">Pengaturan</div>
-    <button class="nav-item" onclick="setTab('payment')" id="nav-payment"><span class="icon">💳</span>Pembayaran</button>
-    <button class="nav-item" onclick="setTab('users')" id="nav-users"><span class="icon">🧑‍💼</span>Pengguna</button>
-    <button class="nav-item" onclick="setTab('settings')" id="nav-settings"><span class="icon">⚙️</span>Pengaturan</button>
+    <button class="nav-item" onclick="setTab('payment')" id="nav-payment"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-credit-card"/></svg></span>Pembayaran</button>
+    <button class="nav-item" onclick="setTab('users')" id="nav-users"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-user-cog"/></svg></span>Pengguna</button>
+    <button class="nav-item" onclick="setTab('settings')" id="nav-settings"><span class="icon"><svg class="ic" aria-hidden="true"><use href="#i-settings"/></svg></span>Pengaturan</button>
   </nav>
   <div class="sidebar-footer">
-    <a href="/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:8px 16px;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--border)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Beranda <span style="margin-left:auto;font-size:10px;opacity:.7">↗</span></a>
+    <a href="/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:8px 16px;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--border)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Beranda <span style="margin-left:auto;font-size:10px;opacity:.7"><svg class="ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a>
     <div class="admin-user">
       <div class="admin-avatar">A</div>
       <div class="admin-info">
         <div class="admin-name">Admin</div>
         <div class="admin-role">Murah Plastic</div>
       </div>
-      <button class="logout-btn" onclick="doLogout()" title="Logout">✕</button>
+      <button class="logout-btn" onclick="doLogout()" title="Logout"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
   </div>
 </aside>
@@ -286,22 +286,22 @@ tr:hover td{background:rgba(201,137,10,.04)}
 <div class="main">
   <div class="topbar">
     <div class="topbar-left">
-      <button class="mobile-menu-btn" onclick="openSidebar()">☰</button>
-      <div class="topbar-title" id="topbarTitle">📊 Dashboard</div>
+      <button class="mobile-menu-btn" onclick="openSidebar()"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      <div class="topbar-title" id="topbarTitle"><svg class="ic" aria-hidden="true"><use href="#i-layout-dashboard"/></svg> Dashboard</div>
     </div>
     <div class="topbar-right">
-      <button class="notif-bell" id="adminNotifBell" onclick="toggleAdminNotif(event)" title="Notifikasi">🔔<span class="notif-badge" id="adminNotifBadge" style="display:none">0</span></button>
-      <a href="/" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);font-weight:800;text-decoration:none;margin-right:4px">🌐 Toko ↗</a>
+      <button class="notif-bell" id="adminNotifBell" onclick="toggleAdminNotif(event)" title="Notifikasi"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg><span class="notif-badge" id="adminNotifBadge" style="display:none">0</span></button>
+      <a href="/" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);font-weight:800;text-decoration:none;margin-right:4px"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg> Toko <svg class="ic" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
       <span class="topbar-live" style="font-size:12px;color:var(--muted);font-weight:600"><span class="status-dot"></span>Live</span>
-      <button class="refresh-btn" onclick="fetchAll()">↻ Refresh</button>
+      <button class="refresh-btn" onclick="fetchAll()"><svg class="ic" aria-hidden="true"><use href="#i-refresh-cw"/></svg> Refresh</button>
     </div>
   </div>
   <div class="notif-dropdown" id="adminNotifPanel">
-    <div class="notif-dropdown-head"><span>🔔 Notifikasi</span><button onclick="toggleAdminNotif(event)">✕</button></div>
-    <div class="notif-dropdown-list" id="adminNotifList"><div class="loading" style="padding:30px">⏳ Memuat...</div></div>
+    <div class="notif-dropdown-head"><span><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg> Notifikasi</span><button onclick="toggleAdminNotif(event)"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+    <div class="notif-dropdown-list" id="adminNotifList"><div class="loading" style="padding:30px"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Memuat...</div></div>
   </div>
   <div class="content" id="mainContent">
-    <div class="loading">⏳ Memuat dashboard...</div>
+    <div class="loading"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Memuat dashboard...</div>
   </div>
 </div>
 
@@ -313,9 +313,9 @@ tr:hover td{background:rgba(201,137,10,.04)}
     <input class="login-input" type="email" id="loginEmail" placeholder="Email" required style="margin-bottom:10px" onkeydown="if(event.key==='Enter')doLogin()">
     <div style="position:relative;width:100%">
       <input class="login-input" type="password" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()" style="padding-right:44px">
-      <button type="button" class="eye-btn" id="eyeBtn" onclick="togglePass()" aria-label="Tampilkan password" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;padding:8px;color:var(--muted);line-height:1">👁️</button>
+      <button type="button" class="eye-btn" id="eyeBtn" onclick="togglePass()" aria-label="Tampilkan password" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;padding:8px;color:var(--muted);line-height:1"><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg>️</button>
     </div>
-    <button class="login-btn" id="loginBtn" onclick="doLogin()">Masuk →</button>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Masuk <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
     <div class="login-error" id="loginError"></div>
   </div>
 </div>
@@ -324,11 +324,15 @@ tr:hover td{background:rgba(201,137,10,.04)}
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()"><div class="modal" id="modalContent"></div></div>
 
 <script>
+
+// ── Icon helper: returns inline SVG <use> referencing the sprite ──
+const IC = (n) => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+
 'use strict';
 let TOKEN = localStorage.getItem('mp_admin_token') || '';
 let ADMIN_ROLE = localStorage.getItem('mp_admin_role') || 'super_admin';
 let ADMIN_NAME = localStorage.getItem('mp_admin_name') || 'Super Admin';
-const ROLE_LABELS = { super_admin:'👑 Super Admin', finance:'💰 Keuangan', operations:'📦 Operasional', cs:'🎧 Customer Service', warehouse:'🚚 Gudang' };
+const ROLE_LABELS = { super_admin:' Super Admin', finance:' Keuangan', operations:' Operasional', cs:' Customer Service', warehouse:' Gudang' };
 const ROLE_TABS = {
   super_admin: ['dashboard','orders','products','categories','customers','komplain','qna','articles','reports','payment','users','settings'],
   finance: ['dashboard','orders','payment','reports','customers'],
@@ -336,7 +340,7 @@ const ROLE_TABS = {
   cs: ['dashboard','orders','komplain','qna','customers'],
   warehouse: ['dashboard','orders']
 };
-let TAB_TITLES_EXTRA = { payment:'💳 Pembayaran', users:'🧑‍💼 Pengguna' };
+let TAB_TITLES_EXTRA = { payment:' Pembayaran', users:' Pengguna' };
 let currentTab = 'dashboard';
 let pollInterval = null;
 let ORDERS = [], PRODUCTS = [], QUESTIONS = [], ARTICLES = [], CUSTOMERS = [], STATS = null;
@@ -378,8 +382,8 @@ const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function toast(msg, type) {
   const el = document.createElement('div');
   el.className = 'toast ' + (type || 'info');
-  const icons = {success:'✅',error:'❌',info:'ℹ️'};
-  el.innerHTML = '<span>'+(icons[type||'info']||'ℹ️')+'</span> ' + msg;
+  const icons = {success:'' + IC("check-circle-2") + '',error:'' + IC("x-circle") + '',info:'' + IC("info") + ''};
+  el.innerHTML = '<span>'+(icons[type||'info']||'' + IC("info") + '')+'</span> ' + msg;
   document.getElementById('toastContainer').appendChild(el);
   setTimeout(() => { el.style.transition='opacity .3s'; el.style.opacity='0'; setTimeout(()=>el.remove(),300); }, 3000);
 }
@@ -406,8 +410,8 @@ async function api(method, path, body) {
 function togglePass() {
   const el = document.getElementById('loginPass');
   const btn = document.getElementById('eyeBtn');
-  if (el.type === 'password') { el.type = 'text'; btn.textContent = '🙈'; }
-  else { el.type = 'password'; btn.textContent = '👁️'; }
+  if (el.type === 'password') { el.type = 'text'; btn.textContent = ''; }
+  else { el.type = 'password'; btn.textContent = '️'; }
 }
 async function doLogin() {
   const email = document.getElementById('loginEmail').value.trim();
@@ -417,7 +421,7 @@ async function doLogin() {
   errEl.textContent = '';
   if (!email) { errEl.textContent = 'Email wajib diisi.'; return; }
   if (!pass) { errEl.textContent = 'Password wajib diisi.'; return; }
-  btn.disabled = true; btn.textContent = '⏳ Memproses...';
+  btn.disabled = true; btn.textContent = ' Memproses...';
   try {
     const r = await api('POST', '/api/admin/login', { email, password: pass });
     TOKEN = r.token;
@@ -428,12 +432,12 @@ async function doLogin() {
     localStorage.setItem('mp_admin_name', ADMIN_NAME);
     document.getElementById('loginPage').style.display = 'none';
     document.getElementById('loginPass').value = '';
-    document.getElementById('topbarTitle').textContent = (TAB_TITLES[currentTab] || currentTab) + (ADMIN_ROLE !== 'super_admin' ? ' · ' + (ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE) : '');
+    document.getElementById('topbarTitle').innerHTML = (TAB_TITLES[currentTab] || currentTab) + (ADMIN_ROLE !== 'super_admin' ? ' · ' + esc(ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE) : '');
     applyRoleTabs();
     toast('Login berhasil! ' + (ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE), 'success');
     startPolling();
   } catch (e) {
-    btn.disabled = false; btn.textContent = 'Masuk →';
+    btn.disabled = false; btn.textContent = 'Masuk ';
     errEl.textContent = e.message.includes('Unauthorized') ? 'Email atau password salah.' : 'Gagal login: ' + e.message;
   }
 }
@@ -515,9 +519,9 @@ function updateBadges() {
 
 // ── Tabs ──
 const TAB_TITLES = {
-  dashboard:'📊 Dashboard', orders:'📦 Pesanan', products:'🛍️ Produk', categories:'📂 Kategori', customers:'👥 Pelanggan',
-  komplain:'🛠️ Komplain', qna:'💬 Tanya Jawab', articles:'📝 Blog/Artikel', reports:'📈 Laporan', settings:'⚙️ Pengaturan',
-  payment:'💳 Pembayaran', users:'🧑‍💼 Pengguna'
+  dashboard:'' + IC("layout-dashboard") + ' Dashboard', orders:'' + IC("package") + ' Pesanan', products:'' + IC("shopping-bag") + ' Produk', categories:'' + IC("folder") + ' Kategori', customers:'' + IC("users") + ' Pelanggan',
+  komplain:'' + IC("wrench") + ' Komplain', qna:'' + IC("message-circle") + ' Tanya Jawab', articles:'' + IC("file-text") + ' Blog/Artikel', reports:'' + IC("trending-up") + ' Laporan', settings:'' + IC("settings") + ' Pengaturan',
+  payment:'' + IC("credit-card") + ' Pembayaran', users:'' + IC("user-cog") + ' Pengguna'
 };
 
 function setTab(tab) {
@@ -528,7 +532,7 @@ function setTab(tab) {
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   const navEl = document.getElementById('nav-' + tab);
   if (navEl) navEl.classList.add('active');
-  document.getElementById('topbarTitle').textContent = (TAB_TITLES[tab] || tab) + (ADMIN_ROLE !== 'super_admin' ? ' · ' + (ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE) : '');
+  document.getElementById('topbarTitle').innerHTML = (TAB_TITLES[tab] || tab) + (ADMIN_ROLE !== 'super_admin' ? ' · ' + esc(ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE) : '');
   closeSidebar();
   renderTab();
 }
@@ -573,26 +577,26 @@ function renderDashboard(c) {
       <div class="stat-card blue"><div class="stat-label">Omzet Bulan Ini</div><div class="stat-value">${fmt(s.monthRevenue)}</div><div class="stat-sub">${s.monthOrders} pesanan</div></div>
       <div class="stat-card red"><div class="stat-label">Order Hari Ini</div><div class="stat-value">${s.todayCount}</div></div>
       <div class="stat-card orange"><div class="stat-label">Menunggu</div><div class="stat-value">${s.pending}</div><div class="stat-sub">${s.cancelled||0} dibatalkan</div></div>
-      <div class="stat-card"><div class="stat-label">🛠️ Komplain</div><div class="stat-value">${s.komplainOpen||0}</div><div class="stat-sub">${s.komplainTotal||0} total</div></div>
-      <div class="stat-card green"><div class="stat-label">💬 QnA</div><div class="stat-value">${s.unanswered||0}</div><div class="stat-sub">${s.productCount} produk</div></div>
-      <div class="stat-card"><div class="stat-label">👥 Pelanggan</div><div class="stat-value">${s.customerCount||0}</div><div class="stat-sub">${s.reviewCount||0} review</div></div>
+      <div class="stat-card"><div class="stat-label">${IC("wrench")} Komplain</div><div class="stat-value">${s.komplainOpen||0}</div><div class="stat-sub">${s.komplainTotal||0} total</div></div>
+      <div class="stat-card green"><div class="stat-label">${IC("message-circle")} QnA</div><div class="stat-value">${s.unanswered||0}</div><div class="stat-sub">${s.productCount} produk</div></div>
+      <div class="stat-card"><div class="stat-label">${IC("users")} Pelanggan</div><div class="stat-value">${s.customerCount||0}</div><div class="stat-sub">${s.reviewCount||0} review</div></div>
     </div>
 
     <div class="card" style="margin-bottom:20px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
-        <div class="table-title">📈 Omzet 14 Hari Terakhir</div>
+        <div class="table-title">${IC("trending-up")} Omzet 14 Hari Terakhir</div>
         <div style="font-size:11px;color:var(--muted);font-weight:700">Revenue harian · hover titik untuk detail</div>
       </div>
-      ${days.length ? renderRevenueChart(days, maxRev, maxOrd) : '<div class="empty"><div class="empty-icon">📊</div><div class="empty-text">Belum ada data penjualan</div></div>'}
+      ${days.length ? renderRevenueChart(days, maxRev, maxOrd) : `<div class="empty"><div class="empty-icon">${IC("layout-dashboard")}</div><div class="empty-text">Belum ada data penjualan</div></div>`}
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px" class="dashboard-grid">
       <div class="table-wrap">
         <div class="table-head">
-          <div class="table-title">🕒 Pesanan Terbaru</div>
-          <button class="action-btn primary" onclick="setTab('orders')">Lihat Semua →</button>
+          <div class="table-title">${IC("clock")} Pesanan Terbaru</div>
+          <button class="action-btn primary" onclick="setTab('orders')">Lihat Semua ${IC("arrow-right")}</button>
         </div>
-        ${recent.length === 0 ? '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Belum ada pesanan</div></div>' : `
+        ${recent.length === 0 ? `<div class="empty"><div class="empty-icon">${IC("inbox")}</div><div class="empty-text">Belum ada pesanan</div></div>` : `
         <table>
           <thead><tr><th>ID</th><th>Pelanggan</th><th>Total</th><th>Status</th><th>Tanggal</th></tr></thead>
           <tbody>${recent.map(o => `
@@ -607,20 +611,20 @@ function renderDashboard(c) {
       </div>
       <div>
         <div class="card" style="margin-bottom:12px">
-          <div class="table-title" style="margin-bottom:8px">🏆 Top 5 Produk Terlaris</div>
+          <div class="table-title" style="margin-bottom:8px">${IC("trophy")} Top 5 Produk Terlaris</div>
           ${(s.topProducts||[]).length === 0 ? '<div class="empty"><div class="empty-text">Belum ada data</div></div>' : `
           <table><thead><tr><th>#</th><th>Produk</th><th>Qty</th><th>Revenue</th></tr></thead>
           <tbody>${s.topProducts.slice(0,5).map((t,i) => `
             <tr><td style="font-weight:800;color:var(--gold)">${i+1}</td><td style="font-size:12px">${esc(t.name.substring(0,50))}</td><td><b>${t.qty}</b></td><td style="font-size:12px;color:var(--mid)">${fmt(t.revenue||0)}</td></tr>`).join('')}</tbody></table>`}
         </div>
         <div class="card">
-          <div class="table-title" style="margin-bottom:12px">💬 Pertanyaan Belum Dijawab</div>
-          ${unans.length === 0 ? '<div class="empty"><div class="empty-icon">🎉</div><div class="empty-text">Semua pertanyaan sudah terjawab!</div></div>' : unans.map(q => `
+          <div class="table-title" style="margin-bottom:12px">${IC("message-circle")} Pertanyaan Belum Dijawab</div>
+          ${unans.length === 0 ? `<div class="empty"><div class="empty-icon">${IC("gift")}</div><div class="empty-text">Semua pertanyaan sudah terjawab!</div></div>` : unans.map(q => `
             <div style="padding:10px 12px;background:var(--light);border-radius:8px;margin-bottom:8px;border-left:3px solid var(--gold)">
               <b style="font-size:12px">${esc(q.user_name||'Anonim')}</b> <span style="font-size:11px;color:var(--muted)">· ${esc(q.product_name||'')}</span>
               <div style="font-size:13px;margin-top:4px">${esc(q.question)}</div>
             </div>`).join('')}
-          ${unans.length ? `<button class="action-btn primary" style="margin-top:8px" onclick="setTab('qna')">Jawab Sekarang →</button>` : ''}
+          ${unans.length ? `<button class="action-btn primary" style="margin-top:8px" onclick="setTab('qna')">Jawab Sekarang ${IC("arrow-right")}</button>` : ''}
         </div>
       </div>
     </div>
@@ -676,8 +680,8 @@ function showRevTooltip(circle, rev, orders, date) {
   const d = new Date(date + 'T00:00:00');
   const dname = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'][d.getDay()];
   tip.innerHTML = '<div style="font-size:10px;color:#fbbf24;text-transform:uppercase;letter-spacing:.5px">' + dname + ' · ' + date.slice(8) + '/' + date.slice(5, 7) + '</div>' +
-    '<div>💰 Rp' + Number(rev).toLocaleString('id-ID') + '</div>' +
-    '<div style="font-size:11px;color:#9ca3af;font-weight:600">📦 ' + orders + ' pesanan</div>';
+    '<div>' + IC("dollar-sign") + ' Rp' + Number(rev).toLocaleString('id-ID') + '</div>' +
+    '<div style="font-size:11px;color:#9ca3af;font-weight:600">' + IC("package") + ' ' + orders + ' pesanan</div>';
   tip.style.display = 'block';
   tip.style.left = Math.max(8, Math.min(wr.width - 8, x)) + 'px';
   tip.style.top = Math.max(4, y - 14) + 'px';
@@ -707,17 +711,17 @@ function renderOrders(c) {
 
     <div class="filter-bar">
       ${STATUSES.map(s => `<button class="filter-btn${orderFilter===s?' active':''}" onclick="setOrderFilter('${s}')">${s}</button>`).join('')}
-      <button class="filter-btn" style="margin-left:auto" onclick="exportOrders()">📥 Export CSV</button>
+      <button class="filter-btn" style="margin-left:auto" onclick="exportOrders()">${IC("download")} Export CSV</button>
       <button class="action-btn primary" style="padding:6px 14px" onclick="openOrderModal()">+ Pesanan Baru</button>
     </div>
 
     <div class="search-bar">
-      <input class="search-input" placeholder="🔍 Cari ID / nama / no HP..." value="${esc(orderMatch)}" oninput="debounce(()=>{orderMatch=this.value;renderOrders(document.getElementById('mainContent'))},300)">
+      <input class="search-input" placeholder=" Cari ID / nama / no HP..." value="${esc(orderMatch)}" oninput="debounce(()=>{orderMatch=this.value;renderOrders(document.getElementById('mainContent'))},300)">
     </div>
 
     <div class="table-wrap">
       <div class="table-head"><div class="table-title">${filtered.length} pesanan</div></div>
-      ${filtered.length === 0 ? '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Tidak ada pesanan ditemukan</div></div>' : `
+      ${filtered.length === 0 ? `<div class="empty"><div class="empty-icon">${IC("inbox")}</div><div class="empty-text">Tidak ada pesanan ditemukan</div></div>` : `
       <table>
         <thead><tr><th>ID</th><th>Pelanggan</th><th>Produk</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
         <tbody>${filtered.map(o => {
@@ -735,9 +739,9 @@ function renderOrders(c) {
             </select></td>
             <td><div class="action-btns">
               <a href="https://wa.me/${phone}?text=${waText}" target="_blank" class="action-btn wa">WA</a>
-              <button class="action-btn" onclick="openOrderDetail('${esc(o.id)}')">📋</button>
-              <button class="action-btn" onclick="showResi('${esc(o.id)}','${esc(o.resi||'')}')">📬</button>
-              <button class="action-btn del" onclick="deleteOrder('${esc(o.id)}')">🗑</button>
+              <button class="action-btn" onclick="openOrderDetail('${esc(o.id)}')">${IC("clipboard-list")}</button>
+              <button class="action-btn" onclick="showResi('${esc(o.id)}','${esc(o.resi||'')}')">${IC("mail")}</button>
+              <button class="action-btn del" onclick="deleteOrder('${esc(o.id)}')">${IC("trash-2")}</button>
             </div></td>
           </tr>`;
         }).join('')}</tbody>
@@ -760,7 +764,7 @@ function showResi(id, current) {
   const resi = prompt('Masukkan nomor resi:', current || '');
   if (resi === null) return;
   api('PUT', '/api/orders/' + id, { resi })
-    .then(() => { const o = ORDERS.find(x => x.id === id); if (o) o.resi = resi; toast('✅ Resi tersimpan', 'success'); })
+    .then(() => { const o = ORDERS.find(x => x.id === id); if (o) o.resi = resi; toast('' + IC("check-circle-2") + ' Resi tersimpan', 'success'); })
     .catch(e => toast('Gagal: ' + e.message, 'error'));
 }
 
@@ -779,7 +783,7 @@ function openOrderDetail(id) {
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   const navEl = document.getElementById('nav-orders');
   if (navEl) navEl.classList.add('active');
-  document.getElementById('topbarTitle').textContent = '📋 Detail Pesanan ' + id;
+  document.getElementById('topbarTitle').innerHTML = IC("clipboard-list") + ' Detail Pesanan ' + esc(id);
   closeSidebar();
   renderTab();
 }
@@ -797,20 +801,20 @@ function renderOrderDetail(c, o) {
   const phone = (o.customer_phone||'').replace(/[^0-9]/g,'').replace(/^0/,'62');
   c.innerHTML = `
     <div class="detail-header" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
-      <button class="d-btn d-btn-outline" onclick="closeOrderDetail()">← Kembali ke Pesanan</button>
-      <h2 style="margin:0;font-size:20px;font-weight:900">📋 Detail Pesanan <span style="color:var(--gold)">${esc(o.id)}</span></h2>
+      <button class="d-btn d-btn-outline" onclick="closeOrderDetail()">${IC("arrow-left")} Kembali ke Pesanan</button>
+      <h2 style="margin:0;font-size:20px;font-weight:900">${IC("clipboard-list")} Detail Pesanan <span style="color:var(--gold)">${esc(o.id)}</span></h2>
       <span style="font-size:12px;color:var(--muted)">Dibuat: ${td(o.date)}</span>
       <span class="status-badge ${STATUS_CLASS[o.status]||'s-done'}" style="font-size:12px;padding:4px 12px">${esc(o.status)}</span>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1200px" class="od-grid">
       <div>
         <div class="card" style="padding:14px;margin-bottom:12px">
-          <div class="table-title" style="margin-bottom:8px">👤 Pelanggan</div>
+          <div class="table-title" style="margin-bottom:8px">${IC("user")} Pelanggan</div>
           <b style="font-size:14px">${esc(o.customer_name||'-')}</b><br>
-          <span style="font-size:12px;color:var(--mid)">📱 ${esc(o.customer_phone||'-')}<br>📍 ${esc(o.customer_address||'-')}<br>📝 ${esc(o.customer_note||'-')}</span>
+          <span style="font-size:12px;color:var(--mid)">${IC("smartphone")} ${esc(o.customer_phone||'-')}<br>${IC("map-pin")} ${esc(o.customer_address||'-')}<br>${IC("file-text")} ${esc(o.customer_note||'-')}</span>
         </div>
         <div class="card" style="padding:14px;margin-bottom:12px">
-          <div class="table-title" style="margin-bottom:8px">🛒 Produk</div>
+          <div class="table-title" style="margin-bottom:8px">${IC("shopping-cart")} Produk</div>
           <table style="width:100%;font-size:12px"><thead><tr><th>Produk</th><th>Varian</th><th>Qty</th><th>Harga</th><th>Subtotal</th></tr></thead>
           <tbody>${items.map(it => `<tr>
             <td>${esc(it.productName||it.name||'')}</td><td>${esc(it.variant||it.variantName||'-')}</td>
@@ -818,35 +822,35 @@ function renderOrderDetail(c, o) {
           </tr>`).join('') || '<tr><td colspan="5">-</td></tr>'}</tbody></table>
         </div>
         <div class="card" style="padding:14px;margin-bottom:12px">
-          <div class="table-title" style="margin-bottom:8px">💰 Rincian Pembayaran</div>
+          <div class="table-title" style="margin-bottom:8px">${IC("dollar-sign")} Rincian Pembayaran</div>
           <div style="font-size:13px">
             <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Subtotal</span><b>${fmt(o.sub||0)}</b></div>
             <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Diskon (${o.disc||0}%)</span><b style="color:var(--red)">-${fmt(o.disc_amt||0)}</b></div>
             <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Member (${o.member_disc||0}%)</span><b style="color:var(--red)">-${fmt(o.member_amt||0)}</b></div>
             ${(o.voucher_amt||0) ? `<div style="display:flex;justify-content:space-between;padding:3px 0"><span>Voucher</span><b style="color:var(--red)">-${fmt(o.voucher_amt)}</b></div>` : ''}
-            ${shp.city ? `<div style="display:flex;justify-content:space-between;padding:3px 0"><span>🚚 ${esc(shp.courier_name||shp.courier||'-')} (${esc(shp.city||'-')}${shp.province?', '+esc(shp.province):''})${shp.etd?' · '+esc(shp.etd)+' hari':''}</span><b>${shp.cost?fmt(shp.cost):'Gratis'}</b></div>` : ''}
+            ${shp.city ? `<div style="display:flex;justify-content:space-between;padding:3px 0"><span>${IC("truck")} ${esc(shp.courier_name||shp.courier||'-')} (${esc(shp.city||'-')}${shp.province?', '+esc(shp.province):''})${shp.etd?' · '+esc(shp.etd)+' hari':''}</span><b>${shp.cost?fmt(shp.cost):'Gratis'}</b></div>` : ''}
             <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Metode Bayar</span><b>${esc(pmLabel(o.payment))}</b></div>
             <div style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--border);font-size:15px"><span>Total</span><b style="color:var(--red)">${fmt(o.total||0)}</b></div>
-            ${o.resi ? `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);font-size:12px;color:var(--mid)">📬 Resi: <b>${esc(o.resi)}</b></div>` : ''}
+            ${o.resi ? `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);font-size:12px;color:var(--mid)">${IC("mail")} Resi: <b>${esc(o.resi)}</b></div>` : ''}
           </div>
         </div>
       </div>
       <div>
         ${o.payment_proof ? `
         <div class="card" style="padding:14px;margin-bottom:12px;border:2px solid var(--gold)">
-          <div class="table-title" style="margin-bottom:8px">💳 Bukti Pembayaran</div>
+          <div class="table-title" style="margin-bottom:8px">${IC("credit-card")} Bukti Pembayaran</div>
           <a href="${esc(o.payment_proof)}" target="_blank">
             <img src="${esc(o.payment_proof)}" alt="Bukti Bayar" style="max-width:100%;max-height:260px;border-radius:8px;border:1px solid var(--border);display:block;background:var(--gold-light)" onerror="this.style.display='none'">
           </a>
           <div style="font-size:12px;color:var(--muted);margin-top:8px">Klik gambar untuk lihat ukuran penuh</div>
           ${(['super_admin','finance'].includes(ADMIN_ROLE) && o.status === 'Menunggu Konfirmasi') ? `<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-            <button class="d-btn d-btn-success d-btn-sm" onclick="verifyPayment('${esc(o.id)}','Terverifikasi')">✅ Terima Pembayaran</button>
-            <button class="d-btn d-btn-danger d-btn-sm" onclick="verifyPayment('${esc(o.id)}','Ditolak')">❌ Tolak</button>
+            <button class="d-btn d-btn-success d-btn-sm" onclick="verifyPayment('${esc(o.id)}','Terverifikasi')">${IC("check-circle-2")} Terima Pembayaran</button>
+            <button class="d-btn d-btn-danger d-btn-sm" onclick="verifyPayment('${esc(o.id)}','Ditolak')">${IC("x-circle")} Tolak</button>
           </div>` : ''}
-        </div>` : (o.status === 'Menunggu Konfirmasi' ? '<div class="card" style="padding:14px;margin-bottom:12px;font-size:12px;color:var(--muted)">⚠️ Belum ada bukti bayar diunggah untuk pesanan ini.</div>' : '')}
+        </div>` : (o.status === 'Menunggu Konfirmasi' ? `<div class="card" style="padding:14px;margin-bottom:12px;font-size:12px;color:var(--muted)">${IC("alert-triangle")} Belum ada bukti bayar diunggah untuk pesanan ini.</div>` : '')}
         ${complaint.status ? `<div class="card" style="padding:14px;margin-bottom:12px;border:2px solid var(--red)">${komplainDetailHTML(complaint, o)}</div>` : ''}
         <div class="card" style="padding:14px;margin-bottom:12px;border:2px solid var(--gold)">
-          <div class="table-title" style="margin-bottom:10px">⚙️ Ubah Status Pesanan</div>
+          <div class="table-title" style="margin-bottom:10px">${IC("settings")} Ubah Status Pesanan</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
             <select id="od-status" style="padding:9px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-weight:700;font-family:var(--font);background:white">
               ${STATUSES.filter(s => s !== 'Semua').map(s => `<option${o.status === s ? ' selected' : ''}>${s}</option>`).join('')}
@@ -854,11 +858,11 @@ function renderOrderDetail(c, o) {
             <input id="od-resi" placeholder="No. Resi (opsional)" value="${esc(o.resi||'')}" style="padding:9px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font)">
           </div>
           <input id="od-note" placeholder="Catatan untuk timeline (opsional)" style="width:100%;padding:9px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
-          <button class="d-btn d-btn-primary d-btn-block" onclick="saveOrderStatus('${esc(o.id)}')">💾 Simpan Status</button>
+          <button class="d-btn d-btn-primary d-btn-block" onclick="saveOrderStatus('${esc(o.id)}')">${IC("save")} Simpan Status</button>
         </div>
         ${(() => { const tl = pj(o.timeline, []); return tl.length ? `
         <div class="card" style="padding:14px;margin-bottom:12px">
-          <div class="table-title" style="margin-bottom:8px">🕓 Riwayat / Timeline</div>
+          <div class="table-title" style="margin-bottom:8px">${IC("clock")} Riwayat / Timeline</div>
           ${tl.slice().reverse().map(t => `
             <div style="display:flex;gap:8px;font-size:12px;padding:5px 0;border-bottom:1px dashed var(--border)">
               <span class="status-badge ${STATUS_CLASS[t.status]||'s-done'}" style="white-space:nowrap">${esc(t.status||'')}</span>
@@ -867,9 +871,9 @@ function renderOrderDetail(c, o) {
             </div>`).join('')}
         </div>` : ''; })()}
         <div class="btn-row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-          <button class="d-btn d-btn-outline" onclick="closeOrderDetail()">← Kembali ke Pesanan</button>
-          <button class="d-btn d-btn-outline" onclick="printLabel('${esc(o.id)}')">🖨️ Print Label</button>
-          <a class="d-btn d-btn-primary" href="https://wa.me/${phone}?text=${encodeURIComponent('Halo '+o.customer_name+', ini detail pesanan '+o.id)}" target="_blank">💬 Chat WA</a>
+          <button class="d-btn d-btn-outline" onclick="closeOrderDetail()">${IC("arrow-left")} Kembali ke Pesanan</button>
+          <button class="d-btn d-btn-outline" onclick="printLabel('${esc(o.id)}')">${IC("printer")}️ Print Label</button>
+          <a class="d-btn d-btn-primary" href="https://wa.me/${phone}?text=${encodeURIComponent('Halo '+o.customer_name+', ini detail pesanan '+o.id)}" target="_blank">${IC("message-circle")} Chat WA</a>
         </div>
       </div>
     </div>
@@ -893,7 +897,7 @@ function saveOrderStatus(id) {
       if (body.status) o.status = body.status;
       if (body.resi !== undefined) o.resi = body.resi;
       if (body.note) { const tl = pj(o.timeline, []); tl.push({ status: body.status || o.status, note: body.note, at: new Date().toISOString() }); o.timeline = tl; }
-      renderTab(); toast('Status pesanan diperbarui ✅', 'success');
+      renderTab(); toast('Status pesanan diperbarui ' + IC("check-circle-2") + '', 'success');
     })
     .catch(e => toast('Gagal: ' + e.message, 'error'));
 }
@@ -905,7 +909,7 @@ async function verifyPayment(orderId, decision) {
     const pc = (list || []).find(c => c.order_id === orderId);
     if (!pc) { toast('Data bukti bayar tidak ditemukan', 'error'); return; }
     await api('PUT', '/api/payment-confirmations/' + pc.id, { status: decision });
-    toast(decision === 'Terverifikasi' ? '✅ Pembayaran diterima, pesanan diproses' : '❌ Pembayaran ditolak', 'success');
+    toast(decision === 'Terverifikasi' ? '' + IC("check-circle-2") + ' Pembayaran diterima, pesanan diproses' : '' + IC("x-circle") + ' Pembayaran ditolak', 'success');
     fetchAll();
   } catch (e) { toast('Gagal verifikasi: ' + e.message, 'error'); }
 }
@@ -918,17 +922,17 @@ function komplainDetailHTML(cobj, o) {
   const hist = Array.isArray(cobj.history) ? cobj.history : [];
   return `
     <div style="margin-top:10px;padding:12px;background:var(--red-light);border-radius:8px;font-size:12px;border-left:3px solid var(--red)">
-      <div style="font-weight:800;margin-bottom:6px">🛠️ Komplain ${esc(cobj.status || '')} <span class="status-badge ${cobj.status === 'Selesai' ? 's-done' : cobj.status === 'Ditolak' ? 's-cancel' : 's-processing'}">${esc(cobj.status || 'Menunggu Diproses')}</span></div>
+      <div style="font-weight:800;margin-bottom:6px">${IC("wrench")} Komplain ${esc(cobj.status || '')} <span class="status-badge ${cobj.status === 'Selesai' ? 's-done' : cobj.status === 'Ditolak' ? 's-cancel' : 's-processing'}">${esc(cobj.status || 'Menunggu Diproses')}</span></div>
       <b>Jenis:</b> ${esc(cobj.type || cobj.reason || '-')}<br>
       <b>Deskripsi:</b> ${esc(cobj.desc || cobj.description || '-')}<br>
       ${cobj.itemsDesc ? `<b>Produk bermasalah:</b> ${esc(cobj.itemsDesc)}<br>` : ''}
       ${cobj.refundAmount ? `<b>Refund:</b> <span style="color:var(--red);font-weight:800">${fmt(cobj.refundAmount)}</span><br>` : ''}
       ${cobj.receivedDate ? `<b>Diterima:</b> ${esc(cobj.receivedDate)}<br>` : ''}
-      ${cobj.videoFileName ? `<b>📹 Video:</b> ${esc(cobj.videoFileName)} (kirim via WA)<br>` : ''}
-      ${photoList.length ? `<b>📷 Foto:</b><br>${photoList.map(([k, v]) => `<a href="${esc(v)}" target="_blank"><img src="${esc(v)}" alt="${esc(k)}" style="max-width:90px;border-radius:6px;border:1px solid var(--border);margin:3px"></a>`).join('')}<br>` : ''}
-      ${cobj.reply ? `<div style="margin-top:8px;padding:8px;background:white;border-radius:6px"><b>💬 Balasan admin:</b> ${esc(cobj.reply)}</div>` : ''}
-      ${hist.length ? `<div style="margin-top:6px;font-size:11px;color:var(--muted)"><b>Riwayat:</b> ${hist.map(h => `${h.from || 'Baru'} → ${h.to} (${td(h.at)})`).join(' · ')}</div>` : ''}
-      ${phone ? `<a class="action-btn wa" style="display:inline-block;margin-top:8px" href="https://wa.me/${phone}?text=${encodeURIComponent('Halo '+o.customer_name+', terkait komplain order '+o.id)}" target="_blank">💬 Hubungi Customer</a>` : ''}
+      ${cobj.videoFileName ? `<b>${IC("video")} Video:</b> ${esc(cobj.videoFileName)} (kirim via WA)<br>` : ''}
+      ${photoList.length ? `<b>${IC("camera")} Foto:</b><br>${photoList.map(([k, v]) => `<a href="${esc(v)}" target="_blank"><img src="${esc(v)}" alt="${esc(k)}" style="max-width:90px;border-radius:6px;border:1px solid var(--border);margin:3px"></a>`).join('')}<br>` : ''}
+      ${cobj.reply ? `<div style="margin-top:8px;padding:8px;background:white;border-radius:6px"><b>${IC("message-circle")} Balasan admin:</b> ${esc(cobj.reply)}</div>` : ''}
+      ${hist.length ? `<div style="margin-top:6px;font-size:11px;color:var(--muted)"><b>Riwayat:</b> ${hist.map(h => `${h.from || 'Baru'} ${IC("arrow-right")} ${h.to} (${td(h.at)})`).join(' · ')}</div>` : ''}
+      ${phone ? `<a class="action-btn wa" style="display:inline-block;margin-top:8px" href="https://wa.me/${phone}?text=${encodeURIComponent('Halo '+o.customer_name+', terkait komplain order '+o.id)}" target="_blank">${IC("message-circle")} Hubungi Customer</a>` : ''}
     </div>`;
 }
 
@@ -968,15 +972,369 @@ function printLabel(id) {
     <div class="hd"><div><div class="logo">Murah Plastic</div><div class="sub">BY MUPA GROUP</div></div><div class="sub">${new Date().toLocaleDateString('id-ID')}</div></div>
     <div><span class="orderid">${o.id}</span></div>
     <div class="sec">Kirim Ke</div>
-    <div class="cust">${String(o.customer_name||'-')}<br>📱 ${String(o.customer_phone||'-')}<br>📍 ${String(o.customer_address||'-')}</div>
+    <div class="cust">${String(o.customer_name||'-')}<br>${IC("smartphone")} ${String(o.customer_phone||'-')}<br>${IC("map-pin")} ${String(o.customer_address||'-')}</div>
     <div class="sec">Isi Paket</div>
     <table><thead><tr><th>Produk</th><th>Varian</th><th>Qty</th></tr></thead><tbody>${rows}</tbody></table>
     ${o.resi ? `<div class="sec">Resi</div><div style="font-size:13px;font-weight:900">${o.resi}</div>` : ''}
     <div class="foot">${String(shpInfo(o)||'')}<br>Total: <b>${fmt(o.total||0)}</b></div>
   </div>
-  <button class="print-btn" onclick="window.print()">🖨️ Print Label</button>
+  <button class="print-btn" onclick="window.print()">${IC("printer")}️ Print Label</button>
   <script>window.onload=function(){setTimeout(function(){window.print()},400)};<\/script>
-  </body></html>`);
+  
+<!-- ===== Lucide SVG Icon Sprite ===== -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-alert-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" /></symbol>
+<symbol id="i-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" /></symbol>
+<symbol id="i-antenna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 7 2" />
+  <path d="m7 12 5-10" />
+  <path d="m12 12 5-10" />
+  <path d="m17 12 5-10" />
+  <path d="M4.5 7h15" />
+  <path d="M12 16v6" /></symbol>
+<symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1" />
+  <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+  <path d="M10 12h4" /></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14" />
+  <path d="m19 12-7 7-7-7" /></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" /></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" /></symbol>
+<symbol id="i-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" />
+  <path d="M7 17 17 7" /></symbol>
+<symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+  <circle cx="12" cy="8" r="6" /></symbol>
+<symbol id="i-badge-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+  <path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M4.929 4.929 19.07 19.071" /></symbol>
+<symbol id="i-bandage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10.01h.01" />
+  <path d="M10 14.01h.01" />
+  <path d="M14 10.01h.01" />
+  <path d="M14 14.01h.01" />
+  <path d="M18 6v12" />
+  <path d="M6 6v12" />
+  <rect x="2" y="6" width="20" height="12" rx="2" /></symbol>
+<symbol id="i-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 22 14 L 22 10" />
+  <rect x="2" y="6" width="16" height="12" rx="2" /></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0" />
+  <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></symbol>
+<symbol id="i-bell-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0" />
+  <path d="M17 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 .258-1.742" />
+  <path d="m2 2 20 20" />
+  <path d="M8.668 3.01A6 6 0 0 1 18 8c0 2.687.77 4.653 1.707 6.05" /></symbol>
+<symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" /></symbol>
+<symbol id="i-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z" /></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  <rect width="20" height="14" x="2" y="6" rx="2" /></symbol>
+<symbol id="i-broom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 10.5 22 2" />
+  <path d="M14.734 13.841a2 2 0 00-.314-2.42L12.58 9.58a2 2 0 00-2.421-.314l-7.657 4.461A1 1 0 002.3 15.3l6.403 6.403a1 1 0 001.571-.204z" />
+  <path d="m5 18 2-2" />
+  <path d="m7.699 10.7 5.602 5.601" /></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3" />
+  <path d="M16 2v3" />
+  <rect x="3" y="3" width="18" height="18" rx="2" />
+  <path d="M3 9h18" /></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z" />
+  <circle cx="12" cy="13" r="3" /></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></symbol>
+<symbol id="i-check-circle-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-check-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" />
+  <path d="m9 11 3 3L22 4" /></symbol>
+<symbol id="i-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /></symbol>
+<symbol id="i-clipboard-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="M12 11h4" />
+  <path d="M12 16h4" />
+  <path d="M8 11h.01" />
+  <path d="M8 16h.01" /></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6l4 2" /></symbol>
+<symbol id="i-clock-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6h4" /></symbol>
+<symbol id="i-credit-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2" />
+  <line x1="2" x2="22" y1="10" y2="10" /></symbol>
+<symbol id="i-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" />
+  <path d="M5 21h14" /></symbol>
+<symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3" />
+  <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+  <path d="M3 12A9 3 0 0 0 21 12" /></symbol>
+<symbol id="i-divide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="1" />
+  <line x1="5" x2="19" y1="12" y2="12" />
+  <circle cx="12" cy="18" r="1" /></symbol>
+<symbol id="i-dollar-sign" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22" />
+  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></symbol>
+<symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3" />
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+  <path d="m7 10 5 5 5-5" /></symbol>
+<symbol id="i-edit-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8" />
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /></symbol>
+<symbol id="i-external-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6" />
+  <path d="M10 14 21 3" />
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+  <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+  <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+  <path d="m2 2 20 20" /></symbol>
+<symbol id="i-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" /></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></symbol>
+<symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14" />
+  <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+  <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+  <rect x="3" y="7" width="18" height="4" rx="1" /></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+  <path d="M2 12h20" /></symbol>
+<symbol id="i-hammer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
+  <path d="m18 15 4-4" />
+  <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" /></symbol>
+<symbol id="i-hand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2" />
+  <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2" />
+  <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8" />
+  <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" /></symbol>
+<symbol id="i-headphones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></symbol>
+<symbol id="i-help-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+  <path d="M12 17h.01" /></symbol>
+<symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+  <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol>
+<symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+  <circle cx="9" cy="9" r="2" />
+  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></symbol>
+<symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+  <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" /></symbol>
+<symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" />
+  <path d="m21 2-9.6 9.6" />
+  <circle cx="7.5" cy="15.5" r="5.5" /></symbol>
+<symbol id="i-landmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7" />
+  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
+  <path d="M14 18v-7" />
+  <path d="M18 18v-7" />
+  <path d="M3 22h18" />
+  <path d="M6 18v-7" /></symbol>
+<symbol id="i-layout-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" /></symbol>
+<symbol id="i-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 4 14" />
+  <path d="M12 6v14" />
+  <path d="M8 8v12" />
+  <path d="M4 4v16" /></symbol>
+<symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+  <path d="M9 18h6" />
+  <path d="M10 22h4" /></symbol>
+<symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol>
+<symbol id="i-log-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 17 5-5-5-5" />
+  <path d="M21 12H9" />
+  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+  <rect x="2" y="4" width="20" height="16" rx="2" /></symbol>
+<symbol id="i-mailbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5C2 7 4 5 6.5 5H18c2.2 0 4 1.8 4 4v8Z" />
+  <polyline points="15,9 18,9 18,11" />
+  <path d="M6.5 5C9 5 11 7 11 9.5V17a2 2 0 0 1-2 2" />
+  <line x1="6" x2="7" y1="10" y2="10" /></symbol>
+<symbol id="i-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+  <circle cx="12" cy="10" r="3" /></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" /></symbol>
+<symbol id="i-message-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></symbol>
+<symbol id="i-message-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" /></symbol>
+<symbol id="i-message-square-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14a2 2 0 0 0 2-2V8h-2" />
+  <path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" />
+  <path d="M8 14a2 2 0 0 0 2-2V8H8" /></symbol>
+<symbol id="i-microscope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8" />
+  <path d="M3 22h18" />
+  <path d="M14 22a7 7 0 1 0 0-14h-1" />
+  <path d="M9 14h2" />
+  <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" />
+  <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" /></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2" />
+  <line x1="8" x2="16" y1="21" y2="21" />
+  <line x1="12" x2="12" y1="17" y2="21" /></symbol>
+<symbol id="i-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+  <path d="M12 22V12" />
+  <polyline points="3.29 7 12 12 20.71 7" />
+  <path d="m7.5 4.27 9 5.15" /></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" />
+  <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+  <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+  <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+  <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /></symbol>
+<symbol id="i-paperclip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" /></symbol>
+<symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" /></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5" />
+  <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" /></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" />
+  <path d="M12 5v14" /></symbol>
+<symbol id="i-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+  <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
+  <rect x="6" y="14" width="12" height="8" rx="1" /></symbol>
+<symbol id="i-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+  <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></symbol>
+<symbol id="i-refresh-cw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+  <path d="M21 3v5h-5" />
+  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+  <path d="M8 16H3v5" /></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" />
+  <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" />
+  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" /></symbol>
+<symbol id="i-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" />
+  <path d="m14.5 12.5 2-2" />
+  <path d="m11.5 9.5 2-2" />
+  <path d="m8.5 6.5 2-2" />
+  <path d="m17.5 15.5 2-2" /></symbol>
+<symbol id="i-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+  <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
+  <path d="M7 3v4a1 1 0 0 0 1 1h7" /></symbol>
+<symbol id="i-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3" />
+  <path d="M8.12 8.12 12 12" />
+  <path d="M20 4 8.12 15.88" />
+  <circle cx="6" cy="18" r="3" />
+  <path d="M14.8 14.8 20 20" /></symbol>
+<symbol id="i-scroll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17V5a2 2 0 0 0-2-2H4" />
+  <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" /></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" /></symbol>
+<symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+  <path d="m21.854 2.147-10.94 10.939" /></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+  <circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-settings-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17H5" />
+  <path d="M19 7h-9" />
+  <circle cx="17" cy="17" r="3" />
+  <circle cx="7" cy="7" r="3" /></symbol>
+<symbol id="i-shopping-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a4 4 0 0 1-8 0" />
+  <path d="M3.103 6.034h17.794" />
+  <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" /></symbol>
+<symbol id="i-shopping-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></symbol>
+<symbol id="i-smartphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+  <path d="M12 18h.01" /></symbol>
+<symbol id="i-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10V9" />
+  <path d="M16.472 15a6 6 0 01-8.943 0" />
+  <path d="M9 10V9" />
+  <circle cx="12" cy="12" r="10" /></symbol>
+<symbol id="i-snowflake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 20-1.25-2.5L6 18" />
+  <path d="M10 4 8.75 6.5 6 6" />
+  <path d="m14 20 1.25-2.5L18 18" />
+  <path d="m14 4 1.25 2.5L18 6" />
+  <path d="m17 21-3-6h-4" />
+  <path d="m17 3-3 6 1.5 3" />
+  <path d="M2 12h6.5L10 9" />
+  <path d="m20 10-1.5 2 1.5 2" />
+  <path d="M22 12h-6.5L14 15" />
+  <path d="m4 10 1.5 2L4 14" />
+  <path d="m7 21 3-6-1.5-3" />
+  <path d="m7 3 3 6h4" /></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+  <path d="M20 2v4" />
+  <path d="M22 4h-4" />
+  <circle cx="4" cy="20" r="2" /></symbol>
+<symbol id="i-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" />
+  <path d="M12 6h.01" />
+  <circle cx="12" cy="14" r="4" />
+  <path d="M12 14h.01" /></symbol>
+<symbol id="i-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" /></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol>
+<symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" />
+  <path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244" />
+  <path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" /></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+  <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></symbol>
+<symbol id="i-telescope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44" />
+  <path d="m13.56 11.747 4.332-.924" />
+  <path d="m16 21-3.105-6.21" />
+  <path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z" />
+  <path d="m6.158 8.633 1.114 4.456" />
+  <path d="m8 21 3.105-6.21" />
+  <circle cx="12" cy="13" r="2" /></symbol>
+<symbol id="i-thumbs-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
+  <path d="M7 10v12" /></symbol>
+<symbol id="i-trash-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol>
+<symbol id="i-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6" />
+  <path d="m22 7-8.5 8.5-5-5L2 17" /></symbol>
+<symbol id="i-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2" />
+  <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2" />
+  <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3" />
+  <path d="M4 22h16" />
+  <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" />
+  <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3" /></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+  <path d="M15 18H9" />
+  <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+  <circle cx="17" cy="18" r="2" />
+  <circle cx="7" cy="18" r="2" /></symbol>
+<symbol id="i-unlock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 9.9-1" /></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12" />
+  <path d="m17 8-5-5-5 5" />
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" /></symbol>
+<symbol id="i-user-cog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15H6a4 4 0 0 0-4 4v2" />
+  <path d="m14.305 16.53.923-.382" />
+  <path d="m15.228 13.852-.923-.383" />
+  <path d="m16.852 12.228-.383-.923" />
+  <path d="m16.852 17.772-.383.924" />
+  <path d="m19.148 12.228.383-.923" />
+  <path d="m19.53 18.696-.382-.924" />
+  <path d="m20.772 13.852.924-.383" />
+  <path d="m20.772 16.148.924.383" />
+  <circle cx="18" cy="15" r="3" />
+  <circle cx="9" cy="7" r="4" /></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+  <circle cx="9" cy="7" r="4" /></symbol>
+<symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+  <rect x="2" y="6" width="14" height="12" rx="2" /></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+  <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></symbol>
+<symbol id="i-x-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="m15 9-6 6" />
+  <path d="m9 9 6 6" /></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /></symbol></svg>
+<style>
+.ic{width:1.1em;height:1.1em;vertical-align:-0.18em;display:inline-block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.nav-item .icon .ic{width:18px;height:18px;vertical-align:middle}
+.stat-label .ic{width:14px;height:14px;vertical-align:-2px}
+.empty-icon .ic{width:40px;height:40px;vertical-align:middle}
+.toast .ic{width:15px;height:15px;vertical-align:-2px}
+</style>
+</body></html>`);
   w.document.close();
 }
 
@@ -984,14 +1342,14 @@ function shpInfo(o) {
   try {
     const s = pj(o.shipping, {});
     if (!s.city) return '';
-    return '🚚 ' + (s.courier_name||s.courier||'-') + ' → ' + s.city + (s.province ? ', ' + s.province : '') + (s.etd ? ' (' + s.etd + ' hari)' : '');
+    return '' + IC("truck") + ' ' + (s.courier_name||s.courier||'-') + ' ' + IC("arrow-right") + ' ' + s.city + (s.province ? ', ' + s.province : '') + (s.etd ? ' (' + s.etd + ' hari)' : '');
   } catch(e) { return ''; }
 }
 
 function openOrderModal() {
   openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>➕ Pesanan Baru</h2>
+    <button class="modal-close" onclick="closeModal()">${IC("x")}</button>
+    <h2>${IC("plus")} Pesanan Baru</h2>
     <label>Nama Pelanggan</label><input id="om-name" placeholder="Nama lengkap">
     <label>No. HP</label><input id="om-phone" placeholder="08xxxxxxxxxx">
     <label>Alamat</label><textarea id="om-address" placeholder="Alamat lengkap"></textarea>
@@ -1023,7 +1381,7 @@ async function createOrder() {
   };
   try {
     await api('POST', '/api/orders', payload);
-    closeModal(); toast('Pesanan ' + id + ' dibuat ✅', 'success');
+    closeModal(); toast('Pesanan ' + id + ' dibuat ' + IC("check-circle-2") + '', 'success');
     fetchAll();
   } catch (e) { toast('Gagal: ' + e.message, 'error'); }
 }
@@ -1038,7 +1396,7 @@ function exportOrders() {
   a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
   a.download = 'orders-murah-plastic-' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
-  toast('CSV diexport 📥', 'success');
+  toast('CSV diexport ' + IC("download") + '', 'success');
 }
 
 // ── Products ──
@@ -1055,13 +1413,13 @@ function renderProducts(c) {
     </div>
 
     <div class="search-bar">
-      <input class="search-input" placeholder="🔍 Cari produk / kategori..." value="${esc(productSearch)}" oninput="debounce(()=>{productSearch=this.value;renderProducts(document.getElementById('mainContent'))},300)">
+      <input class="search-input" placeholder=" Cari produk / kategori..." value="${esc(productSearch)}" oninput="debounce(()=>{productSearch=this.value;renderProducts(document.getElementById('mainContent'))},300)">
       <button class="action-btn primary" style="padding:8px 16px" onclick="openProductModal()">+ Produk Baru</button>
     </div>
 
     <div class="table-wrap">
       <div class="table-head"><div class="table-title">${filtered.length} produk</div></div>
-      ${filtered.length === 0 ? '<div class="empty"><div class="empty-icon">🛍️</div><div class="empty-text">Tidak ada produk ditemukan</div></div>' : `
+      ${filtered.length === 0 ? `<div class="empty"><div class="empty-icon">${IC("shopping-bag")}</div><div class="empty-text">Tidak ada produk ditemukan</div></div>` : `
       <table>
         <thead><tr><th>Gambar</th><th>Nama Produk</th><th>Kategori</th><th>Harga</th><th>Varian</th><th>Aksi</th></tr></thead>
         <tbody>${filtered.map(p => {
@@ -1069,15 +1427,15 @@ function renderProducts(c) {
           const stock = variants.reduce((s,v)=>s+(v.stock||0),0);
           const img = p.img || '';
           return `<tr>
-            <td>${img ? `<img src="${esc(img)}" style="width:44px;height:44px;object-fit:cover;border-radius:8px;border:1px solid var(--border)" onerror="this.style.display='none'">` : '<span style="font-size:22px">🛍️</span>'}</td>
+            <td>${img ? `<img src="${esc(img)}" style="width:44px;height:44px;object-fit:cover;border-radius:8px;border:1px solid var(--border)" onerror="this.style.display='none'">` : `<span style="font-size:22px">${IC("shopping-bag")}</span>`}</td>
             <td style="max-width:280px"><b style="font-size:12px">${esc((p.short_name||p.name||'').substring(0,80))}</b><br><span style="font-size:10px;color:var(--muted);font-family:monospace">${esc(p.id)}</span></td>
             <td><span style="background:var(--gold-light);color:var(--gold);padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700">${esc(p.category||'-')}</span></td>
             <td style="font-weight:800;white-space:nowrap">${fmt(p.min_price||0)}<br><span style="font-size:10px;color:var(--muted);font-weight:600">– ${fmt(p.max_price||0)}</span></td>
             <td><b>${variants.length}</b> <span style="font-size:10px;color:var(--muted)">varian · stok ${stock.toLocaleString('id-ID')}</span></td>
             <td><div class="action-btns">
-              <button class="action-btn" onclick="openProductDetail('${esc(p.id)}')">📋</button>
-              <button class="action-btn" onclick="openProductModal('${esc(p.id)}')">✏️</button>
-              <button class="action-btn del" onclick="deleteProduct('${esc(p.id)}')">🗑</button>
+              <button class="action-btn" onclick="openProductDetail('${esc(p.id)}')">${IC("clipboard-list")}</button>
+              <button class="action-btn" onclick="openProductModal('${esc(p.id)}')">${IC("pencil")}</button>
+              <button class="action-btn del" onclick="deleteProduct('${esc(p.id)}')">${IC("trash-2")}</button>
             </div></td>
           </tr>`;
         }).join('')}</tbody>
@@ -1117,22 +1475,22 @@ function renderCategories(c) {
             <div style="font-size:11px;color:var(--muted);margin:2px 0">${esc(cat.description||'')}</div>
             <div style="font-size:10px;color:var(--muted)">Urutan: ${cat.sort_order} · ${cat.product_count||0} produk</div>
             <div style="margin-top:8px;display:flex;gap:6px">
-              <button class="action-btn" onclick="openCategoryModal('${cat.id}')">✏️ Edit</button>
-              <button class="action-btn del" onclick="deleteCategory('${cat.id}','${esc(cat.name)}')">🗑</button>
+              <button class="action-btn" onclick="openCategoryModal('${cat.id}')">${IC("pencil")} Edit</button>
+              <button class="action-btn del" onclick="deleteCategory('${cat.id}','${esc(cat.name)}')">${IC("trash-2")}</button>
             </div>
           </div>
         </div>`;
       }).join('')}
     </div>`;
-  }).catch(e => { c.innerHTML = '<div class="empty"><div class="empty-icon">❌</div><div class="empty-text">Gagal memuat kategori: '+esc(e.message)+'</div></div>'; });
+  }).catch(e => { c.innerHTML = '<div class="empty"><div class="empty-icon">' + IC("x-circle") + '</div><div class="empty-text">Gagal memuat kategori: '+esc(e.message)+'</div></div>'; });
 }
 
 function openCategoryModal(id) {
   const cat = id ? CATS_DB.find(x => String(x.id) === String(id)) : null;
   const isEdit = !!cat;
   openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>${isEdit ? '✏️ Edit Kategori' : '➕ Kategori Baru'}</h2>
+    <button class="modal-close" onclick="closeModal()">${IC("x")}</button>
+    <h2>${isEdit ? `${IC("pencil")} Edit Kategori` : `${IC("plus")} Kategori Baru`}</h2>
     <div style="display:grid;gap:12px;margin-top:12px">
       <label style="font-size:12px;font-weight:700;color:var(--mid)">Nama Kategori *</label>
       <input class="search-input" id="catName" value="${esc(cat?cat.name:'')}" placeholder="Contoh: OPP Lem Tebal" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;width:100%">
@@ -1145,7 +1503,7 @@ function openCategoryModal(id) {
       <label style="font-size:12px;font-weight:700;color:var(--mid)">Featured Image</label>
       <div style="display:flex;gap:8px;align-items:center">
         <input class="search-input" id="catImage" value="${esc(cat?cat.featured_image:'')}" placeholder="/img/products/img_xxx.jpeg" style="flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:11px">
-        <button class="action-btn" onclick="document.getElementById('catImageUpload').click()">📷 Upload</button>
+        <button class="action-btn" onclick="document.getElementById('catImageUpload').click()">${IC("camera")} Upload</button>
         <input type="file" id="catImageUpload" accept="image/*" style="display:none" onchange="uploadCategoryImage(this)">
       </div>
       <div style="display:flex;gap:12px;align-items:center">
@@ -1156,7 +1514,7 @@ function openCategoryModal(id) {
       </div>
     </div>
     <div style="display:flex;gap:8px;margin-top:16px">
-      <button class="action-btn primary" onclick="saveCategory('${cat?cat.id:''}')" style="flex:1;padding:10px">${isEdit?'💾 Simpan':'➕ Buat Kategori'}</button>
+      <button class="action-btn primary" onclick="saveCategory('${cat?cat.id:''}')" style="flex:1;padding:10px">${isEdit?'${IC("save")} Simpan':'${IC("plus")} Buat Kategori'}</button>
       <button class="action-btn" onclick="closeModal()" style="flex:1">Batal</button>
     </div>
   `);
@@ -1197,15 +1555,15 @@ async function saveCategory(id) {
   try {
     if (id) {
       await api('PUT', '/api/categories/' + id, data);
-      toast('✅ Kategori berhasil diupdate', 'success');
+      toast('' + IC("check-circle-2") + ' Kategori berhasil diupdate', 'success');
     } else {
       await api('POST', '/api/categories', data);
-      toast('✅ Kategori baru berhasil dibuat', 'success');
+      toast('' + IC("check-circle-2") + ' Kategori baru berhasil dibuat', 'success');
     }
     closeModal();
     renderCategories(document.getElementById('mainContent'));
   } catch (e) {
-    toast('❌ ' + e.message, 'error');
+    toast('' + IC("x-circle") + ' ' + e.message, 'error');
   }
 }
 
@@ -1213,10 +1571,10 @@ async function deleteCategory(id, name) {
   if (!confirm('Hapus kategori "' + name + '"?\nProduk dengan kategori ini tidak akan terhapus.')) return;
   try {
     await api('DELETE', '/api/categories/' + id);
-    toast('✅ Kategori dihapus', 'success');
+    toast('' + IC("check-circle-2") + ' Kategori dihapus', 'success');
     renderCategories(document.getElementById('mainContent'));
   } catch (e) {
-    toast('❌ ' + e.message, 'error');
+    toast('' + IC("x-circle") + ' ' + e.message, 'error');
   }
 }
 
@@ -1226,8 +1584,8 @@ function openProductDetail(id) {
   const variants = p.variants || [];
   const specs = p.specs || {};
   openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>📋 Detail Produk</h2>
+    <button class="modal-close" onclick="closeModal()">${IC("x")}</button>
+    <h2>${IC("clipboard-list")} Detail Produk</h2>
     <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
       ${p.img ? `<img src="${esc(p.img)}" style="width:120px;height:120px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border)" onerror="this.style.display='none'">` : ''}
       <div style="flex:1;min-width:200px">
@@ -1253,8 +1611,8 @@ function openProductModal(id) {
   const isOther = !!cat && CATEGORIES.indexOf(cat) === -1;
   const catOpts = CATEGORIES.map(c => `<option value="${esc(c)}"${c === cat ? ' selected' : ''}>${esc(c)}</option>`).join('');
   openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>${p ? '✏️ Edit Produk' : '➕ Produk Baru'}</h2>
+    <button class="modal-close" onclick="closeModal()">${IC("x")}</button>
+    <h2>${p ? `${IC("pencil")} Edit Produk` : `${IC("plus")} Produk Baru`}</h2>
     ${p ? `<input type="hidden" id="pm-id" value="${esc(p.id)}">` : ''}
     <label>Nama Produk</label><input id="pm-name" value="${esc(p?p.name:'')}" placeholder="Nama lengkap produk">
     <label>Nama Singkat</label><input id="pm-short" value="${esc(p?p.short_name:'')}" placeholder="Nama singkat untuk tampilan">
@@ -1271,7 +1629,7 @@ function openProductModal(id) {
     <input type="file" id="pm-img-input" accept="image/*" style="display:none" onchange="uploadProductImg()">
     <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
       <img id="pm-img-preview" src="${esc(p?p.img:'')}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid var(--border);${p&&p.img?'':'display:none'}" onerror="this.style.display='none'">
-      <button type="button" class="action-btn" style="padding:8px 14px" onclick="document.getElementById('pm-img-input').click()">📷 Pilih Gambar</button>
+      <button type="button" class="action-btn" style="padding:8px 14px" onclick="document.getElementById('pm-img-input').click()">${IC("camera")} Pilih Gambar</button>
       <span id="pm-img-status" style="font-size:11px;color:var(--muted)"></span>
       <input type="hidden" id="pm-img" value="${esc(p?p.img:'')}">
     </div>
@@ -1309,7 +1667,7 @@ function varRowHtml(v, i) {
       <input class="var-price" type="number" placeholder="Harga" value="${v.price!=null?v.price:''}">
       <input class="var-stock" type="number" placeholder="Stok" value="${v.stock!=null?v.stock:''}">
       <input class="var-minqty" type="number" placeholder="Min Qty" value="${v.min_qty!=null?v.min_qty:5}">
-      <button type="button" class="action-btn del" onclick="remVarRow(this)" style="padding:6px 10px">✕</button>
+      <button type="button" class="action-btn del" onclick="remVarRow(this)" style="padding:6px 10px">${IC("x")}</button>
     </div>
   `;
 }
@@ -1331,18 +1689,18 @@ async function uploadProductImg() {
   const file = input.files[0];
   if (!file) return;
   const status = document.getElementById('pm-img-status');
-  status.textContent = '⏳ Uploading...';
+  status.textContent = ' Uploading...';
   const formData = new FormData();
   formData.append('file', file);
   try {
     const res = await fetch('/api/upload/product', { method: 'POST', headers: { 'Authorization': 'Bearer ' + TOKEN }, body: formData });
     const data = await res.json();
-    if (!res.ok) { status.textContent = '❌ ' + (data.error || 'Gagal'); return; }
+    if (!res.ok) { status.textContent = ' ' + (data.error || 'Gagal'); return; }
     document.getElementById('pm-img').value = data.url;
     const preview = document.getElementById('pm-img-preview');
     preview.src = data.url; preview.style.display = 'block';
-    status.textContent = '✅ Terupload';
-  } catch (e) { status.textContent = '❌ ' + e.message; }
+    status.textContent = ' Terupload';
+  } catch (e) { status.textContent = ' ' + e.message; }
 }
 
 async function saveProduct() {
@@ -1380,8 +1738,8 @@ async function saveProduct() {
     active: id ? (((PRODUCTS.find(x => x.id === id))||{}).active !== false) : true
   };
   try {
-    if (id) { await api('PUT', '/api/products/' + id, payload); toast('Produk diperbarui ✅', 'success'); }
-    else { await api('POST', '/api/products', payload); toast('Produk dibuat ✅', 'success'); }
+    if (id) { await api('PUT', '/api/products/' + id, payload); toast('Produk diperbarui ' + IC("check-circle-2") + '', 'success'); }
+    else { await api('POST', '/api/products', payload); toast('Produk dibuat ' + IC("check-circle-2") + '', 'success'); }
     closeModal(); fetchAll();
   } catch (e) { toast('Gagal: ' + e.message, 'error'); }
 }
@@ -1399,25 +1757,25 @@ function renderCustomers(c) {
   const filtered = CUSTOMERS.filter(x => !q || (x.name||'').toLowerCase().includes(q) || (x.phone||'').includes(q));
   c.innerHTML = `
     <div class="search-bar">
-      <input class="search-input" placeholder="🔍 Cari nama / no HP..." value="${esc(customerSearch)}" oninput="debounce(()=>{customerSearch=this.value;renderCustomers(document.getElementById('mainContent'))},300)">
+      <input class="search-input" placeholder=" Cari nama / no HP..." value="${esc(customerSearch)}" oninput="debounce(()=>{customerSearch=this.value;renderCustomers(document.getElementById('mainContent'))},300)">
       <button class="action-btn primary" onclick="openCustomerForm()">＋ Tambah Customer</button>
     </div>
     <div class="table-wrap">
       <div class="table-head"><div class="table-title">${filtered.length} pelanggan</div></div>
-      ${filtered.length === 0 ? '<div class="empty"><div class="empty-icon">👥</div><div class="empty-text">Belum ada data pelanggan</div></div>' : `
+      ${filtered.length === 0 ? `<div class="empty"><div class="empty-icon">${IC("users")}</div><div class="empty-text">Belum ada data pelanggan</div></div>` : `
       <table>
         <thead><tr><th>Nama</th><th>No. HP</th><th>Alamat</th><th>Total Pesanan</th><th>Total Belanja</th><th>Terakhir Belanja</th><th>Aksi</th></tr></thead>
         <tbody>${filtered.map(x => `
           <tr>
-            <td><b>${esc(x.name)}</b>${x.note ? `<br><span style="font-size:11px;color:var(--muted)">📝 ${esc(x.note.substring(0,40))}</span>` : ''}</td>
+            <td><b>${esc(x.name)}</b>${x.note ? `<br><span style="font-size:11px;color:var(--muted)">${IC("file-text")} ${esc(x.note.substring(0,40))}</span>` : ''}</td>
             <td>${esc(x.phone)}</td>
             <td style="font-size:12px;color:var(--mid);max-width:200px">${esc((x.address||'').substring(0,50))}</td>
             <td>${x.orders} pesanan</td>
             <td style="font-weight:800;white-space:nowrap">${fmt(x.total)}</td>
             <td style="font-size:12px;color:var(--muted)">${x.last_order ? td(x.last_order) : '-'}</td>
             <td><div class="action-btns">
-              <button class="action-btn" onclick="openCustomerDetail('${esc(x.phone)}')">📋</button>
-              <button class="action-btn" onclick="openCustomerForm('${esc(x.phone)}')">✏️</button>
+              <button class="action-btn" onclick="openCustomerDetail('${esc(x.phone)}')">${IC("clipboard-list")}</button>
+              <button class="action-btn" onclick="openCustomerForm('${esc(x.phone)}')">${IC("pencil")}</button>
               ${x.phone ? `<a class="action-btn wa" href="https://wa.me/${x.phone.replace(/[^0-9]/g,'').replace(/^0/,'62')}" target="_blank">WA</a>` : ''}
             </div></td>
           </tr>`).join('')}</tbody>
@@ -1430,8 +1788,8 @@ function renderCustomers(c) {
 function openCustomerForm(phone) {
   const x = phone ? CUSTOMERS.find(c => c.phone === phone) : null;
   openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>${x ? '✏️ Edit Customer' : '＋ Tambah Customer'}</h2>
+    <button class="modal-close" onclick="closeModal()">${IC("x")}</button>
+    <h2>${x ? `${IC("pencil")} Edit Customer` : '＋ Tambah Customer'}</h2>
     <input id="cf-phone" placeholder="No. HP (wajib, contoh 0812xxxx)" value="${esc(x?.phone||'')}" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
     <input id="cf-name" placeholder="Nama (wajib)" value="${esc(x?.name==='-'?'':x?.name||'')}" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
     <input id="cf-email" placeholder="Email (opsional)" value="${esc(x?.email||'')}" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font);margin-bottom:8px;box-sizing:border-box">
@@ -1440,7 +1798,7 @@ function openCustomerForm(phone) {
     <input id="cf-note" placeholder="Catatan (opsional, mis. member VIP)" value="${esc(x?.note||'')}" style="width:100%;padding:10px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font);margin-bottom:12px;box-sizing:border-box">
     <div class="btn-row">
       <button class="btn" onclick="closeModal()">Batal</button>
-      <button class="btn primary" onclick="saveCustomer(${x ? `'${esc(x.phone)}'` : 'null'})">💾 Simpan</button>
+      <button class="btn primary" onclick="saveCustomer(${x ? `'${esc(x.phone)}'` : 'null'})">${IC("save")} Simpan</button>
     </div>
   `);
 }
@@ -1458,8 +1816,8 @@ async function saveCustomer(origPhone) {
     note: document.getElementById('cf-note').value.trim()
   };
   try {
-    if (origPhone) { await api('PUT', '/api/customers/' + encodeURIComponent(origPhone), payload); toast('Customer diperbarui ✅', 'success'); }
-    else { await api('POST', '/api/customers', payload); toast('Customer ditambahkan ✅', 'success'); }
+    if (origPhone) { await api('PUT', '/api/customers/' + encodeURIComponent(origPhone), payload); toast('Customer diperbarui ' + IC("check-circle-2") + '', 'success'); }
+    else { await api('POST', '/api/customers', payload); toast('Customer ditambahkan ' + IC("check-circle-2") + '', 'success'); }
     closeModal(); fetchAll();
   } catch (e) { toast('Gagal: ' + e.message, 'error'); }
 }
@@ -1474,24 +1832,24 @@ function deleteCustomer(phone) {
 // ── Detail customer: profil + riwayat pesanan ──
 function openCustomerDetail(phone) {
   openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>👤 Detail Pelanggan</h2>
-    <div style="text-align:center;padding:20px 0">⏳ Memuat...</div>
+    <button class="modal-close" onclick="closeModal()">${IC("x")}</button>
+    <h2>${IC("user")} Detail Pelanggan</h2>
+    <div style="text-align:center;padding:20px 0">${IC("clock")} Memuat...</div>
   `);
   api('GET', '/api/customers/' + encodeURIComponent(phone))
     .then(d => {
       const c = d.orderList;
       const content = document.getElementById('modalContent');
       content.innerHTML = `
-        <button class="modal-close" onclick="closeModal()">✕</button>
-        <h2>👤 Detail Pelanggan</h2>
+        <button class="modal-close" onclick="closeModal()">${IC("x")}</button>
+        <h2>${IC("user")} Detail Pelanggan</h2>
         <div class="card" style="padding:14px;margin-bottom:12px">
           <div style="font-size:16px;font-weight:900">${esc(d.name)}</div>
           <div style="font-size:13px;color:var(--mid);margin-top:4px">
-            📱 ${esc(d.phone)}<br>
-            ${d.email ? `✉️ ${esc(d.email)}<br>` : ''}
-            ${d.address ? `📍 ${esc(d.address)}${d.city ? ', ' + esc(d.city) : ''}<br>` : ''}
-            ${d.note ? `📝 ${esc(d.note)}<br>` : ''}
+            ${IC("smartphone")} ${esc(d.phone)}<br>
+            ${d.email ? `${IC("mail")} ${esc(d.email)}<br>` : ''}
+            ${d.address ? `${IC("map-pin")} ${esc(d.address)}${d.city ? ', ' + esc(d.city) : ''}<br>` : ''}
+            ${d.note ? `${IC("file-text")} ${esc(d.note)}<br>` : ''}
           </div>
         </div>
         <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
@@ -1501,7 +1859,7 @@ function openCustomerDetail(phone) {
         </div>
         <div class="table-wrap" style="margin-top:12px">
           <div class="table-head"><div class="table-title">Riwayat Pesanan (${c.length})</div></div>
-          ${c.length === 0 ? '<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">Belum ada riwayat pesanan</div></div>' : `
+          ${c.length === 0 ? `<div class="empty"><div class="empty-icon">${IC("inbox")}</div><div class="empty-text">Belum ada riwayat pesanan</div></div>` : `
           <table>
             <thead><tr><th>ID</th><th>Tanggal</th><th>Produk</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>${c.map(o => `
@@ -1511,23 +1869,23 @@ function openCustomerDetail(phone) {
                 <td style="font-size:11px;color:var(--mid);max-width:180px">${esc((o.items||[]).slice(0,2).map(i => i.productName||i.name).join(', '))}</td>
                 <td style="font-weight:800;white-space:nowrap">${fmt(o.total)}</td>
                 <td><span class="status-badge ${STATUS_CLASS[o.status]||'s-done'}">${esc(o.status)}</span></td>
-                <td><button class="action-btn" onclick="openOrderDetail('${esc(o.id)}')">📋</button></td>
+                <td><button class="action-btn" onclick="openOrderDetail('${esc(o.id)}')">${IC("clipboard-list")}</button></td>
               </tr>`).join('')}</tbody>
           </table>`}
         </div>
         <div class="btn-row">
-          <button class="btn" onclick="openCustomerForm('${esc(d.phone)}')">✏️ Edit</button>
-          <button class="btn" style="background:var(--red-light);color:var(--red);border-color:var(--red)" onclick="deleteCustomer('${esc(d.phone)}')">🗑️ Hapus</button>
+          <button class="btn" onclick="openCustomerForm('${esc(d.phone)}')">${IC("pencil")} Edit</button>
+          <button class="btn" style="background:var(--red-light);color:var(--red);border-color:var(--red)" onclick="deleteCustomer('${esc(d.phone)}')">${IC("trash-2")}️ Hapus</button>
           <button class="btn primary" onclick="closeModal()">Tutup</button>
         </div>
       `;
     })
-    .catch(e => { document.getElementById('modalContent').innerHTML = `<button class="modal-close" onclick="closeModal()">✕</button><h2>Error</h2><p>${esc(e.message)}</p>`; });
+    .catch(e => { document.getElementById('modalContent').innerHTML = `<button class="modal-close" onclick="closeModal()">${IC("x")}</button><h2>Error</h2><p>${esc(e.message)}</p>`; });
 }
 
 // ── Tab Pengguna: kelola user karyawan (super_admin only) ──
 function renderPengguna(c) {
-  if (ADMIN_ROLE !== 'super_admin') { c.innerHTML = '<div class="empty"><div class="empty-icon">🚫</div><div class="empty-text">Akses ditolak. Hanya Super Admin yang bisa mengelola pengguna.</div></div>'; return; }
+  if (ADMIN_ROLE !== 'super_admin') { c.innerHTML = '<div class="empty"><div class="empty-icon">' + IC("ban") + '</div><div class="empty-text">Akses ditolak. Hanya Super Admin yang bisa mengelola pengguna.</div></div>'; return; }
   api('GET', '/api/admin/users').then(list => {
     c.innerHTML = `
     <div class="stats-grid">
@@ -1550,21 +1908,21 @@ function renderPengguna(c) {
               <td>${u.is_active ? '<span style="color:var(--green);font-weight:700">● Aktif</span>' : '<span style="color:var(--red);font-weight:700">● Nonaktif</span>'}</td>
               <td style="font-size:11px;color:var(--muted)">${esc(u.created_at || '')}</td>
               <td style="text-align:right;white-space:nowrap">
-                <button class="action-btn" onclick="openUserModal('${u.id}','${esc(u.name)}','${esc(u.email)}','${u.role}')">✏️</button>
+                <button class="action-btn" onclick="openUserModal('${u.id}','${esc(u.name)}','${esc(u.email)}','${u.role}')">${IC("pencil")}</button>
                 <button class="action-btn ${u.is_active?'del':'primary'}" onclick="toggleUserActive('${u.id}',${u.is_active?0:1})">${u.is_active?'⏸':'▶️'}</button>
-                <button class="action-btn del" onclick="deleteUser('${u.id}','${esc(u.name)}')">🗑</button>
+                <button class="action-btn del" onclick="deleteUser('${u.id}','${esc(u.name)}')">${IC("trash-2")}</button>
               </td>
             </tr>`).join('')}
         </tbody>
       </table>
     </div>
-    <div class="hint" style="font-size:11px;color:var(--muted);margin-top:10px">💡 Peran: <b>Keuangan</b> = pembayaran & laporan · <b>Operasional</b> = pesanan, produk, komplain · <b>CS</b> = komplain & tanya jawab · <b>Gudang</b> = pesanan.</div>`;
-  }).catch(e => { c.innerHTML = '<div class="empty"><div class="empty-icon">❌</div><div class="empty-text">Gagal memuat pengguna: ' + esc(e.message) + '</div></div>'; });
+    <div class="hint" style="font-size:11px;color:var(--muted);margin-top:10px">${IC("lightbulb")} Peran: <b>Keuangan</b> = pembayaran & laporan · <b>Operasional</b> = pesanan, produk, komplain · <b>CS</b> = komplain & tanya jawab · <b>Gudang</b> = pesanan.</div>`;
+  }).catch(e => { c.innerHTML = '<div class="empty"><div class="empty-icon">' + IC("x-circle") + '</div><div class="empty-text">Gagal memuat pengguna: ' + esc(e.message) + '</div></div>'; });
 }
 function openUserModal(id, name, email, role) {
   const isEdit = !!id;
   openModal(`
-    <div class="modal-title">${isEdit ? '✏️ Edit Pengguna' : '➕ Tambah Pengguna'}</div>
+    <div class="modal-title">${isEdit ? `${IC("pencil")} Edit Pengguna` : `${IC("plus")} Tambah Pengguna`}</div>
     <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
       <input class="search-input" id="uName" placeholder="Nama lengkap" value="${esc(name || '')}" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px">
       <input class="search-input" id="uEmail" type="email" placeholder="Email (untuk login)" value="${esc(email || '')}" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px">
@@ -1575,7 +1933,7 @@ function openUserModal(id, name, email, role) {
       ${isEdit ? `<label style="font-size:12px;color:var(--mid);display:flex;align-items:center;gap:8px"><input type="checkbox" id="uActive" checked> Aktif (bisa login)</label>` : ''}
     </div>
     <div style="display:flex;gap:8px;margin-top:16px">
-      <button class="action-btn primary" onclick="saveUser('${id || ''}')" style="flex:1;padding:10px">${isEdit ? '💾 Simpan' : '➕ Buat Pengguna'}</button>
+      <button class="action-btn primary" onclick="saveUser('${id || ''}')" style="flex:1;padding:10px">${isEdit ? `${IC("save")} Simpan` : `${IC("plus")} Buat Pengguna`}</button>
       <button class="action-btn" onclick="closeModal()">Batal</button>
     </div>`);
 }
@@ -1597,7 +1955,7 @@ async function saveUser(id) {
       await api('POST', '/api/admin/users', body);
     }
     closeModal();
-    toast('Pengguna disimpan ✅', 'success');
+    toast('Pengguna disimpan ' + IC("check-circle-2") + '', 'success');
     renderPengguna(document.getElementById('mainContent'));
   } catch (e) { toast('Gagal: ' + e.message, 'error'); }
 }
@@ -1613,7 +1971,7 @@ async function deleteUser(id, name) {
 
 // ── Tab Pembayaran: rekening bank + QRIS statis (GoPay/OVO/dll) ──
 function renderPembayaran(c) {
-  if (!['super_admin','finance'].includes(ADMIN_ROLE)) { c.innerHTML = '<div class="empty"><div class="empty-icon">🚫</div><div class="empty-text">Akses ditolak. Hanya Super Admin & Keuangan.</div></div>'; return; }
+  if (!['super_admin','finance'].includes(ADMIN_ROLE)) { c.innerHTML = '<div class="empty"><div class="empty-icon">' + IC("ban") + '</div><div class="empty-text">Akses ditolak. Hanya Super Admin & Keuangan.</div></div>'; return; }
   api('GET', '/api/payment-methods/all').then(list => {
     const banks = list.filter(m => m.type === 'bank');
     const qris = list.filter(m => m.type === 'qris');
@@ -1626,32 +1984,32 @@ function renderPembayaran(c) {
     <div class="search-bar">
       <button class="action-btn primary" onclick="openPaymentModal()">+ Tambah Metode Pembayaran</button>
     </div>
-    <div style="font-size:12px;font-weight:800;color:var(--mid);margin:14px 0 6px">🏦 Rekening Bank</div>
+    <div style="font-size:12px;font-weight:800;color:var(--mid);margin:14px 0 6px">${IC("landmark")} Rekening Bank</div>
     <div id="payBankGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
       ${banks.length ? banks.map(pm => paymentCard(pm)).join('') : '<div class="empty" style="grid-column:1/-1"><div class="empty-text">Belum ada rekening bank.</div></div>'}
     </div>
-    <div style="font-size:12px;font-weight:800;color:var(--mid);margin:18px 0 6px">🔳 QRIS Statis / E-Wallet</div>
+    <div style="font-size:12px;font-weight:800;color:var(--mid);margin:18px 0 6px">${IC("square")} QRIS Statis / E-Wallet</div>
     <div id="payQrisGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px">
       ${qris.length ? qris.map(pm => paymentCard(pm)).join('') : '<div class="empty" style="grid-column:1/-1"><div class="empty-text">Belum ada QRIS / e-wallet.</div></div>'}
     </div>
-    <div class="hint" style="font-size:11px;color:var(--muted);margin-top:12px">💡 Metode yang <b>aktif</b> otomatis muncul di halaman Checkout customer. QRIS dengan tombol "Pakasir" tetap otomatis via gateway.</div>`;
-  }).catch(e => { c.innerHTML = '<div class="empty"><div class="empty-icon">❌</div><div class="empty-text">Gagal memuat pembayaran: ' + esc(e.message) + '</div></div>'; });
+    <div class="hint" style="font-size:11px;color:var(--muted);margin-top:12px">${IC("lightbulb")} Metode yang <b>aktif</b> otomatis muncul di halaman Checkout customer. QRIS dengan tombol "Pakasir" tetap otomatis via gateway.</div>`;
+  }).catch(e => { c.innerHTML = '<div class="empty"><div class="empty-icon">' + IC("x-circle") + '</div><div class="empty-text">Gagal memuat pembayaran: ' + esc(e.message) + '</div></div>'; });
 }
 function paymentCard(pm) {
   const isQris = pm.type === 'qris';
   return `<div class="table-card" style="border:1px solid var(--border);border-radius:10px;overflow:hidden;background:white;position:relative">
     ${!pm.is_active ? '<span style="position:absolute;top:6px;right:6px;background:var(--red);color:white;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;z-index:2">Nonaktif</span>' : ''}
-    ${isQris ? (pm.image_url ? `<img src="${esc(pm.image_url)}" style="width:100%;height:140px;object-fit:contain;background:#fafafa;padding:8px" onerror="this.style.display='none'">` : `<div style="height:140px;display:flex;align-items:center;justify-content:center;background:var(--light);font-size:40px">🔳</div>`) : `<div style="height:70px;display:flex;align-items:center;justify-content:center;background:var(--light);font-size:34px">🏦</div>`}
+    ${isQris ? (pm.image_url ? `<img src="${esc(pm.image_url)}" style="width:100%;height:140px;object-fit:contain;background:#fafafa;padding:8px" onerror="this.style.display='none'">` : `<div style="height:140px;display:flex;align-items:center;justify-content:center;background:var(--light);font-size:40px">${IC("square")}</div>`) : `<div style="height:70px;display:flex;align-items:center;justify-content:center;background:var(--light);font-size:34px">${IC("landmark")}</div>`}
     <div style="padding:10px 12px">
-      <div style="font-weight:800;font-size:13px;color:var(--dark)">${isQris ? '📱 ' : ''}${esc(pm.label)}</div>
+      <div style="font-weight:800;font-size:13px;color:var(--dark)">${isQris ? `${IC("smartphone")} ` : ''}${esc(pm.label)}</div>
       ${isQris
         ? `<div style="font-size:11px;color:var(--muted)">${pm.phone ? 'No. ' + esc(pm.phone) : (pm.account_number ? esc(pm.account_number) : 'QRIS statis')}</div>`
         : `<div style="font-size:12px;font-weight:700;color:var(--gold)">${esc(pm.account_number || '-')}</div>
            <div style="font-size:11px;color:var(--muted)">a.n. ${esc(pm.account_name || '-')}</div>`}
       <div style="margin-top:8px;display:flex;gap:6px">
-        <button class="action-btn" onclick="openPaymentModal('${pm.id}')">✏️ Edit</button>
+        <button class="action-btn" onclick="openPaymentModal('${pm.id}')">${IC("pencil")} Edit</button>
         <button class="action-btn ${pm.is_active?'del':'primary'}" onclick="togglePayment('${pm.id}',${pm.is_active?0:1})">${pm.is_active?'⏸':'▶️'}</button>
-        <button class="action-btn del" onclick="deletePayment('${pm.id}','${esc(pm.label)}')">🗑</button>
+        <button class="action-btn del" onclick="deletePayment('${pm.id}','${esc(pm.label)}')">${IC("trash-2")}</button>
       </div>
     </div>
   </div>`;
@@ -1663,11 +2021,11 @@ function openPaymentModal(id) {
     : Promise.resolve(null);
   load.then(pm => {
     openModal(`
-      <div class="modal-title">${isEdit ? '✏️ Edit Pembayaran' : '➕ Tambah Metode Pembayaran'}</div>
+      <div class="modal-title">${isEdit ? `${IC("pencil")} Edit Pembayaran` : `${IC("plus")} Tambah Metode Pembayaran`}</div>
       <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
         <select class="search-input" id="pmType" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px" onchange="pmTypeChanged()">
-          <option value="bank" ${pm && pm.type === 'bank' ? 'selected' : ''}>🏦 Rekening Bank</option>
-          <option value="qris" ${pm && pm.type === 'qris' ? 'selected' : ''}>🔳 QRIS Statis / E-Wallet</option>
+          <option value="bank" ${pm && pm.type === 'bank' ? 'selected' : ''}>${IC("landmark")} Rekening Bank</option>
+          <option value="qris" ${pm && pm.type === 'qris' ? 'selected' : ''}>${IC("square")} QRIS Statis / E-Wallet</option>
         </select>
         <input class="search-input" id="pmLabel" placeholder="Nama (contoh: BCA, BRI, GoPay, OVO)" value="${esc(pm?.label || '')}" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px">
         <div id="pmBankFields" ${pm && pm.type === 'qris' ? 'style="display:none"' : ''}>
@@ -1689,7 +2047,7 @@ function openPaymentModal(id) {
         </div>
       </div>
       <div style="display:flex;gap:8px;margin-top:16px">
-        <button class="action-btn primary" onclick="savePayment('${id || ''}')" style="flex:1;padding:10px">${isEdit ? '💾 Simpan' : '➕ Tambah'}</button>
+        <button class="action-btn primary" onclick="savePayment('${id || ''}')" style="flex:1;padding:10px">${isEdit ? `${IC("save")} Simpan` : `${IC("plus")} Tambah`}</button>
         <button class="action-btn" onclick="closeModal()">Batal</button>
       </div>`);
   }).catch(e => toast('Gagal: ' + e.message, 'error'));
@@ -1728,7 +2086,7 @@ async function savePayment(id) {
     if (id) await api('PUT', '/api/payment-methods/' + id, body);
     else await api('POST', '/api/payment-methods', body);
     closeModal();
-    toast('Metode pembayaran disimpan ✅', 'success');
+    toast('Metode pembayaran disimpan ' + IC("check-circle-2") + '', 'success');
     renderPembayaran(document.getElementById('mainContent'));
   } catch (e) { toast('Gagal: ' + e.message, 'error'); }
 }
@@ -1761,14 +2119,14 @@ function renderKomplain(c) {
       <div class="stat-card orange"><div class="stat-label">Menunggu Diproses</div><div class="stat-value">${komplain.filter(o=>(pj(o.complaint,{}).status||'')==='Menunggu Diproses').length}</div></div>
       <div class="stat-card green"><div class="stat-label">Selesai</div><div class="stat-value">${komplain.filter(o=>(pj(o.complaint,{}).status||'')==='Selesai').length}</div></div>
     </div>
-    ${komplain.length === 0 ? '<div class="card"><div class="empty"><div class="empty-icon">🛠️</div><div class="empty-text">Tidak ada komplain 🎉</div></div></div>' : komplain.map(o => {
+    ${komplain.length === 0 ? `<div class="card"><div class="empty"><div class="empty-icon">${IC("wrench")}</div><div class="empty-text">Tidak ada komplain ${IC("gift")}</div></div></div>` : komplain.map(o => {
       const cobj = pj(o.complaint, {});
       const phone = (o.customer_phone||'').replace(/[^0-9]/g,'').replace(/^0/,'62');
       return `<div class="komplain-card">
         <div class="komplain-header">
           <div>
             <div class="komplain-id">${esc(o.id)}</div>
-            <div class="komplain-customer">👤 ${esc(o.customer_name)} · ${esc(o.customer_phone)}</div>
+            <div class="komplain-customer">${IC("user")} ${esc(o.customer_name)} · ${esc(o.customer_phone)}</div>
           </div>
           <select class="komplain-status-select" onchange="updateKomplainStatus('${esc(o.id)}',this.value)">
             ${['Menunggu Diproses','Sedang Diproses','Selesai','Ditolak'].map(s => `<option${(cobj.status||'')===s?' selected':''}>${s}</option>`).join('')}
@@ -1779,19 +2137,19 @@ function renderKomplain(c) {
           <b>Deskripsi:</b> ${esc(cobj.desc || cobj.description || '-')}<br>
           ${cobj.itemsDesc ? `<b>Produk bermasalah:</b> ${esc(cobj.itemsDesc)}<br>` : ''}
           ${cobj.refundAmount ? `<b>Refund:</b> <span style="color:var(--red);font-weight:800">${fmt(cobj.refundAmount)}</span><br>` : ''}
-          ${cobj.videoFileName ? `<b>📹 Video:</b> ${esc(cobj.videoFileName)} <span style="color:var(--muted)">(minta via WA)</span><br>` : ''}
-          ${(() => { const pl = Object.entries(cobj.photos || {}).filter(([,v]) => v); return pl.length ? `<b>📷 Foto:</b> ${pl.map(([k,v]) => `<a href="${esc(v)}" target="_blank"><img src="${esc(v)}" alt="${esc(k)}" style="max-width:80px;border-radius:6px;border:1px solid var(--border);margin:2px"></a>`).join('')}<br>` : ''; })()}
-          ${(() => { const hist = Array.isArray(cobj.history) ? cobj.history : []; return hist.length ? `<b>Riwayat:</b> ${hist.map(h => `${h.from || 'Baru'} → ${h.to} (${td(h.at)})`).join(' · ')}<br>` : ''; })()}
-          ${cobj.reply ? `<div style="margin-top:6px;padding:8px;background:var(--gold-light);border-radius:6px"><b>💬 Balasan admin:</b> ${esc(cobj.reply)}</div>` : ''}
+          ${cobj.videoFileName ? `<b>${IC("video")} Video:</b> ${esc(cobj.videoFileName)} <span style="color:var(--muted)">(minta via WA)</span><br>` : ''}
+          ${(() => { const pl = Object.entries(cobj.photos || {}).filter(([,v]) => v); return pl.length ? `<b>${IC("camera")} Foto:</b> ${pl.map(([k,v]) => `<a href="${esc(v)}" target="_blank"><img src="${esc(v)}" alt="${esc(k)}" style="max-width:80px;border-radius:6px;border:1px solid var(--border);margin:2px"></a>`).join('')}<br>` : ''; })()}
+          ${(() => { const hist = Array.isArray(cobj.history) ? cobj.history : []; return hist.length ? `<b>Riwayat:</b> ${hist.map(h => `${h.from || 'Baru'} ${IC("arrow-right")} ${h.to} (${td(h.at)})`).join(' · ')}<br>` : ''; })()}
+          ${cobj.reply ? `<div style="margin-top:6px;padding:8px;background:var(--gold-light);border-radius:6px"><b>${IC("message-circle")} Balasan admin:</b> ${esc(cobj.reply)}</div>` : ''}
         </div>
         <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
           <input id="komplain-reply-${esc(o.id)}" placeholder="Balasan untuk customer..." value="${esc(cobj.reply||'')}" style="flex:1;min-width:180px;padding:8px;border:2px solid var(--border);border-radius:8px;font-size:12px;font-family:var(--font)">
           <input id="komplain-date-${esc(o.id)}" type="date" value="${esc(cobj.receivedDate||'')}" title="Tanggal barang diterima" style="padding:7px;border:2px solid var(--border);border-radius:8px;font-size:12px;font-family:var(--font)">
-          <button class="action-btn primary" onclick="saveKomplainReply('${esc(o.id)}')">💾 Simpan</button>
+          <button class="action-btn primary" onclick="saveKomplainReply('${esc(o.id)}')">${IC("save")} Simpan</button>
         </div>
         <div class="action-btns" style="margin-top:8px">
-          ${phone ? `<a class="action-btn wa" href="https://wa.me/${phone}?text=${encodeURIComponent('Halo '+o.customer_name+', terkait komplain order '+o.id)}" target="_blank">💬 Hubungi Customer</a>` : ''}
-          <button class="action-btn" onclick="openOrderDetail('${esc(o.id)}')">📋 Detail Pesanan</button>
+          ${phone ? `<a class="action-btn wa" href="https://wa.me/${phone}?text=${encodeURIComponent('Halo '+o.customer_name+', terkait komplain order '+o.id)}" target="_blank">${IC("message-circle")} Hubungi Customer</a>` : ''}
+          <button class="action-btn" onclick="openOrderDetail('${esc(o.id)}')">${IC("clipboard-list")} Detail Pesanan</button>
         </div>
       </div>`;
     }).join('')}
@@ -1808,7 +2166,7 @@ function saveKomplainReply(orderId) {
   cobj.reply = reply;
   if (receivedDate) cobj.receivedDate = receivedDate;
   api('PUT', '/api/orders/' + orderId, { complaint: cobj })
-    .then(() => { o.complaint = cobj; renderTab(); toast('Balasan disimpan ✅', 'success'); })
+    .then(() => { o.complaint = cobj; renderTab(); toast('Balasan disimpan ' + IC("check-circle-2") + '', 'success'); })
     .catch(e => toast('Gagal: ' + e.message, 'error'));
 }
 
@@ -1830,45 +2188,45 @@ function renderQna(c) {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="qna-grid">
       <div>
         <div class="card" style="padding:14px;margin-bottom:12px;background:var(--gold-light)">
-          <div class="table-title" style="color:var(--gold)">⏳ Belum Dijawab (${unanswered.length})</div>
+          <div class="table-title" style="color:var(--gold)">${IC("clock")} Belum Dijawab (${unanswered.length})</div>
         </div>
-        ${unanswered.length === 0 ? '<div class="card"><div class="empty"><div class="empty-icon">🎉</div><div class="empty-text">Semua sudah dijawab!</div></div></div>' : `
+        ${unanswered.length === 0 ? `<div class="card"><div class="empty"><div class="empty-icon">${IC("gift")}</div><div class="empty-text">Semua sudah dijawab!</div></div></div>` : `
         <div class="qna-list">${unanswered.map(q => `
           <div class="qna-card">
             <div class="qna-meta">
-              <span class="qna-user">👤 ${esc(q.user_name||'Anonim')}</span>
+              <span class="qna-user">${IC("user")} ${esc(q.user_name||'Anonim')}</span>
               <span class="qna-product">${esc((q.product_name||'').substring(0,30))}</span>
               <span class="qna-date">${td(q.date)}</span>
-              <button class="qna-del" title="Hapus pertanyaan" onclick="deleteQna('${esc(q.id)}')">🗑️</button>
+              <button class="qna-del" title="Hapus pertanyaan" onclick="deleteQna('${esc(q.id)}')">${IC("trash-2")}️</button>
             </div>
             <div class="qna-q">${esc(q.question)}</div>
             <div class="qna-answer">
               <textarea id="ans-${esc(q.id)}" placeholder="Tulis jawaban..."></textarea>
-              <button class="qna-answer-btn" onclick="submitAnswer('${esc(q.id)}')">Kirim →</button>
+              <button class="qna-answer-btn" onclick="submitAnswer('${esc(q.id)}')">Kirim ${IC("arrow-right")}</button>
             </div>
           </div>`).join('')}</div>`}
       </div>
       <div>
         <div class="card" style="padding:14px;margin-bottom:12px;background:#F0FDF4">
-          <div class="table-title" style="color:#16a34a">✅ Sudah Dijawab (${answered.length})</div>
+          <div class="table-title" style="color:#16a34a">${IC("check-circle-2")} Sudah Dijawab (${answered.length})</div>
         </div>
-        ${answered.length === 0 ? '<div class="card"><div class="empty"><div class="empty-icon">💬</div><div class="empty-text">Belum ada pertanyaan terjawab</div></div></div>' : `
+        ${answered.length === 0 ? `<div class="card"><div class="empty"><div class="empty-icon">${IC("message-circle")}</div><div class="empty-text">Belum ada pertanyaan terjawab</div></div></div>` : `
         <div class="qna-list">${answered.map(q => `
           <div class="qna-card">
             <div class="qna-meta">
-              <span class="qna-user">👤 ${esc(q.user_name||'Anonim')}</span>
+              <span class="qna-user">${IC("user")} ${esc(q.user_name||'Anonim')}</span>
               <span class="qna-product">${esc((q.product_name||'').substring(0,30))}</span>
               <span class="qna-date">${td(q.answered_at||q.date)}</span>
             </div>
             <div class="qna-q">${esc(q.question)}</div>
-            <div class="answered-text">💬 ${esc(q.answer)}</div>
+            <div class="answered-text">${IC("message-circle")} ${esc(q.answer)}</div>
             <div style="margin-top:6px;display:flex;gap:6px;align-items:center">
-              <button class="action-btn" style="padding:3px 8px;font-size:11px" onclick="toggleQnaAnswer('${esc(q.id)}')">✏️ Ubah Jawaban</button>
-              <button class="action-btn" style="padding:3px 8px;font-size:11px" onclick="deleteQna('${esc(q.id)}')">🗑️ Hapus</button>
+              <button class="action-btn" style="padding:3px 8px;font-size:11px" onclick="toggleQnaAnswer('${esc(q.id)}')">${IC("pencil")} Ubah Jawaban</button>
+              <button class="action-btn" style="padding:3px 8px;font-size:11px" onclick="deleteQna('${esc(q.id)}')">${IC("trash-2")}️ Hapus</button>
             </div>
             <div id="ans-wrap-${esc(q.id)}" style="display:none;margin-top:6px">
               <textarea id="ans-${esc(q.id)}" style="width:100%;padding:8px;border:2px solid var(--border);border-radius:8px;font-family:var(--font);font-size:12px;box-sizing:border-box">${esc(q.answer||'')}</textarea>
-              <button class="qna-answer-btn" onclick="submitAnswer('${esc(q.id)}')">Simpan →</button>
+              <button class="qna-answer-btn" onclick="submitAnswer('${esc(q.id)}')">Simpan ${IC("arrow-right")}</button>
             </div>
           </div>`).join('')}</div>`}
       </div>
@@ -1880,7 +2238,7 @@ function submitAnswer(id) {
   const ans = ((document.getElementById('ans-' + id)) || {}).value || '';
   if (!ans.trim()) { toast('Jawaban tidak boleh kosong', 'error'); return; }
   api('PUT', '/api/questions/' + id, { answer: ans })
-    .then(() => { const q = QUESTIONS.find(x => x.id === id); if (q) { q.answer = ans; q.answered_at = new Date().toISOString(); } renderTab(); updateBadges(); toast('Jawaban terkirim ✅', 'success'); })
+    .then(() => { const q = QUESTIONS.find(x => x.id === id); if (q) { q.answer = ans; q.answered_at = new Date().toISOString(); } renderTab(); updateBadges(); toast('Jawaban terkirim ' + IC("check-circle-2") + '', 'success'); })
     .catch(e => toast('Gagal: ' + e.message, 'error'));
 }
 
@@ -1907,12 +2265,12 @@ function renderArticles(c) {
       <div class="stat-card blue"><div class="stat-label">Draft</div><div class="stat-value">${ARTICLES.filter(a=>a.status==='Draft').length}</div></div>
     </div>
     <div class="search-bar">
-      <input class="search-input" placeholder="🔍 Cari artikel..." value="${esc(articleSearch)}" oninput="debounce(()=>{articleSearch=this.value;renderArticles(document.getElementById('mainContent'))},300)">
+      <input class="search-input" placeholder=" Cari artikel..." value="${esc(articleSearch)}" oninput="debounce(()=>{articleSearch=this.value;renderArticles(document.getElementById('mainContent'))},300)">
       <button class="action-btn primary" style="padding:8px 16px" onclick="openArticleModal()">+ Artikel Baru</button>
     </div>
     <div class="table-wrap">
       <div class="table-head"><div class="table-title">${filtered.length} artikel</div></div>
-      ${filtered.length === 0 ? '<div class="empty"><div class="empty-icon">📝</div><div class="empty-text">Belum ada artikel. Klik "+ Artikel Baru" untuk membuat.</div></div>' : `
+      ${filtered.length === 0 ? `<div class="empty"><div class="empty-icon">${IC("file-text")}</div><div class="empty-text">Belum ada artikel. Klik "+ Artikel Baru" untuk membuat.</div></div>` : `
       <table>
         <thead><tr><th>Judul</th><th>Kategori</th><th>Status</th><th>Views</th><th>Tanggal</th><th>Aksi</th></tr></thead>
         <tbody>${filtered.map(a => `
@@ -1923,9 +2281,9 @@ function renderArticles(c) {
             <td>${a.views||0}</td>
             <td style="font-size:12px;color:var(--muted)">${td(a.created_at)}</td>
             <td><div class="action-btns">
-              <button class="action-btn" onclick="openArticleModal('${esc(a.id)}')">✏️</button>
-              <button class="action-btn" onclick="toggleArticle('${esc(a.id)}')">${a.status==='Published'?'⏸ Draft':'🚀 Publish'}</button>
-              <button class="action-btn del" onclick="deleteArticle('${esc(a.id)}')">🗑</button>
+              <button class="action-btn" onclick="openArticleModal('${esc(a.id)}')">${IC("pencil")}</button>
+              <button class="action-btn" onclick="toggleArticle('${esc(a.id)}')">${a.status==='Published'?'⏸ Draft':'${IC("rocket")} Publish'}</button>
+              <button class="action-btn del" onclick="deleteArticle('${esc(a.id)}')">${IC("trash-2")}</button>
             </div></td>
           </tr>`).join('')}</tbody>
       </table>`}
@@ -1938,8 +2296,8 @@ function openArticleModal(id) {
   const cats = [...new Set((ARTICLES.map(x => x.category) || []).filter(Boolean))].sort();
   const catOpts = cats.map(c => `<option${a && a.category === c ? ' selected' : ''}>${esc(c)}</option>`).join('');
   openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>${a ? '✏️ Edit Artikel' : '➕ Artikel Baru'}</h2>
+    <button class="modal-close" onclick="closeModal()">${IC("x")}</button>
+    <h2>${a ? `${IC("pencil")} Edit Artikel` : `${IC("plus")} Artikel Baru`}</h2>
     ${a ? `<input type="hidden" id="am-id" value="${esc(a.id)}">` : ''}
     <label>Judul</label><input id="am-title" value="${esc(a?a.title:'')}" placeholder="Judul artikel">
     <div class="form-row">
@@ -1955,7 +2313,7 @@ function openArticleModal(id) {
     <input type="file" id="am-img-input" accept="image/*" style="display:none" onchange="uploadArticleImg()">
     <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
       <img id="am-img-preview" src="${esc(a?a.image:'')}" style="width:80px;height:60px;object-fit:cover;border-radius:6px;border:1px solid var(--border);${a&&a.image?'':'display:none'}" onerror="this.style.display='none'">
-      <button type="button" class="action-btn" style="padding:8px 14px" onclick="document.getElementById('am-img-input').click()">📷 Upload Gambar</button>
+      <button type="button" class="action-btn" style="padding:8px 14px" onclick="document.getElementById('am-img-input').click()">${IC("camera")} Upload Gambar</button>
       <span id="am-img-status" style="font-size:11px;color:var(--muted)"></span>
       <input type="hidden" id="am-img" value="${esc(a?a.image:'')}">
     </div>
@@ -1967,13 +2325,13 @@ function openArticleModal(id) {
         <button type="button" class="am-tb" onclick="amWrap('\\n<h2>','</h2>\\n')" title="Sub Judul">H2</button>
         <button type="button" class="am-tb" onclick="amWrap('\\n<h3>','</h3>\\n')" title="Sub Judul Kecil">H3</button>
         <button type="button" class="am-tb" onclick="amWrap('\\n<ul>\\n<li>','</li>\\n</ul>\\n')" title="Daftar">• List</button>
-        <button type="button" class="am-tb" onclick="amWrap('\\n<blockquote>','</blockquote>\\n')" title="Kutipan">❝</button>
-        <button type="button" class="am-tb" onclick="amLink()" title="Tautan">🔗</button>
-        <button type="button" class="am-tb" onclick="amImgBtn()" title="Sisipkan Gambar">🖼️</button>
+        <button type="button" class="am-tb" onclick="amWrap('\\n<blockquote>','</blockquote>\\n')" title="Kutipan">${IC("quote")}</button>
+        <button type="button" class="am-tb" onclick="amLink()" title="Tautan">${IC("link")}</button>
+        <button type="button" class="am-tb" onclick="amImgBtn()" title="Sisipkan Gambar">${IC("image")}️</button>
       </div>
       <textarea id="am-content" style="min-height:260px;border:none;border-radius:0" placeholder="Tulis konten artikel... Gunakan toolbar di atas untuk format (H2, tebal, list, gambar).">${esc(a?a.content:'')}</textarea>
     </div>
-    <div style="font-size:11px;color:var(--muted);margin-bottom:8px">💡 Gunakan <b>H2/H3</b> untuk sub-judul & <b>🖼️</b> untuk menyisipkan gambar di dalam artikel.</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px">${IC("lightbulb")} Gunakan <b>H2/H3</b> untuk sub-judul & <b>${IC("image")}️</b> untuk menyisipkan gambar di dalam artikel.</div>
     <div class="btn-row">
       <button class="btn" onclick="closeModal()">Batal</button>
       <button class="btn primary" onclick="saveArticle()">Simpan</button>
@@ -2011,7 +2369,7 @@ function amImgBtn() {
     const st = ta.selectionStart;
     const prev = ta.value.substring(0, st);
     const next = ta.value.substring(st);
-    const insert = () => { ta.value = prev + '\\n<img src="' + url + '" alt="Gambar artikel" style="max-width:100%;border-radius:8px">\\n' + next; ta.focus(); toast('🖼️ Gambar disisipkan', 'success'); };
+    const insert = () => { ta.value = prev + '\\n<img src="' + url + '" alt="Gambar artikel" style="max-width:100%;border-radius:8px">\\n' + next; ta.focus(); toast('' + IC("image") + '️ Gambar disisipkan', 'success'); };
     let url = '';
     fetch('/api/upload/content', { method: 'POST', headers: { 'Authorization': 'Bearer ' + TOKEN }, body: fd })
       .then(r => r.json()).then(d => { if (!d.url) throw new Error(d.error || 'Gagal'); url = d.url; insert(); })
@@ -2025,18 +2383,18 @@ async function uploadArticleImg() {
   const file = input.files[0];
   if (!file) return;
   const status = document.getElementById('am-img-status');
-  status.textContent = '⏳ Uploading...';
+  status.textContent = ' Uploading...';
   const formData = new FormData();
   formData.append('file', file);
   try {
     const res = await fetch('/api/upload/article', { method: 'POST', headers: { 'Authorization': 'Bearer ' + TOKEN }, body: formData });
     const data = await res.json();
-    if (!res.ok) { status.textContent = '❌ ' + (data.error || 'Gagal'); return; }
+    if (!res.ok) { status.textContent = ' ' + (data.error || 'Gagal'); return; }
     document.getElementById('am-img').value = data.url;
     const preview = document.getElementById('am-img-preview');
     preview.src = data.url; preview.style.display = 'block';
-    status.textContent = '✅ Terupload';
-  } catch (e) { status.textContent = '❌ ' + e.message; }
+    status.textContent = ' Terupload';
+  } catch (e) { status.textContent = ' ' + e.message; }
 }
 
 async function saveArticle() {
@@ -2052,8 +2410,8 @@ async function saveArticle() {
     content: document.getElementById('am-content').value
   };
   try {
-    if (id) { await api('PUT', '/api/articles/' + id, payload); toast('Artikel diperbarui ✅', 'success'); }
-    else { await api('POST', '/api/articles', payload); toast('Artikel dibuat ✅', 'success'); }
+    if (id) { await api('PUT', '/api/articles/' + id, payload); toast('Artikel diperbarui ' + IC("check-circle-2") + '', 'success'); }
+    else { await api('POST', '/api/articles', payload); toast('Artikel dibuat ' + IC("check-circle-2") + '', 'success'); }
     closeModal(); fetchAll();
   } catch (e) { toast('Gagal: ' + e.message, 'error'); }
 }
@@ -2083,7 +2441,7 @@ function renderReports(c) {
   c.innerHTML = `
     <div class="card" style="margin-bottom:16px">
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span style="font-size:13px;font-weight:800">📅 Periode:</span>
+        <span style="font-size:13px;font-weight:800">${IC("calendar")} Periode:</span>
         <select id="report-range" class="komplain-status-select" onchange="loadReport(this.value)">
           <option value="7">7 Hari Terakhir</option>
           <option value="30">30 Hari Terakhir</option>
@@ -2091,13 +2449,13 @@ function renderReports(c) {
           <option value="year">Tahun Ini</option>
           <option value="all">Semua Waktu</option>
         </select>
-        <span id="report-status" style="font-size:12px;color:var(--muted);font-weight:700">⏳ Memuat...</span>
+        <span id="report-status" style="font-size:12px;color:var(--muted);font-weight:700">${IC("clock")} Memuat...</span>
         <span style="flex:1"></span>
-        <button class="action-btn primary" onclick="exportReportCSV()">⬇️ Export CSV</button>
-        <button class="action-btn" onclick="window.print()">🖨️ Cetak / PDF</button>
+        <button class="action-btn primary" onclick="exportReportCSV()">${IC("download")} Export CSV</button>
+        <button class="action-btn" onclick="window.print()">${IC("printer")}️ Cetak / PDF</button>
       </div>
     </div>
-    <div id="report-body"><div class="card"><div class="empty"><div class="empty-icon">📊</div><div class="empty-text">Memuat laporan...</div></div></div></div>
+    <div id="report-body"><div class="card"><div class="empty"><div class="empty-icon">${IC("layout-dashboard")}</div><div class="empty-text">Memuat laporan...</div></div></div></div>
   `;
   loadReport('7');
 }
@@ -2116,15 +2474,15 @@ async function loadReport(range) {
   const qs = new URLSearchParams();
   if (from) qs.set('from', from);
   if (to) qs.set('to', to);
-  statusEl.textContent = '⏳ Memuat...';
+  statusEl.textContent = ' Memuat...';
   try {
     const d = await api('GET', '/api/reports?' + qs.toString());
     reportData = d;
-    statusEl.textContent = d.from ? `📆 ${d.from} s/d ${d.to}` : '📆 Semua waktu';
+    statusEl.textContent = d.from ? ` ${d.from} s/d ${d.to}` : ' Semua waktu';
     renderReportBody(body, d);
   } catch (e) {
-    statusEl.textContent = '❌ Gagal';
-    body.innerHTML = `<div class="card"><div class="empty"><div class="empty-icon">⚠️</div><div class="empty-text">Gagal memuat: ${esc(e.message)}</div></div></div>`;
+    statusEl.textContent = ' Gagal';
+    body.innerHTML = `<div class="card"><div class="empty"><div class="empty-icon">${IC("alert-triangle")}</div><div class="empty-text">Gagal memuat: ${esc(e.message)}</div></div></div>`;
   }
 }
 
@@ -2145,7 +2503,7 @@ function renderReportBody(body, d) {
     </div>
 
     <div class="card" style="margin-bottom:16px">
-      <div class="table-title" style="margin-bottom:8px">📅 Penjualan per Hari</div>
+      <div class="table-title" style="margin-bottom:8px">${IC("calendar")} Penjualan per Hari</div>
       ${(d.byDay||[]).length === 0 ? '<div class="empty"><div class="empty-text">Tidak ada data pada periode ini</div></div>' : `
       <div style="overflow-x:auto">
       <table>
@@ -2164,14 +2522,14 @@ function renderReportBody(body, d) {
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px" class="report-grid">
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">🏷️ Omset per Kategori</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("tag")}️ Omset per Kategori</div>
         ${(d.byCategory||[]).length === 0 ? '<div class="empty"><div class="empty-text">Belum ada data</div></div>' : `
         <table><thead><tr><th>Kategori</th><th>Qty</th><th>Omset</th></tr></thead>
         <tbody>${d.byCategory.map(r => `
           <tr><td style="font-size:12px">${esc(r.category)}</td><td>${r.qty} pcs</td><td style="font-weight:800">${fmt(r.gross)}</td></tr>`).join('')}</tbody></table>`}
       </div>
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">🚚 Pengiriman per Kurir</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("truck")} Pengiriman per Kurir</div>
         ${(d.byCourier||[]).length === 0 ? '<div class="empty"><div class="empty-text">Belum ada data</div></div>' : `
         <table><thead><tr><th>Kurir</th><th>Pesanan</th><th>Biaya Kirim</th></tr></thead>
         <tbody>${d.byCourier.map(r => `
@@ -2181,14 +2539,14 @@ function renderReportBody(body, d) {
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px" class="report-grid">
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">💳 Metode Pembayaran</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("credit-card")} Metode Pembayaran</div>
         ${(d.byPayment||[]).length === 0 ? '<div class="empty"><div class="empty-text">Belum ada data</div></div>' : `
         <table><thead><tr><th>Metode</th><th>Pesanan</th></tr></thead>
         <tbody>${d.byPayment.map(r => `
           <tr><td style="font-size:12px">${esc(pmLabel(r.payment))}</td><td><b>${r.orders}</b></td></tr>`).join('')}</tbody></table>`}
       </div>
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">📊 Distribusi Status</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("layout-dashboard")} Distribusi Status</div>
         <div style="display:flex;flex-direction:column;gap:12px">
           ${Object.entries(d.byStatus||{}).map(([st, n]) => `
             <div>
@@ -2204,7 +2562,7 @@ function renderReportBody(body, d) {
     </div>
 
     <div class="card">
-      <div class="table-title" style="margin-bottom:12px">🏆 Top Produk Terlaris</div>
+      <div class="table-title" style="margin-bottom:12px">${IC("trophy")} Top Produk Terlaris</div>
       ${(d.topProducts||[]).length === 0 ? '<div class="empty"><div class="empty-text">Belum ada data</div></div>' : `
       <table>
         <thead><tr><th>#</th><th>Produk</th><th>Qty Terjual</th><th>Omset</th></tr></thead>
@@ -2255,7 +2613,7 @@ function exportReportCSV() {
   a.download = 'laporan-murah-plastic-' + (reportData.from || 'all') + '-to-' + (reportData.to || 'now') + '.csv';
   a.click();
   URL.revokeObjectURL(a.href);
-  toast('CSV diunduh ⬇️', 'success');
+  toast('CSV diunduh ' + IC("download") + '', 'success');
 }
 
 // ── Settings ──
@@ -2268,7 +2626,7 @@ function renderSettings(c) {
   c.innerHTML = `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="settings-grid">
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">🏪 Info Toko</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("store")} Info Toko</div>
         <div style="font-size:13px;line-height:2">
           <b>Nama:</b> Murah Plastic<br>
           <b>WhatsApp:</b> 0812-9153-8111<br>
@@ -2277,21 +2635,21 @@ function renderSettings(c) {
         </div>
       </div>
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">🏷️ Diskon &amp; Promo</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("tag")}️ Diskon &amp; Promo</div>
         <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Diubah di sini, otomatis berlaku di seluruh toko (checkout &amp; beranda).</div>
         <label style="font-size:12px;font-weight:700;color:var(--mid)">Diskon Member (%)</label>
         <input class="login-input" type="number" id="set-member-disc" value="${esc(getSetting('member_discount'))}" min="0" max="100" style="margin-bottom:10px">
         <label style="font-size:12px;font-weight:700;color:var(--mid)">Minimal Belanja Gratis Ongkir (Rp)</label>
         <input class="login-input" type="number" id="set-free-ship" value="${esc(getSetting('free_ship_min'))}" min="0" style="margin-bottom:10px">
         <label style="font-size:12px;font-weight:700;color:var(--mid)">Diskon Qty Bertingkat</label>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Min qty → diskon %. Baris atas = minimal qty paling tinggi.</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Min qty ${IC("arrow-right")} diskon %. Baris atas = minimal qty paling tinggi.</div>
         <div id="set-tier-rows" style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px">${tierRows}</div>
         <button class="action-btn" style="padding:6px 12px;margin-bottom:12px" onclick="addTierRow()">+ Tambah Tingkat</button>
-        <button class="d-btn d-btn-primary d-btn-block" onclick="saveDiscountSettings()">💾 Simpan Diskon &amp; Promo</button>
+        <button class="d-btn d-btn-primary d-btn-block" onclick="saveDiscountSettings()">${IC("save")} Simpan Diskon &amp; Promo</button>
       </div>
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">🔐 Keamanan</div>
-        <div style="font-size:13px;color:var(--mid);margin-bottom:12px">Ubah password admin. Perubahan password perlu konfirmasi developer untuk diterapkan di server.</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("lock")} Keamanan</div>
+        <div style="font-size:13px;color:var(--mid);margin-bottom:12px">Ubah password admin yang sedang login.</div>
         <label style="font-size:12px;font-weight:700;color:var(--mid)">Password Lama</label>
         <input class="login-input" type="password" id="set-old" placeholder="Password lama">
         <label style="font-size:12px;font-weight:700;color:var(--mid)">Password Baru</label>
@@ -2299,7 +2657,7 @@ function renderSettings(c) {
         <button class="action-btn primary" style="padding:8px 16px;margin-top:8px" onclick="changePassword()">Simpan Password</button>
       </div>
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">ℹ️ Tentang</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("info")} Tentang</div>
         <div style="font-size:13px;line-height:1.8;color:var(--mid)">
           <b>Platform:</b> Cloudflare Workers + D1 + R2<br>
           <b>Versi Admin:</b> 2.0<br>
@@ -2308,11 +2666,11 @@ function renderSettings(c) {
         </div>
       </div>
       <div class="card">
-        <div class="table-title" style="margin-bottom:12px">🧹 Data</div>
+        <div class="table-title" style="margin-bottom:12px">${IC("broom")} Data</div>
         <div style="font-size:13px;color:var(--mid);margin-bottom:12px">Kelola data toko. Ekspor data untuk backup.</div>
         <div class="action-btns">
-          <button class="action-btn" onclick="exportOrders()">📥 Export Pesanan (CSV)</button>
-          <button class="action-btn" onclick="exportProducts()">📥 Export Produk (CSV)</button>
+          <button class="action-btn" onclick="exportOrders()">${IC("download")} Export Pesanan (CSV)</button>
+          <button class="action-btn" onclick="exportProducts()">${IC("download")} Export Produk (CSV)</button>
         </div>
       </div>
     </div>
@@ -2323,9 +2681,9 @@ function renderSettings(c) {
 function tierRowHtml(t, i) {
   return `<div style="display:flex;gap:6px;align-items:center">
     <input type="number" class="tier-min" value="${esc(t.min)}" placeholder="Min qty" min="1" style="flex:1;padding:7px 10px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font)">
-    <span style="font-size:12px;color:var(--muted)">→</span>
+    <span style="font-size:12px;color:var(--muted)">${IC("arrow-right")}</span>
     <input type="number" class="tier-pct" value="${esc(t.pct)}" placeholder="%" min="0" max="100" style="flex:1;padding:7px 10px;border:2px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--font)">
-    <button class="action-btn del" style="padding:6px 9px" onclick="this.parentElement.remove()" title="Hapus">✕</button>
+    <button class="action-btn del" style="padding:6px 9px" onclick="this.parentElement.remove()" title="Hapus">${IC("x")}</button>
   </div>`;
 }
 function addTierRow() {
@@ -2351,7 +2709,7 @@ async function saveDiscountSettings() {
     SETTINGS.member_discount = String(member);
     SETTINGS.free_ship_min = String(freeShip);
     SETTINGS.discount_tiers = JSON.stringify(rows.sort((a,b)=>b.min-a.min));
-    toast('Pengaturan diskon tersimpan ✅', 'success');
+    toast('Pengaturan diskon tersimpan ' + IC("check-circle-2") + '', 'success');
   } catch (e) {
     toast('Gagal simpan: ' + e.message, 'error');
   }
@@ -2362,7 +2720,14 @@ async function changePassword() {
   const newP = document.getElementById('set-new').value;
   if (!oldP || !newP) { toast('Isi password lama dan baru', 'error'); return; }
   if (newP.length < 8) { toast('Password baru minimal 8 karakter', 'error'); return; }
-  toast('Fitur ubah password belum aktif di server — hubungi developer', 'info');
+  try {
+    await api('POST', '/api/admin/change-password', { old_password: oldP, new_password: newP });
+    toast('Password berhasil diganti ' + IC("check-circle-2") + ' Silakan login ulang', 'success');
+    document.getElementById('set-old').value = '';
+    document.getElementById('set-new').value = '';
+  } catch (e) {
+    toast(e.message || 'Gagal ganti password', 'error');
+  }
 }
 
 function exportProducts() {
@@ -2375,7 +2740,7 @@ function exportProducts() {
   a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
   a.download = 'produk-murah-plastic-' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
-  toast('CSV produk diexport 📥', 'success');
+  toast('CSV produk diexport ' + IC("download") + '', 'success');
 }
 
 // ── Modal helpers ──
@@ -2394,7 +2759,7 @@ function closeSidebar() { document.getElementById('sidebar').classList.remove('o
 document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
 
 // ── Notifikasi admin ──
-const ADMIN_NOTIF_ICONS = { order: '🛒', order_status: '📦', komplain: '🛠️', qna_answer: '❓', question: '❓', review: '⭐' };
+const ADMIN_NOTIF_ICONS = { order: '' + IC("shopping-cart") + '', order_status: '' + IC("package") + '', komplain: '' + IC("wrench") + '', qna_answer: '' + IC("help-circle") + '', question: '' + IC("help-circle") + '', review: '' + IC("star") + '' };
 let ADMIN_NOTIFS = [];
 function toggleAdminNotif(e) {
   if (e) e.stopPropagation();
@@ -2406,15 +2771,15 @@ function toggleAdminNotif(e) {
 async function loadAdminNotifs() {
   const listEl = document.getElementById('adminNotifList');
   if (!listEl) return;
-  listEl.innerHTML = '<div class="loading" style="padding:30px">⏳ Memuat...</div>';
+  listEl.innerHTML = '<div class="loading" style="padding:30px">' + IC("clock") + ' Memuat...</div>';
   try {
     ADMIN_NOTIFS = await api('GET', '/api/notifications');
     if (!ADMIN_NOTIFS.length) {
-      listEl.innerHTML = '<div class="empty" style="padding:34px 20px"><div class="empty-icon">🔔</div><div class="empty-text">Belum ada notifikasi</div></div>';
+      listEl.innerHTML = '<div class="empty" style="padding:34px 20px"><div class="empty-icon">' + IC("bell") + '</div><div class="empty-text">Belum ada notifikasi</div></div>';
       return;
     }
     listEl.innerHTML = ADMIN_NOTIFS.map((n, i) => {
-      const icon = ADMIN_NOTIF_ICONS[n.type] || '🔔';
+      const icon = ADMIN_NOTIF_ICONS[n.type] || '' + IC("bell") + '';
       const d = new Date(n.created_at);
       const dateStr = isNaN(d) ? '' : d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) + ' · ' + d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
       return `<div class="notif-item ${n.is_read ? '' : 'unread'}" onclick="openAdminNotif(${i})">
@@ -2495,5 +2860,359 @@ new MutationObserver(() => requestAnimationFrame(fitStatValues))
 })();
 </script>
 <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
+
+<!-- ===== Lucide SVG Icon Sprite ===== -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-alert-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" /></symbol>
+<symbol id="i-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+  <path d="M12 9v4" />
+  <path d="M12 17h.01" /></symbol>
+<symbol id="i-antenna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12 7 2" />
+  <path d="m7 12 5-10" />
+  <path d="m12 12 5-10" />
+  <path d="m17 12 5-10" />
+  <path d="M4.5 7h15" />
+  <path d="M12 16v6" /></symbol>
+<symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="5" x="2" y="3" rx="1" />
+  <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+  <path d="M10 12h4" /></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14" />
+  <path d="m19 12-7 7-7-7" /></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" /></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" /></symbol>
+<symbol id="i-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10" />
+  <path d="M7 17 17 7" /></symbol>
+<symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+  <circle cx="12" cy="8" r="6" /></symbol>
+<symbol id="i-badge-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+  <path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M4.929 4.929 19.07 19.071" /></symbol>
+<symbol id="i-bandage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10.01h.01" />
+  <path d="M10 14.01h.01" />
+  <path d="M14 10.01h.01" />
+  <path d="M14 14.01h.01" />
+  <path d="M18 6v12" />
+  <path d="M6 6v12" />
+  <rect x="2" y="6" width="20" height="12" rx="2" /></symbol>
+<symbol id="i-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M 22 14 L 22 10" />
+  <rect x="2" y="6" width="16" height="12" rx="2" /></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0" />
+  <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></symbol>
+<symbol id="i-bell-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0" />
+  <path d="M17 17H4a1 1 0 0 1-.74-1.673C4.59 13.956 6 12.499 6 8a6 6 0 0 1 .258-1.742" />
+  <path d="m2 2 20 20" />
+  <path d="M8.668 3.01A6 6 0 0 1 18 8c0 2.687.77 4.653 1.707 6.05" /></symbol>
+<symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" /></symbol>
+<symbol id="i-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z" /></symbol>
+<symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  <rect width="20" height="14" x="2" y="6" rx="2" /></symbol>
+<symbol id="i-broom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 10.5 22 2" />
+  <path d="M14.734 13.841a2 2 0 00-.314-2.42L12.58 9.58a2 2 0 00-2.421-.314l-7.657 4.461A1 1 0 002.3 15.3l6.403 6.403a1 1 0 001.571-.204z" />
+  <path d="m5 18 2-2" />
+  <path d="m7.699 10.7 5.602 5.601" /></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3" />
+  <path d="M16 2v3" />
+  <rect x="3" y="3" width="18" height="18" rx="2" />
+  <path d="M3 9h18" /></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z" />
+  <circle cx="12" cy="13" r="3" /></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></symbol>
+<symbol id="i-check-circle-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-check-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" />
+  <path d="m9 11 3 3L22 4" /></symbol>
+<symbol id="i-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /></symbol>
+<symbol id="i-clipboard-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="M12 11h4" />
+  <path d="M12 16h4" />
+  <path d="M8 11h.01" />
+  <path d="M8 16h.01" /></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6l4 2" /></symbol>
+<symbol id="i-clock-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6h4" /></symbol>
+<symbol id="i-credit-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2" />
+  <line x1="2" x2="22" y1="10" y2="10" /></symbol>
+<symbol id="i-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" />
+  <path d="M5 21h14" /></symbol>
+<symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3" />
+  <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+  <path d="M3 12A9 3 0 0 0 21 12" /></symbol>
+<symbol id="i-divide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="1" />
+  <line x1="5" x2="19" y1="12" y2="12" />
+  <circle cx="12" cy="18" r="1" /></symbol>
+<symbol id="i-dollar-sign" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22" />
+  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></symbol>
+<symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3" />
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+  <path d="m7 10 5 5 5-5" /></symbol>
+<symbol id="i-edit-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8" />
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /></symbol>
+<symbol id="i-external-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6" />
+  <path d="M10 14 21 3" />
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+  <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+  <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+  <path d="m2 2 20 20" /></symbol>
+<symbol id="i-file-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" /></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></symbol>
+<symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14" />
+  <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+  <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+  <rect x="3" y="7" width="18" height="4" rx="1" /></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+  <path d="M2 12h20" /></symbol>
+<symbol id="i-hammer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
+  <path d="m18 15 4-4" />
+  <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" /></symbol>
+<symbol id="i-hand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2" />
+  <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2" />
+  <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8" />
+  <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15" /></symbol>
+<symbol id="i-headphones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></symbol>
+<symbol id="i-help-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+  <path d="M12 17h.01" /></symbol>
+<symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+  <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol>
+<symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+  <circle cx="9" cy="9" r="2" />
+  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></symbol>
+<symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+  <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" /></symbol>
+<symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" />
+  <path d="m21 2-9.6 9.6" />
+  <circle cx="7.5" cy="15.5" r="5.5" /></symbol>
+<symbol id="i-landmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18v-7" />
+  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
+  <path d="M14 18v-7" />
+  <path d="M18 18v-7" />
+  <path d="M3 22h18" />
+  <path d="M6 18v-7" /></symbol>
+<symbol id="i-layout-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" /></symbol>
+<symbol id="i-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 4 14" />
+  <path d="M12 6v14" />
+  <path d="M8 8v12" />
+  <path d="M4 4v16" /></symbol>
+<symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+  <path d="M9 18h6" />
+  <path d="M10 22h4" /></symbol>
+<symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol>
+<symbol id="i-log-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 17 5-5-5-5" />
+  <path d="M21 12H9" />
+  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+  <rect x="2" y="4" width="20" height="16" rx="2" /></symbol>
+<symbol id="i-mailbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5C2 7 4 5 6.5 5H18c2.2 0 4 1.8 4 4v8Z" />
+  <polyline points="15,9 18,9 18,11" />
+  <path d="M6.5 5C9 5 11 7 11 9.5V17a2 2 0 0 1-2 2" />
+  <line x1="6" x2="7" y1="10" y2="10" /></symbol>
+<symbol id="i-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+  <circle cx="12" cy="10" r="3" /></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" /></symbol>
+<symbol id="i-message-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></symbol>
+<symbol id="i-message-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" /></symbol>
+<symbol id="i-message-square-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14a2 2 0 0 0 2-2V8h-2" />
+  <path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z" />
+  <path d="M8 14a2 2 0 0 0 2-2V8H8" /></symbol>
+<symbol id="i-microscope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8" />
+  <path d="M3 22h18" />
+  <path d="M14 22a7 7 0 1 0 0-14h-1" />
+  <path d="M9 14h2" />
+  <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" />
+  <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" /></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2" />
+  <line x1="8" x2="16" y1="21" y2="21" />
+  <line x1="12" x2="12" y1="17" y2="21" /></symbol>
+<symbol id="i-package" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+  <path d="M12 22V12" />
+  <polyline points="3.29 7 12 12 20.71 7" />
+  <path d="m7.5 4.27 9 5.15" /></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" />
+  <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+  <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+  <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+  <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /></symbol>
+<symbol id="i-paperclip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" /></symbol>
+<symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" /></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5" />
+  <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" /></symbol>
+<symbol id="i-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" />
+  <path d="M12 5v14" /></symbol>
+<symbol id="i-printer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+  <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
+  <rect x="6" y="14" width="12" height="8" rx="1" /></symbol>
+<symbol id="i-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+  <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></symbol>
+<symbol id="i-refresh-cw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+  <path d="M21 3v5h-5" />
+  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+  <path d="M8 16H3v5" /></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" />
+  <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" />
+  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" /></symbol>
+<symbol id="i-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" />
+  <path d="m14.5 12.5 2-2" />
+  <path d="m11.5 9.5 2-2" />
+  <path d="m8.5 6.5 2-2" />
+  <path d="m17.5 15.5 2-2" /></symbol>
+<symbol id="i-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+  <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
+  <path d="M7 3v4a1 1 0 0 0 1 1h7" /></symbol>
+<symbol id="i-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3" />
+  <path d="M8.12 8.12 12 12" />
+  <path d="M20 4 8.12 15.88" />
+  <circle cx="6" cy="18" r="3" />
+  <path d="M14.8 14.8 20 20" /></symbol>
+<symbol id="i-scroll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17V5a2 2 0 0 0-2-2H4" />
+  <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" /></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" /></symbol>
+<symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+  <path d="m21.854 2.147-10.94 10.939" /></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+  <circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="i-settings-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 17H5" />
+  <path d="M19 7h-9" />
+  <circle cx="17" cy="17" r="3" />
+  <circle cx="7" cy="7" r="3" /></symbol>
+<symbol id="i-shopping-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a4 4 0 0 1-8 0" />
+  <path d="M3.103 6.034h17.794" />
+  <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" /></symbol>
+<symbol id="i-shopping-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></symbol>
+<symbol id="i-smartphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+  <path d="M12 18h.01" /></symbol>
+<symbol id="i-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10V9" />
+  <path d="M16.472 15a6 6 0 01-8.943 0" />
+  <path d="M9 10V9" />
+  <circle cx="12" cy="12" r="10" /></symbol>
+<symbol id="i-snowflake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 20-1.25-2.5L6 18" />
+  <path d="M10 4 8.75 6.5 6 6" />
+  <path d="m14 20 1.25-2.5L18 18" />
+  <path d="m14 4 1.25 2.5L18 6" />
+  <path d="m17 21-3-6h-4" />
+  <path d="m17 3-3 6 1.5 3" />
+  <path d="M2 12h6.5L10 9" />
+  <path d="m20 10-1.5 2 1.5 2" />
+  <path d="M22 12h-6.5L14 15" />
+  <path d="m4 10 1.5 2L4 14" />
+  <path d="m7 21 3-6-1.5-3" />
+  <path d="m7 3 3 6h4" /></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+  <path d="M20 2v4" />
+  <path d="M22 4h-4" />
+  <circle cx="4" cy="20" r="2" /></symbol>
+<symbol id="i-speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" />
+  <path d="M12 6h.01" />
+  <circle cx="12" cy="14" r="4" />
+  <path d="M12 14h.01" /></symbol>
+<symbol id="i-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" /></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol>
+<symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" />
+  <path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244" />
+  <path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" /></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+  <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></symbol>
+<symbol id="i-telescope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44" />
+  <path d="m13.56 11.747 4.332-.924" />
+  <path d="m16 21-3.105-6.21" />
+  <path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z" />
+  <path d="m6.158 8.633 1.114 4.456" />
+  <path d="m8 21 3.105-6.21" />
+  <circle cx="12" cy="13" r="2" /></symbol>
+<symbol id="i-thumbs-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
+  <path d="M7 10v12" /></symbol>
+<symbol id="i-trash-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol>
+<symbol id="i-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h6v6" />
+  <path d="m22 7-8.5 8.5-5-5L2 17" /></symbol>
+<symbol id="i-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2" />
+  <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2" />
+  <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3" />
+  <path d="M4 22h16" />
+  <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" />
+  <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3" /></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+  <path d="M15 18H9" />
+  <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+  <circle cx="17" cy="18" r="2" />
+  <circle cx="7" cy="18" r="2" /></symbol>
+<symbol id="i-unlock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 9.9-1" /></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12" />
+  <path d="m17 8-5-5-5 5" />
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" /></symbol>
+<symbol id="i-user-cog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15H6a4 4 0 0 0-4 4v2" />
+  <path d="m14.305 16.53.923-.382" />
+  <path d="m15.228 13.852-.923-.383" />
+  <path d="m16.852 12.228-.383-.923" />
+  <path d="m16.852 17.772-.383.924" />
+  <path d="m19.148 12.228.383-.923" />
+  <path d="m19.53 18.696-.382-.924" />
+  <path d="m20.772 13.852.924-.383" />
+  <path d="m20.772 16.148.924.383" />
+  <circle cx="18" cy="15" r="3" />
+  <circle cx="9" cy="7" r="4" /></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+  <circle cx="9" cy="7" r="4" /></symbol>
+<symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+  <rect x="2" y="6" width="14" height="12" rx="2" /></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+  <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z" /></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></symbol>
+<symbol id="i-x-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" />
+  <path d="m15 9-6 6" />
+  <path d="m9 9 6 6" /></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /></symbol></svg>
+<style>
+.ic{width:1.1em;height:1.1em;vertical-align:-0.18em;display:inline-block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.nav-item .icon .ic{width:18px;height:18px;vertical-align:middle}
+.stat-label .ic{width:14px;height:14px;vertical-align:-2px}
+.empty-icon .ic{width:40px;height:40px;vertical-align:middle}
+.toast .ic{width:15px;height:15px;vertical-align:-2px}
+</style>
 </body>
 </html>

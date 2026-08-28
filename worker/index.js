@@ -1,3 +1,26 @@
+async function sha256Hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+async function verifyPassword(stored, incoming) {
+  if (!stored || !incoming) return false;
+  if (stored === incoming) return true;
+  // legacy raw vs btoa
+  try { if (stored === atob(incoming)) return true; } catch (e) {}
+  try { if (stored === btoa(incoming)) return true; } catch (e) {}
+  // sha256$hex format
+  if (stored.startsWith('sha256$')) {
+    const hex = stored.slice(7);
+    // incoming could be raw or btoa — try both
+    const candidates = [incoming];
+    try { candidates.push(atob(incoming)); } catch (e) {}
+    for (const c of candidates) {
+      if (await sha256Hex(c) === hex) return true;
+    }
+  }
+  return false;
+}
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -526,7 +549,7 @@ export default {
       // Cek staff admin_users dulu
       const staff = await env.DB.prepare('SELECT * FROM admin_users WHERE email=? AND is_active=1').bind(email.toLowerCase().trim()).first();
       if (staff) {
-        if (staff.password !== password) return json({ error: 'Email atau password salah' }, 401);
+        if (!await verifyPassword(staff.password, password)) return json({ error: 'Email atau password salah' }, 401);
         name = staff.name; role = staff.role; userId = staff.id;
       } else {
         // Fallback master password HANYA jika belum ada admin terdaftar (bootstrap awal)
@@ -543,6 +566,22 @@ export default {
         'INSERT INTO admin_sessions (token, expires_at, user_id, role) VALUES (?, ?, ?, ?)'
       ).bind(token, expires, userId, role).run();
       return json({ token, name, role });
+    }
+
+    // ── POST /api/admin/change-password ── (ganti password admin yang login)
+    if (path === '/api/admin/change-password' && request.method === 'POST') {
+      const adm = await getAdminByToken(env, request);
+      if (!adm) return json({ error: 'Unauthorized' }, 401);
+      if (!adm.user_id) return json({ error: 'Akun bootstrap tidak bisa ganti password — buat admin user dulu' }, 400);
+      const { old_password, new_password } = await request.json();
+      if (!old_password || !new_password) return json({ error: 'Password lama & baru wajib diisi' }, 400);
+      if (String(new_password).length < 8) return json({ error: 'Password baru minimal 8 karakter' }, 400);
+      const cur = await env.DB.prepare('SELECT * FROM admin_users WHERE id=?').bind(adm.user_id).first();
+      if (!cur) return json({ error: 'User tidak ditemukan' }, 404);
+      if (!await verifyPassword(cur.password, String(old_password))) return json({ error: 'Password lama salah' }, 401);
+      const hashed = 'sha256$' + await sha256Hex(String(new_password));
+      await env.DB.prepare('UPDATE admin_users SET password=? WHERE id=?').bind(hashed, adm.user_id).run();
+      return json({ ok: true });
     }
 
     // ── POST /api/admin/logout ──
@@ -575,8 +614,9 @@ export default {
       const existing = await env.DB.prepare('SELECT id FROM admin_users WHERE email=?').bind(email.toLowerCase().trim()).first();
       if (existing) return json({ error: 'Email sudah terdaftar' }, 409);
       const id = 'A-' + nanoid();
+      const hashedAdmin = password.startsWith('sha256$') ? password : 'sha256$' + await sha256Hex(String(password));
       await env.DB.prepare('INSERT INTO admin_users (id, name, email, password, role) VALUES (?,?,?,?,?)')
-        .bind(id, name, email.toLowerCase().trim(), password, role).run();
+        .bind(id, name, email.toLowerCase().trim(), hashedAdmin, role).run();
       return json({ id });
     }
     if (path.startsWith('/api/admin/users/') && request.method === 'PUT') {
@@ -592,7 +632,7 @@ export default {
       if (email !== undefined) { upd.push('email=?'); vals.push(email.toLowerCase().trim()); }
       if (role !== undefined) { upd.push('role=?'); vals.push(role); }
       if (is_active !== undefined) { upd.push('is_active=?'); vals.push(is_active ? 1 : 0); }
-      if (password !== undefined && password) { upd.push('password=?'); vals.push(password); }
+      if (password !== undefined && password) { upd.push('password=?'); vals.push(password.startsWith('sha256$') ? password : 'sha256$' + await sha256Hex(String(password))); }
       if (!upd.length) return json({ error: 'Tidak ada perubahan' }, 400);
       vals.push(uid);
       await env.DB.prepare(`UPDATE admin_users SET ${upd.join(',')} WHERE id=?`).bind(...vals).run();
@@ -718,9 +758,13 @@ export default {
       if (existing) return json({ error: 'Email already exists' }, 409);
       const id = 'U-' + nanoid();
       const joinDate = new Date().toLocaleDateString('id-ID');
+      // password datang sebagai btoa(pass) dari frontend → hash raw-nya
+      let rawReg = String(password);
+      try { const dec = atob(rawReg); if (btoa(dec) === rawReg) rawReg = dec; } catch (e) {}
+      const hashedReg = 'sha256$' + await sha256Hex(rawReg);
       await env.DB.prepare(
         'INSERT INTO users (id, name, email, password, join_date) VALUES (?,?,?,?,?)'
-      ).bind(id, name, email, password, joinDate).run();
+      ).bind(id, name, email, hashedReg, joinDate).run();
       const token = await createUserSession(env, id);
       return json({ id, name, email, joinDate, method: 'email', token });
     }
@@ -732,7 +776,7 @@ export default {
       if (!email || !password) return json({ error: 'Missing fields' }, 400);
       const user = await env.DB.prepare('SELECT * FROM users WHERE email=?').bind(email).first();
       if (!user) return json({ error: 'Email not found' }, 404);
-      if (user.password !== password) return json({ error: 'Wrong password' }, 401);
+      if (!await verifyPassword(user.password, password)) return json({ error: 'Wrong password' }, 401);
       const token = await createUserSession(env, user.id);
       return json({ id: user.id, name: user.name, email: user.email, joinDate: user.join_date, method: 'email', token });
     }
@@ -767,8 +811,11 @@ export default {
       if (b.address !== undefined)    { fields.push('address=?'); vals.push(String(b.address).slice(0, 500)); }
       if (b.city !== undefined)       { fields.push('city=?');    vals.push(String(b.city).slice(0, 100)); }
       if (b.password !== undefined && b.password) {
-        if (String(b.password).length < 6) return json({ error: 'Password minimal 6 karakter' }, 400);
-        fields.push('password=?'); vals.push(String(b.password));
+        let rawPw = String(b.password);
+        // frontend kirim btoa(pass) → decode dulu agar hash konsisten
+        try { const dec = atob(rawPw); if (btoa(dec) === rawPw) rawPw = dec; } catch (e) {}
+        if (rawPw.length < 6) return json({ error: 'Password minimal 6 karakter' }, 400);
+        fields.push('password=?'); vals.push('sha256$' + await sha256Hex(rawPw));
       }
       if (!fields.length) return json({ error: 'Nothing to update' }, 400);
       vals.push(sess.user_id);
