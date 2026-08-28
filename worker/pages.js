@@ -886,7 +886,7 @@ export async function renderShop(env, searchQuery) {
       const vcount = vs.length;
       const onerr = 'onerror="this.parentElement.innerHTML=' + q + '&#128230;' + q + '"';
       const img = p.img ? '<div class="p-img"><img src="' + p.img + '" alt="' + p.name.replace(/"/g,'&quot;') + '" loading="lazy" ' + onerr + '></div>' : '<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:42px">&#128230;</div>';
-      const d = 'data-id="' + p.id + '" data-slug="' + encodeURIComponent(p.slug) + '" data-name="' + p.name.replace(/"/g,'&quot;') + '" data-img="' + p.img + '" data-minpack="5" data-variants=\'' + JSON.stringify(vs.filter(function(v){return Number(v.price)>0}).map(function(v){return {name:String(v.name||''),price:Number(v.price)}})).replace(/'/g,'&#39;') + '\'';
+      const d = 'data-id="' + p.id + '" data-slug="' + encodeURIComponent(p.slug) + '" data-name="' + p.name.replace(/"/g,'&quot;') + '" data-img="' + p.img + '" data-minpack="5" data-variants=' + q + JSON.stringify(vs.filter(function(v){return Number(v.price)>0}).map(function(v){return {name:String(v.name||''),price:Number(v.price)}})).replace(/'/g,'&#39;') + q;
       return '<a class="p-card" href="/produk/' + encodeURIComponent(p.slug) + '">' +
         '<div class="p-img" style="position:relative">' + img +
         (tag ? '<span class="p-pill">' + tag.replace(/</g,'&lt;') + '</span>' : '') +
