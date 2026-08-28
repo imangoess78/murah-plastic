@@ -2029,14 +2029,15 @@ function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'
 async function renderCatGrid(){
   const el=document.getElementById('catGrid');if(!el)return;
   try{
-    const res=await fetch('/api/categories',{cache:'no-store'});
+    const EMOJI_TO_LUCIDE={'🫱':'hand','💪':'dumbbell','🛡️':'shield','🧩':'puzzle','🥖':'wheat','🤐':'lock','📦':'package','📁':'folder','🏷️':'tag','⭐':'star'};
+const res=await fetch('/api/categories',{cache:'no-store'});
     const list=await res.json();
     if(Array.isArray(list)&&list.length){
       el.innerHTML=list.map((c,i)=>`
         <a class="cat-card${i===0?' c2':''}" href="/kategori/${encodeURIComponent(c.slug)}">
           <img src="${c.featured_image||CAT_IMGS.cat_tebal}" alt="${esc(c.name)}" loading="lazy" onerror="this.src='${CAT_IMGS.cat_tebal}'">
           <div class="cat-ov"></div>
-          <div class="cat-info"><div class="cat-name">${c.icon?esc(c.icon)+' ':''}${esc(c.name)}</div><div class="cat-sub">${esc(c.description||'')}</div></div>
+          <div class="cat-info"><div class="cat-name">${c.icon?IC(EMOJI_TO_LUCIDE[c.icon]||'folder')+' ':''}${esc(c.name)}</div><div class="cat-sub">${esc(c.description||'')}</div></div>
         </a>`).join('');
       return;
     }

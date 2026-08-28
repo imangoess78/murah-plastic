@@ -1019,13 +1019,15 @@ export async function renderCategory(env, slug) {
   const items = results.map(homeCard).join('');
   const featImg = catInfo && catInfo.featured_image ? catInfo.featured_image.replace(/^https:\/\/pub-[a-f0-9]+\.r2\.dev\//, '/img/') : imgUrl(results[0] || {});
   const desc = catInfo && catInfo.description ? catInfo.description : `${results.length} produk ${name} tersedia di Murah Plastic.`;
-  const icon = catInfo && catInfo.icon ? catInfo.icon : '📂';
+  const EMOJI_TO_LUCIDE = { '🫱': 'hand', '💪': 'dumbbell', '🛡️': 'shield', '🧩': 'puzzle', '🥖': 'wheat', '🤐': 'lock', '📦': 'package', '📁': 'folder', '🏷️': 'tag', '⭐': 'star', '📂': 'folder' };
+  const rawIcon = catInfo && catInfo.icon ? catInfo.icon : '📂';
+  const iconName = EMOJI_TO_LUCIDE[rawIcon] || 'folder';
   const emptyMsg = results.length ? '' : `<div class="wl-empty" style="padding:32px"><div class="wl-empty-icon">📭</div><div class="akun-empty-sub" style="font-size:14px;color:var(--muted)">Belum ada produk di kategori <strong>${esc(name)}</strong>.<br>Kategori ini baru dibuat — produk akan tampil di sini begitu ditambahkan.</div></div>`;
   const body = `
   <div class="wrap">
     ${breadcrumb([{ href: '/shop', label: 'Shop' }, { href: '/kategori/' + slug, label: name }])}
     <div class="page-head">
-      <div class="page-title">${icon} ${esc(name)}</div>
+      <div class="page-title"><svg class="ic" aria-hidden="true"><use href="#i-${iconName}"/></svg> ${esc(name)}</div>
       <div class="page-sub">${esc(desc)}</div>
     </div>
     <div class="p-grid">${items}</div>
