@@ -433,7 +433,7 @@ async function doLogin() {
     localStorage.setItem('mp_admin_name', ADMIN_NAME);
     document.getElementById('loginPage').style.display = 'none';
     document.getElementById('loginPass').value = '';
-    document.getElementById('topbarTitle').textContent = (TAB_TITLES[currentTab] || currentTab) + (ADMIN_ROLE !== 'super_admin' ? ' · ' + (ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE) : '');
+    document.getElementById('topbarTitle').innerHTML = (TAB_TITLES[currentTab] || currentTab) + (ADMIN_ROLE !== 'super_admin' ? ' · ' + (ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE) : '');
     applyRoleTabs();
     toast('Login berhasil! ' + (ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE), 'success');
     startPolling();
@@ -533,7 +533,7 @@ function setTab(tab) {
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   const navEl = document.getElementById('nav-' + tab);
   if (navEl) navEl.classList.add('active');
-  document.getElementById('topbarTitle').textContent = (TAB_TITLES[tab] || tab) + (ADMIN_ROLE !== 'super_admin' ? ' · ' + (ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE) : '');
+  document.getElementById('topbarTitle').innerHTML = (TAB_TITLES[tab] || tab) + (ADMIN_ROLE !== 'super_admin' ? ' · ' + (ROLE_LABELS[ADMIN_ROLE] || ADMIN_ROLE) : '');
   closeSidebar();
   renderTab();
 }
@@ -784,7 +784,7 @@ function openOrderDetail(id) {
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   const navEl = document.getElementById('nav-orders');
   if (navEl) navEl.classList.add('active');
-  document.getElementById('topbarTitle').textContent = '📋 Detail Pesanan ' + id;
+  document.getElementById('topbarTitle').innerHTML = IC('package') + ' Detail Pesanan ' + esc(id);
   closeSidebar();
   renderTab();
 }
